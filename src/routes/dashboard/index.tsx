@@ -25,6 +25,9 @@ import { UserNav } from "@/components/user-nav";
 
 export const Route = createFileRoute("/dashboard/")({
   component: DashboardIndex,
+  loader: ({ context }) => {
+    return { user: context.user };
+  },
 });
 
 const data = {
@@ -73,6 +76,8 @@ const data = {
 };
 
 function DashboardIndex() {
+  const { queryClient } = Route.useRouteContext();
+  const { user } = Route.useLoaderData();
   return (
     <SidebarProvider>
       <Sidebar collapsible="offcanvas">
@@ -100,7 +105,7 @@ function DashboardIndex() {
           <SupportNav className="mt-auto" />
         </SidebarContent>
         <SidebarFooter>
-          <UserNav user={data.user} />
+          <UserNav user={user} queryClient={queryClient} />
         </SidebarFooter>
       </Sidebar>
     </SidebarProvider>
