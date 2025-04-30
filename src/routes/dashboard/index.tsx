@@ -1,113 +1,47 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { DashboardSidebar } from "@/components/sidebar";
+import { Separator } from "@/components/ui/separator";
 import {
-  CreditCardIcon,
-  HomeIcon,
-  LucideCalendar,
-  LucideLayers3,
-  MapIcon,
-  PieChartIcon,
-  TargetIcon,
-} from "lucide-react";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarInset,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
-
-import { MainNav } from "@/components/sidebar/main-nav";
-import { SupportNav } from "@/components/sidebar/support-nav";
-import { UserNav } from "@/components/user-nav";
+import { createFileRoute } from "@tanstack/react-router";
+import { User } from "better-auth";
 
 export const Route = createFileRoute("/dashboard/")({
   component: DashboardIndex,
   loader: ({ context }) => {
-    return { user: context.user };
+    return { user: context.user as User };
   },
 });
-
-const data = {
-  user: {
-    name: "John Doe",
-    email: "john@doe.com",
-    avatar: "https://avatars.githubusercontent.com/u/234324?v=4",
-  },
-  mainNavigation: [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: HomeIcon,
-    },
-    {
-      title: "Accounts",
-      url: "#",
-      icon: LucideLayers3,
-    },
-    {
-      title: "Transactions",
-      url: "#",
-      icon: CreditCardIcon,
-    },
-    {
-      title: "Budget",
-      url: "#",
-      icon: MapIcon,
-    },
-    {
-      title: "Reports",
-      url: "#",
-      icon: PieChartIcon,
-    },
-    {
-      title: "Recurring",
-      url: "#",
-      icon: LucideCalendar,
-    },
-    {
-      title: "Goals",
-      url: "#",
-      icon: TargetIcon,
-    },
-  ],
-};
 
 function DashboardIndex() {
   const { queryClient } = Route.useRouteContext();
   const { user } = Route.useLoaderData();
   return (
     <SidebarProvider>
-      <Sidebar collapsible="offcanvas">
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                size="lg"
-                variant="ghost"
-                asChild
-                className="data-[slot=sidebar-menu-button]:!p-1.5"
-              >
-                <Link to="/" className="mx-2 mt-4">
-                  <img src="/dirhamly.png" alt="Dirhamly" className="h-8 w-8" />
-                  <span className="font-bold tracking-wide text-lg ml-0.5">
-                    Dirhamly
-                  </span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-          <MainNav items={data.mainNavigation} />
-          <SupportNav className="mt-auto" />
-        </SidebarContent>
-        <SidebarFooter>
-          <UserNav user={user} queryClient={queryClient} />
-        </SidebarFooter>
-      </Sidebar>
+      <DashboardSidebar variant="inset" user={user} queryClient={queryClient} />
+      <SidebarInset>
+        <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
+          <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mx-2 data-[orientation=vertical]:h-4"
+            />
+            <h1 className="text-base font-medium">Documents</h1>
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+              <div className="px-4 lg:px-6">Cards</div>
+              <div className="px-4 lg:px-6">Chart Area</div>
+              <div className="px-4 lg:px-6">Tables</div>
+            </div>
+          </div>
+        </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
