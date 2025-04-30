@@ -10,12 +10,16 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import {
+  BellIcon,
   CreditCardIcon,
   HomeIcon,
   LucideCalendar,
   LucideLayers3,
   MapIcon,
+  PanelLeftIcon,
   PieChartIcon,
+  SearchIcon,
+  SettingsIcon,
   TargetIcon,
 } from "lucide-react";
 import { MainNav } from "./main-nav";
@@ -23,6 +27,7 @@ import { SupportNav } from "./support-nav";
 import { UserNav } from "../user-nav";
 import { User } from "better-auth";
 import { QueryClient } from "@tanstack/react-query";
+import { useSidebar } from "@/components/ui/sidebar";
 
 const data = {
   mainNavigation: [
@@ -70,22 +75,37 @@ interface Props extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function DashboardSidebar({ user, queryClient, ...props }: Props) {
+  const { toggleSidebar } = useSidebar();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <Link to="/" className="mx-2 mt-4 flex items-center gap-2">
+          <div className="flex items-center justify-between mx-2">
+            <Link to="/">
               <img
                 src="/dirhamly.png"
                 alt="Dirhamly"
                 className="h-8 w-8 shrink-0 transition-all duration-300 ease-in-out group-data-[collapsible=icon]:h-6 group-data-[collapsible=icon]:w-6"
               />
-              <span className="font-bold tracking-wide text-lg ml-0.5 group-data-[collapsible=icon]:hidden">
-                Dirhamly
-              </span>
             </Link>
-          </SidebarMenuItem>
+            <div className="flex items-center gap-4 group-data-[collapsible=icon]:hidden">
+              <SidebarMenuItem>
+                <SearchIcon className="size-5" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <BellIcon className="size-5" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SettingsIcon className="size-5" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={toggleSidebar}>
+                  <PanelLeftIcon className="size-5" />
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </div>
+          </div>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
