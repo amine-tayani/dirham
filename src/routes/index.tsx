@@ -21,16 +21,7 @@ function Home() {
       {user ? (
         <div className="flex flex-col items-center gap-2">
           <p>Welcome back, {user.name}!</p>
-          <Button type="button" asChild className="mb-2 w-fit" size="lg">
-            <Link to="/dashboard">Go to Dashboard</Link>
-          </Button>
-          <div className="text-center text-xs sm:text-sm">
-            Session user:
-            <pre className="max-w-screen overflow-x-auto px-2 text-start">
-              {JSON.stringify(user, null, 2)}
-            </pre>
-          </div>
-
+          <Link to="/dashboard">Dashboard</Link>
           <Button
             onClick={async () => {
               await authClient.signOut();
