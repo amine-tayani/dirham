@@ -25,6 +25,10 @@
 			"suspicious": {
 				"noExplicitAny": "off"
 			},
+			"a11y": {
+				"useValidAnchor": "off",
+				"noSvgWithoutTitle": "off"
+			},
 			"style": {
 				"noNonNullAssertion": "off",
 				"noParameterAssign": "off"
@@ -40,10 +44,12 @@
 	"files": {
 		"ignore": [
 			"node_modules/**/*",
+			"src/components/ui/**/*",
 			".vscode",
 			"public",
 			"build/**/*",
 			"pnpm-lock.json",
+			"app.config.*.js",
 			"dist/**/*"
 		]
 	}
