@@ -1,13 +1,9 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
 	"vcs": {
-		"enabled": false,
+		"enabled": true,
 		"clientKind": "git",
 		"useIgnoreFile": false
-	},
-	"files": {
-		"ignoreUnknown": false,
-		"ignore": ["node_modules", ".git", ".vscode", "public", "build"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -28,12 +24,27 @@
 			"recommended": true,
 			"suspicious": {
 				"noExplicitAny": "off"
+			},
+			"style": {
+				"noNonNullAssertion": "off",
+				"noParameterAssign": "off"
 			}
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"trailingCommas": "none"
 		}
+	},
+	"files": {
+		"ignore": [
+			"node_modules/**/*",
+			".vscode",
+			"public",
+			"build/**/*",
+			"pnpm-lock.json",
+			"dist/**/*"
+		]
 	}
 }
