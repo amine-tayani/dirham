@@ -1,7 +1,7 @@
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
 import { auth } from "@/lib/server/auth";
-import appCss from "@/styles/app.css?inline";
+import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import type { QueryClient } from "@tanstack/react-query";
 import {
