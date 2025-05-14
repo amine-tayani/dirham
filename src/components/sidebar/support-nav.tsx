@@ -6,6 +6,7 @@ import {
 	SidebarMenuItem
 } from "@/components/ui/sidebar";
 import { MessageCircleIcon } from "lucide-react";
+import { Button } from "../ui/button";
 
 export function SupportNav({ ...props }: React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
 	return (

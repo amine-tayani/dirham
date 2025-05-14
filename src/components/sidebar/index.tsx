@@ -1,13 +1,18 @@
 import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {
 	Sidebar,
 	SidebarContent,
 	SidebarFooter,
 	SidebarHeader,
 	SidebarMenu,
-	SidebarMenuButton,
 	SidebarMenuItem
 } from "@/components/ui/sidebar";
-import { useSidebar } from "@/components/ui/sidebar";
+import { toggleTheme } from "@/utils/toggle-theme";
 import type { QueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import type { User } from "better-auth";
@@ -18,10 +23,9 @@ import {
 	LucideCalendar,
 	LucideLayers3,
 	MapIcon,
-	PanelLeftIcon,
+	MoonIcon,
 	PieChartIcon,
 	SearchIcon,
-	SettingsIcon,
 	TargetIcon
 } from "lucide-react";
 import type React from "react";
@@ -75,8 +79,6 @@ interface Props extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function DashboardSidebar({ user, queryClient, ...props }: Props) {
-	const { toggleSidebar } = useSidebar();
-
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
@@ -86,7 +88,7 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 							<img
 								src="/dirhamly.png"
 								alt="Dirhamly"
-								className="h-8 w-8 shrink-0 transition-all duration-300 ease-in-out group-data-[collapsible=icon]:h-6 group-data-[collapsible=icon]:w-6"
+								className="h-8 w-8 flex transition-all duration-300 ease-in-out group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-28"
 							/>
 						</Link>
 						<div className="flex items-center gap-4 group-data-[collapsible=icon]:hidden">
@@ -96,13 +98,8 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 							<SidebarMenuItem>
 								<BellIcon className="size-5" />
 							</SidebarMenuItem>
-							<SidebarMenuItem>
-								<SettingsIcon className="size-5" />
-							</SidebarMenuItem>
-							<SidebarMenuItem>
-								<SidebarMenuButton onClick={toggleSidebar}>
-									<PanelLeftIcon className="size-5" />
-								</SidebarMenuButton>
+							<SidebarMenuItem onClick={toggleTheme}>
+								<MoonIcon className="size-5" />
 							</SidebarMenuItem>
 						</div>
 					</div>

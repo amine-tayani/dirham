@@ -9,7 +9,6 @@ import {
 	Outlet,
 	ScriptOnce,
 	Scripts,
-	createRootRoute,
 	createRootRouteWithContext
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -104,9 +103,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
             )`}
 				</ScriptOnce>
-
 				{children}
-
 				<Scripts />
 			</body>
 		</html>

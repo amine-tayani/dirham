@@ -71,6 +71,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
@@ -2717,6 +2720,9 @@ packages:
 
   dax-sh@0.39.2:
     resolution: {integrity: sha512-gpuGEkBQM+5y6p4cWaw9+ePy5TNon+fdwFVtTI8leU3UhwhsBfPewRxMXGuQNC+M2b/MDGMlfgpqynkcd0C3FQ==}
+
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   db0@0.3.2:
     resolution: {integrity: sha512-xzWNQ6jk/+NtdfLyXEipbX55dmDSeteLFt/ayF+wZUU5bzKgmrDOxmInUTbyVRp46YwnJdkDA1KhB7WIXFofJw==}
@@ -7777,6 +7783,8 @@ snapshots:
     dependencies:
       '@deno/shim-deno': 0.19.2
       undici-types: 5.28.4
+
+  dayjs@1.11.13: {}
 
   db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(kysely@0.27.6)(pg@8.14.1)(postgres@3.4.5)):
     optionalDependencies:
