@@ -6,7 +6,7 @@ import {
 	ChartTooltipContent
 } from "@/components/ui/chart";
 import dayjs from "dayjs";
-import * as React from "react";
+import React from "react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 const chartConfig = {
