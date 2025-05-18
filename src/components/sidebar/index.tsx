@@ -1,13 +1,6 @@
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import {
 	Sidebar,
 	SidebarContent,
-	SidebarFooter,
 	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuItem
@@ -20,6 +13,7 @@ import {
 	BellIcon,
 	CreditCardIcon,
 	HomeIcon,
+	LayoutIcon,
 	LucideCalendar,
 	LucideLayers3,
 	MapIcon,
@@ -29,7 +23,6 @@ import {
 	TargetIcon
 } from "lucide-react";
 import type React from "react";
-import { UserNav } from "../user-nav";
 import { MainNav } from "./main-nav";
 import { SupportNav } from "./support-nav";
 
@@ -38,7 +31,7 @@ const data = {
 		{
 			title: "Dashboard",
 			url: "/dashboard",
-			icon: HomeIcon
+			icon: LayoutIcon
 		},
 		{
 			title: "Accounts",
@@ -83,13 +76,9 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
 				<SidebarMenu>
-					<div className="flex items-center justify-between mx-2">
+					<div className="flex items-center justify-between mx-2 my-2">
 						<Link to="/">
-							<img
-								src="/dirhamly.png"
-								alt="Dirhamly"
-								className="h-8 w-8 flex transition-all duration-300 ease-in-out group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-28"
-							/>
+							<HomeIcon />
 						</Link>
 						<div className="flex items-center gap-4 group-data-[collapsible=icon]:hidden">
 							<SidebarMenuItem>
@@ -109,9 +98,6 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 				<MainNav items={data.mainNavigation} />
 				<SupportNav className="mt-auto" />
 			</SidebarContent>
-			<SidebarFooter>
-				<UserNav user={user} queryClient={queryClient} />
-			</SidebarFooter>
 		</Sidebar>
 	);
 }

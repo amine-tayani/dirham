@@ -12,9 +12,18 @@ import authClient from "@/lib/auth-client";
 import type { QueryClient } from "@tanstack/react-query";
 import { redirect, useRouter } from "@tanstack/react-router";
 import type { User } from "better-auth";
-import { DoorClosedIcon, LayoutIcon, MoonIcon, SettingsIcon, UserIcon } from "lucide-react";
+import {
+	DoorClosedIcon,
+	LayoutIcon,
+	MoonIcon,
+	SettingsIcon,
+	SunIcon,
+	UserIcon
+} from "lucide-react";
 import { Switch } from "./ui/switch";
 import { toggleTheme } from "@/utils/toggle-theme";
+import { useId, useState } from "react";
+import { Label } from "./ui/label";
 
 export function UserNav({
 	user,
@@ -24,7 +33,8 @@ export function UserNav({
 	queryClient: QueryClient;
 }) {
 	const router = useRouter();
-
+	const id = useId();
+	const [checked, setChecked] = useState<boolean>(true);
 	if (!user) {
 		redirect({ to: "/login" });
 	}
@@ -46,7 +56,7 @@ export function UserNav({
 			>
 				<DropdownMenuLabel className="p-0 font-normal">
 					<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-						<Avatar className="h-8 w-8 rounded-lg">
+						<Avatar className="size-8 rounded-lg">
 							<AvatarImage src={user.image ?? ""} alt={user.name} />
 							<AvatarFallback className="rounded-lg">
 								{user.name.slice(0, 2).toLocaleUpperCase()}
@@ -66,7 +76,28 @@ export function UserNav({
 							<MoonIcon className="size-5" />
 							Dark mode
 						</div>
-						<Switch onChange={toggleTheme} />
+						<div>
+							<div className="relative inline-grid h-6 grid-cols-[1fr_1fr] items-center text-sm font-medium">
+								<Switch
+									id={id}
+									checked={checked}
+									onCheckedChange={() => {
+										setChecked(!checked);
+										toggleTheme();
+									}}
+									className="peer data-[state=checked]:bg-input/50 data-[state=unchecked]:bg-input/50 absolute inset-0 h-[inherit] w-auto [&_span]:h-full [&_span]:w-1/2 [&_span]:transition-transform [&_span]:duration-300 [&_span]:ease-[cubic-bezier(0.16,1,0.3,1)] [&_span]:data-[state=checked]:translate-x-full [&_span]:data-[state=checked]:rtl:-translate-x-full"
+								/>
+								<span className="peer-data-[state=checked]:text-muted-foreground/70 pointer-events-none relative ms-0.5 flex min-w-8 items-center justify-center text-center">
+									<MoonIcon size={5} aria-hidden="true" />
+								</span>
+								<span className="peer-data-[state=unchecked]:text-muted-foreground/70 pointer-events-none relative me-0.5 flex min-w-8 items-center justify-center text-center">
+									<SunIcon size={5} aria-hidden="true" />
+								</span>
+							</div>
+							<Label htmlFor={id} className="sr-only">
+								Labeled switch
+							</Label>
+						</div>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<LayoutIcon className="size-5" />

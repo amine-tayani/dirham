@@ -17,17 +17,15 @@ function Home() {
 	const { user } = Route.useLoaderData();
 	const { queryClient } = Route.useRouteContext();
 	return (
-		<header className="border-grid sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-			<div className="container-wrapper">
+		<header className="sticky top-0 z-50 w-full bg-background/95 shadow-sm py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+			<div className=" flex justify-around">
 				<div className="container flex h-14 items-center gap-2 md:gap-4">
+					<Link to="/" className="mr-4 flex items-center gap-2 lg:mr-6">
+						<span className="hidden text-xl font-bold tracking-wide lg:inline-block">Dirhamly</span>
+					</Link>
 					<MainNavigation />
 					<div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
 						<UserNav user={user} queryClient={queryClient} />
-						<nav className="flex items-center gap-4">
-							<Button onClick={toggleTheme} variant="ghost" size="icon">
-								<MoonIcon className="h-5 w-5" />
-							</Button>
-						</nav>
 					</div>
 				</div>
 			</div>
@@ -39,11 +37,8 @@ export const MainNavigation = () => {
 	const { pathname } = useLocation();
 
 	return (
-		<div className="hidden md:flex mx-10">
-			<Link to="/" className="mr-4 flex items-center gap-2 lg:mr-6">
-				<span className="hidden font-bold lg:inline-block">Dirhamly</span>
-			</Link>
-			<nav className="flex items-center gap-4 text-sm xl:gap-6">
+		<div className="hidden md:flex mx-auto justify-center">
+			<nav className="flex justify-center items-center gap-4 text-sm xl:gap-6">
 				<Link
 					to="/dashboard"
 					className={cn(
