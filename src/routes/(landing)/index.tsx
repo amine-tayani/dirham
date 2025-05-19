@@ -1,10 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { UserNav } from "@/components/user-nav";
 import { cn } from "@/lib/utils";
-import { toggleTheme } from "@/utils/toggle-theme";
+import { HeroSection } from "@/routes/(landing)/-components/hero";
 import { Link, createFileRoute, useLocation } from "@tanstack/react-router";
 import type { User } from "better-auth";
-import { MoonIcon } from "lucide-react";
 
 export const Route = createFileRoute("/(landing)/")({
 	component: Home,
@@ -16,21 +13,7 @@ export const Route = createFileRoute("/(landing)/")({
 function Home() {
 	const { user } = Route.useLoaderData();
 	const { queryClient } = Route.useRouteContext();
-	return (
-		<header className="sticky top-0 z-50 w-full bg-background/95 shadow-sm py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-			<div className=" flex justify-around">
-				<div className="container flex h-14 items-center gap-2 md:gap-4">
-					<Link to="/" className="mr-4 flex items-center gap-2 lg:mr-6">
-						<span className="hidden text-xl font-bold tracking-wide lg:inline-block">Dirhamly</span>
-					</Link>
-					<MainNavigation />
-					<div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-						<UserNav user={user} queryClient={queryClient} />
-					</div>
-				</div>
-			</div>
-		</header>
-	);
+	return <HeroSection />;
 }
 
 export const MainNavigation = () => {

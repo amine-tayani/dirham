@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss" source("../");
 @import "tw-animate-css";
 
@@ -39,6 +40,7 @@
   --sidebar-border: oklch(0.90 0 0);
   --sidebar-ring: oklch(0.83 0.13 160.91);
   --font-sans: Inter, sans-serif;
+  --font-mont: "Montserrat", sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: monospace;
   --radius: 0.5rem;
@@ -87,6 +89,7 @@
   --sidebar-border: oklch(0.28 0 0);
   --sidebar-ring: oklch(0.80 0.18 151.71);
   --font-sans: Inter, sans-serif;
+  --font-mont: "Montserrat", sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: monospace;
   --radius: 0.5rem;
@@ -135,6 +138,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --font-sans: var(--font-sans);
+  --font-mont : var(--font-mont);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
