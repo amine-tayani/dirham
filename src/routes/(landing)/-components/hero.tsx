@@ -181,6 +181,7 @@ export function HeroSection() {
 						</AnimatedGroup>
 					</div>
 				</section>
+				{/* we can move this section to a separate file */}
 				<section className="bg-background pb-16 pt-16 md:pb-32">
 					<div className="group relative m-auto max-w-5xl px-6">
 						<div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
@@ -190,23 +191,20 @@ export function HeroSection() {
 							</Link>
 						</div>
 						<div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
-							<div className="flex">logo 1</div>
-							<div className="flex">logo 2</div>
-							<div className="flex">logo 3</div>
-							<div className="flex">logo 4</div>
-							<div className="flex">logo 5</div>
-							<div className="flex">logo 6</div>
-							<div className="flex">logo 7</div>
-							<div className="flex">
-								logo 8
-								{/* <img
+							{Array(8)
+								.fill(0)
+								.map((_, index) => (
+									<div className="flex" key={index}>
+										logo {index + 1}
+										{/* <img
 									className="mx-auto h-6 w-fit dark:invert"
 									src="https://html.tailus.io/blocks/customers/openai.svg"
 									alt="OpenAI Logo"
 									height="24"
 									width="auto"
 								/> */}
-							</div>
+									</div>
+								))}
 						</div>
 					</div>
 				</section>
