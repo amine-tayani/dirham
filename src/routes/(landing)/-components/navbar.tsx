@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
+import authClient from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { toggleTheme } from "@/utils/toggle-theme";
 import { Link } from "@tanstack/react-router";
-import { MenuIcon, XIcon } from "lucide-react";
+import { Loader2Icon, MenuIcon, MoonIcon, XIcon } from "lucide-react";
 import * as React from "react";
 import Logo from "./logo";
 
@@ -15,6 +17,7 @@ const menuItems = [
 export default function Navbar() {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
+	const { data: session, isPending, error } = authClient.useSession();
 
 	React.useEffect(() => {
 		const handleScroll = () => {
@@ -78,28 +81,36 @@ export default function Navbar() {
 									))}
 								</ul>
 							</div>
-							<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-								<Button
-									asChild
-									variant="outline"
-									size="sm"
-									className={cn(isScrolled && "lg:hidden")}
-								>
-									<Link to="/login">
-										<span>Login</span>
+							{isPending ? (
+								<Loader2Icon className="animate-spin" />
+							) : !session ? (
+								<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+									<Button asChild variant="outline" className={cn(isScrolled && "lg:hidden")}>
+										<Link to="/login">
+											<span>Login</span>
+										</Link>
+									</Button>
+									<Button asChild className={cn(isScrolled && "lg:hidden")}>
+										<Link to="/signup">
+											<span>Sign Up</span>
+										</Link>
+									</Button>
+									<Button asChild className={cn(isScrolled ? "lg:inline-flex" : "hidden")}>
+										<Link to="/signup">
+											<span>Get Started</span>
+										</Link>
+									</Button>
+								</div>
+							) : (
+								<Button asChild>
+									<Link to="/dashboard">
+										<span>Dashboard</span>
 									</Link>
 								</Button>
-								<Button asChild size="sm" className={cn(isScrolled && "lg:hidden")}>
-									<Link to="/signup">
-										<span>Sign Up</span>
-									</Link>
-								</Button>
-								<Button asChild size="sm" className={cn(isScrolled ? "lg:inline-flex" : "hidden")}>
-									<Link to="/signup">
-										<span>Get Started</span>
-									</Link>
-								</Button>
-							</div>
+							)}
+							<Button size="icon" variant="ghost" onClick={toggleTheme}>
+								<MoonIcon className="m-auto size-5 text-neutral-600 dark:text-neutral-400" />
+							</Button>
 						</div>
 					</div>
 				</div>
