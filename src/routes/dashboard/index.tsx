@@ -1,4 +1,3 @@
-import ContactsTable from "@/components/dashboard/contacts-table";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import { DashboardSidebar } from "@/components/sidebar";
 import {
@@ -15,7 +14,6 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { UserNav } from "@/components/user-nav";
 import { createFileRoute } from "@tanstack/react-router";
 import type { User } from "better-auth";
-import { BatteryIcon } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/")({
 	component: DashboardIndex,
@@ -39,13 +37,13 @@ function DashboardIndex() {
 							<BreadcrumbList>
 								<BreadcrumbItem className="hidden md:block">
 									<BreadcrumbLink href="#">
-										<BatteryIcon size={22} aria-hidden="true" />
+										Home
 										<span className="sr-only">Dashboard</span>
 									</BreadcrumbLink>
 								</BreadcrumbItem>
 								<BreadcrumbSeparator className="hidden md:block" />
 								<BreadcrumbItem>
-									<BreadcrumbPage>Contacts</BreadcrumbPage>
+									<BreadcrumbPage>Dashboard</BreadcrumbPage>
 								</BreadcrumbItem>
 							</BreadcrumbList>
 						</Breadcrumb>
@@ -57,17 +55,16 @@ function DashboardIndex() {
 				<div className="flex flex-1 flex-col gap-4 lg:gap-6 py-4 lg:py-6">
 					<div className="flex items-center justify-between gap-4">
 						<div className="space-y-1">
-							<h1 className="text-2xl font-semibold">Welcome {user.name}</h1>
-							<p className="text-sm text-muted-foreground">Here is your Spending Overview.</p>
+							<h1 className="text-2xl font-medium font-mont tracking-tighter">
+								Welcome {user.name}
+							</h1>
 						</div>
 						<Button variant="outline" className="px-3">
 							Add Contact
 						</Button>
 					</div>
 					<StatsCard />
-					<div className="min-h-[100vh] flex-1 md:min-h-min">
-						<ContactsTable />
-					</div>
+					<div className="min-h-[100vh] flex-1 md:min-h-min">{/* render a table here */}</div>
 				</div>
 			</SidebarInset>
 		</SidebarProvider>
