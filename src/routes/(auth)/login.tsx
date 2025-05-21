@@ -1,9 +1,10 @@
+import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import authClient from "@/lib/auth-client";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { GalleryVerticalEnd, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/(auth)/login")({
@@ -54,12 +55,12 @@ function LoginForm() {
 				<div className="flex flex-col gap-6">
 					<div className="flex flex-col items-center gap-2">
 						<a href="#" className="flex flex-col items-center gap-2 font-medium">
-							<div className="flex h-8 w-8 items-center justify-center rounded-md">
-								<GalleryVerticalEnd className="size-6" />
+							<div className="flex items-center justify-center rounded-md">
+								<Logo />
 							</div>
 							<span className="sr-only">Dirhamly</span>
 						</a>
-						<h1 className="text-xl font-bold">Welcome to Dirhamly</h1>
+						<h1 className="text-2xl font-bold ">Welcome Back</h1>
 					</div>
 					<div className="flex flex-col gap-5">
 						<div className="grid gap-2">

@@ -1,3 +1,4 @@
+import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import authClient from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
@@ -5,7 +6,6 @@ import { toggleTheme } from "@/utils/toggle-theme";
 import { Link } from "@tanstack/react-router";
 import { Loader2Icon, MenuIcon, MoonIcon, XIcon } from "lucide-react";
 import * as React from "react";
-import Logo from "./logo";
 
 const menuItems = [
 	{ name: "Features", href: "/" },
@@ -37,8 +37,9 @@ export default function Navbar() {
 				>
 					<div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
 						<div className="flex w-full justify-between lg:w-auto">
-							<Link to="/" aria-label="home" className="flex items-center space-x-2">
+							<Link to="/" aria-label="home" className="flex items-center">
 								<Logo />
+								<span className="text-lg font-bold ml-1.5 sr-only">Dirhamly</span>
 							</Link>
 
 							<Button
@@ -87,24 +88,30 @@ export default function Navbar() {
 								<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
 									<Button asChild variant="outline" className={cn(isScrolled && "lg:hidden")}>
 										<Link to="/login">
-											<span>Login</span>
+											<span className="text-white font-semibold text-nowrap font-mont">Login</span>
 										</Link>
 									</Button>
 									<Button asChild className={cn(isScrolled && "lg:hidden")}>
 										<Link to="/signup">
-											<span>Sign Up</span>
+											<span className="text-white font-semibold text-nowrap font-mont">
+												Sign Up
+											</span>
 										</Link>
 									</Button>
 									<Button asChild className={cn(isScrolled ? "lg:inline-flex" : "hidden")}>
 										<Link to="/signup">
-											<span>Get Started</span>
+											<span className="text-white font-semibold text-nowrap font-mont">
+												Get Started
+											</span>
 										</Link>
 									</Button>
 								</div>
 							) : (
 								<Button asChild>
 									<Link to="/dashboard">
-										<span>Dashboard</span>
+										<span className="text-white font-semibold text-nowrap font-mont">
+											Dashboard
+										</span>
 									</Link>
 								</Button>
 							)}

@@ -39,41 +39,6 @@ export function HeroSection() {
 				</div>
 				<section>
 					<div className="relative pt-24 md:pt-36">
-						<AnimatedGroup
-							variants={{
-								container: {
-									visible: {
-										transition: {
-											delayChildren: 1
-										}
-									}
-								},
-								item: {
-									hidden: {
-										opacity: 0,
-										y: 20
-									},
-									visible: {
-										opacity: 1,
-										y: 0,
-										transition: {
-											type: "spring",
-											bounce: 0.3,
-											duration: 2
-										}
-									}
-								}
-							}}
-							className="absolute inset-0 -z-20"
-						>
-							<img
-								src="https://ik.imagekit.io/lrigu76hy/tailark/night-background.jpg?updatedAt=1745733451120"
-								alt="background"
-								className="absolute inset-x-0 top-56 -z-20 hidden lg:top-32 dark:block"
-								width="3276"
-								height="4095"
-							/>
-						</AnimatedGroup>
 						<div
 							aria-hidden
 							className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--background)_75%)]"
@@ -83,7 +48,7 @@ export function HeroSection() {
 								<AnimatedGroup variants={transitionVariants}>
 									<Link
 										to="/dashboard"
-										className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+										className="hover:bg-neutral-200 dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
 									>
 										<span className="text-foreground text-sm">
 											Introducing The Next Generation of Personal Budgeting Apps
@@ -125,13 +90,11 @@ export function HeroSection() {
 									}}
 									className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
 								>
-									<div key={1} className="bg-foreground/10 rounded-[14px] border p-0.5">
-										<Button asChild size="lg" className="rounded-xl px-5 text-base">
-											<Link to="/signup">
-												<span className="text-nowrap">Start Building</span>
-											</Link>
-										</Button>
-									</div>
+									<Button asChild size="lg" className="text-white rounded-xl px-5 text-base">
+										<Link to="/signup">
+											<span className="text-nowrap font-mont font-semibold">Start Building</span>
+										</Link>
+									</Button>
 									<Button
 										key={2}
 										asChild
