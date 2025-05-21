@@ -10,20 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import authClient from "@/lib/auth-client";
 import type { QueryClient } from "@tanstack/react-query";
-import { redirect, useRouter } from "@tanstack/react-router";
+import { useRouter } from "@tanstack/react-router";
 import type { User } from "better-auth";
-import {
-	DoorClosedIcon,
-	LayoutIcon,
-	MoonIcon,
-	SettingsIcon,
-	SunIcon,
-	UserIcon
-} from "lucide-react";
-import { Switch } from "./ui/switch";
-import { toggleTheme } from "@/utils/toggle-theme";
+import { LayoutIcon, LogOutIcon, MoonIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { useId, useState } from "react";
 import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 
 export function UserNav({
 	user,
@@ -32,32 +24,27 @@ export function UserNav({
 	user: User;
 	queryClient: QueryClient;
 }) {
-	const router = useRouter();
 	const id = useId();
-	const [checked, setChecked] = useState<boolean>(true);
-	if (!user) {
-		redirect({ to: "/login" });
-	}
-	return (
+	const [checked, setChecked] = useState<boolean>(false);
+	const router = useRouter();
+
+	return user ? (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar className="h-8 w-8 rounded-full">
-					<AvatarImage src={user.image ?? ""} alt={user.name} />
-					<AvatarFallback className="rounded-lg">
+				<Avatar className="size-8 rounded-full">
+					{/* hardcoded image for now until google rate limit is fixed */}
+					<AvatarImage src="https://i.pravatar.cc/150?img=3" alt={user.name} />
+					<AvatarFallback className="rounded-lg text-xs">
 						{user.name.slice(0, 2).toLocaleUpperCase()}
 					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent
-				className="w-[--radix-dropdown-menu-trigger-width] min-w-60 rounded-xl p-2"
-				side="bottom"
-				align="end"
-				sideOffset={6}
-			>
+			<DropdownMenuContent className="max-w-60 rounded-xl p-2" sideOffset={6}>
 				<DropdownMenuLabel className="p-0 font-normal">
 					<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 						<Avatar className="size-8 rounded-lg">
-							<AvatarImage src={user.image ?? ""} alt={user.name} />
+							{/* hardcoded image for now until google rate limit is fixed */}
+							<AvatarImage src="https://i.pravatar.cc/150?img=3" alt={user.name} />
 							<AvatarFallback className="rounded-lg">
 								{user.name.slice(0, 2).toLocaleUpperCase()}
 							</AvatarFallback>
@@ -76,26 +63,14 @@ export function UserNav({
 							<MoonIcon className="size-5" />
 							Dark mode
 						</div>
-						<div>
-							<div className="relative inline-grid h-6 grid-cols-[1fr_1fr] items-center text-sm font-medium">
-								<Switch
-									id={id}
-									checked={checked}
-									onCheckedChange={() => {
-										setChecked(!checked);
-										toggleTheme();
-									}}
-									className="peer data-[state=checked]:bg-input/50 data-[state=unchecked]:bg-input/50 absolute inset-0 h-[inherit] w-auto [&_span]:h-full [&_span]:w-1/2 [&_span]:transition-transform [&_span]:duration-300 [&_span]:ease-[cubic-bezier(0.16,1,0.3,1)] [&_span]:data-[state=checked]:translate-x-full [&_span]:data-[state=checked]:rtl:-translate-x-full"
-								/>
-								<span className="peer-data-[state=checked]:text-muted-foreground/70 pointer-events-none relative ms-0.5 flex min-w-8 items-center justify-center text-center">
-									<MoonIcon size={5} aria-hidden="true" />
-								</span>
-								<span className="peer-data-[state=unchecked]:text-muted-foreground/70 pointer-events-none relative me-0.5 flex min-w-8 items-center justify-center text-center">
-									<SunIcon size={5} aria-hidden="true" />
-								</span>
-							</div>
+						<div className="inline-flex items-center gap-2">
+							<Switch
+								checked={checked}
+								id={id}
+								className="data-[state=unchecked]:border-input data-[state=unchecked]:[&_span]:bg-input data-[state=unchecked]:bg-transparent [&_span]:transition-all data-[state=unchecked]:[&_span]:size-4 data-[state=unchecked]:[&_span]:translate-x-0.5 data-[state=unchecked]:[&_span]:shadow-none data-[state=unchecked]:[&_span]:rtl:-translate-x-0.5"
+							/>
 							<Label htmlFor={id} className="sr-only">
-								Labeled switch
+								dark theme switch
 							</Label>
 						</div>
 					</DropdownMenuItem>
@@ -111,17 +86,17 @@ export function UserNav({
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
-					className="text-destructive"
+					className="text-destructive dark:text-red-400"
 					onClick={async () => {
 						await queryClient.invalidateQueries({ queryKey: ["user"] });
 						await authClient.signOut();
 						await router.invalidate();
 					}}
 				>
-					<DoorClosedIcon className="size-5 text-destructive" />
+					<LogOutIcon className="size-5 text-destructive dark:text-red-400" />
 					Sign Out
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-	);
+	) : null;
 }
