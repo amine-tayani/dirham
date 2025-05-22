@@ -1,4 +1,4 @@
-export function toggleTheme() {
+export const toggleTheme = () => {
 	if (
 		document.documentElement.classList.contains("dark") ||
 		(!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
@@ -9,4 +9,4 @@ export function toggleTheme() {
 		document.documentElement.classList.add("dark");
 		localStorage.theme = "dark";
 	}
-}
+};
