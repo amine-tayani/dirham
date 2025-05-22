@@ -67,11 +67,11 @@ export function HeroSection() {
 										</div>
 									</Link>
 
-									<h1 className="mt-8 max-w-4xl font-mont font-medium mx-auto text-balance text-6xl md:text-7xl lg:mt-16 xl:text-[5.25rem]">
+									<h1 className="mt-8 max-w-4xl font-geist font-semibold mx-auto text-balance text-6xl md:text-7xl lg:mt-12 xl:text-[5.25rem]">
 										Dirhamly Your Personal Budgeting App
 									</h1>
-									<p className="mx-auto mt-8 max-w-2xl text-balance text-lg">
-										offering everything from smart expense tracking to savings goal planning, all
+									<p className="mx-auto mt-8 max-w-2xl text-balance text-lg font-geist">
+										Offering everything from smart expense tracking to savings goal planning, all
 										wrapped in an elegant interface with real-time guidance from AI
 									</p>
 								</AnimatedGroup>
@@ -90,9 +90,9 @@ export function HeroSection() {
 									}}
 									className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
 								>
-									<Button asChild size="lg" className="text-white rounded-xl px-5 text-base">
+									<Button asChild size="lg" className="text-white rounded-xl px-5">
 										<Link to="/signup">
-											<span className="text-nowrap font-mont font-semibold">Start Building</span>
+											<span className="text-nowrap font-geist text-sm">Start Building</span>
 										</Link>
 									</Button>
 									<Button
