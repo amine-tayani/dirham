@@ -34,7 +34,7 @@ export function StatsCard() {
 					className="flex flex-col border border-neutral-200 shadow-none dark:border-neutral-800"
 				>
 					<CardHeader className="relative">
-						<CardDescription className="text-sm font-medium">
+						<CardDescription className="text-sm font-medium -mt-2 -ml-2">
 							<span>{item.title}</span>
 						</CardDescription>
 						<CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums mt-5">
@@ -42,18 +42,24 @@ export function StatsCard() {
 						</CardTitle>
 						<div className="flex items-center justify-between gap-2">
 							{Number.parseFloat(item.changePercent) > 0 ? (
-								<div className="text-green-500 inline-flex ">
-									<ArrowUpIcon size={16} />
-									<span className="text-sm font-medium font-mono">
-										{item.changePercent.substring(1)}
-									</span>
+								<div>
+									<div className="text-green-500 inline-flex ">
+										<ArrowUpIcon size={16} />
+										<span className="text-sm font-medium font-mono">
+											{item.changePercent.substring(1)}
+										</span>
+									</div>
+									<span className="text-xs ml-2 text-muted-foreground">vs Last Month</span>
 								</div>
 							) : (
-								<div className="text-red-500 inline-flex">
-									<ArrowDownIcon size={16} />
-									<span className="text-sm font-medium font-mono">
-										{item.changePercent.substring(1)}
-									</span>
+								<div>
+									<div className="text-red-500 inline-flex">
+										<ArrowDownIcon size={16} />
+										<span className="text-sm font-medium font-mono">
+											{item.changePercent.substring(1)}
+										</span>
+									</div>
+									<span className="text-xs ml-2 text-muted-foreground">vs Last Month</span>
 								</div>
 							)}
 						</div>
