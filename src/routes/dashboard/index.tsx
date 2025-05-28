@@ -64,6 +64,7 @@ function DashboardIndex() {
 							<h1 className="text-2xl font-medium font-mono tracking-tighter">
 								{getGreeting()} {user.name}
 							</h1>
+							<p className="text-sm font-medium text-gray-500">Manages your daily finances</p>
 						</div>
 						<Button variant="outline" className="px-3">
 							Add Contact
