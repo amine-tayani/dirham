@@ -25,6 +25,12 @@ export const Route = createFileRoute("/dashboard/")({
 function DashboardIndex() {
 	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
+
+	const getGreeting = (): string => {
+		const hour = new Date().getHours();
+		return hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+	};
+
 	return (
 		<SidebarProvider>
 			<DashboardSidebar user={user} queryClient={queryClient} />
@@ -55,8 +61,8 @@ function DashboardIndex() {
 				<div className="flex flex-1 flex-col gap-4 lg:gap-6 py-4 lg:py-6">
 					<div className="flex items-center justify-between gap-4">
 						<div className="space-y-1">
-							<h1 className="text-2xl font-medium font-mont tracking-tighter">
-								Welcome {user.name}
+							<h1 className="text-2xl font-medium font-mono tracking-tighter">
+								{getGreeting()} {user.name}
 							</h1>
 						</div>
 						<Button variant="outline" className="px-3">
