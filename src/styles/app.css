@@ -1,7 +1,10 @@
+
+@import "tailwindcss" source("../");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-@import "tailwindcss" source("../");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -45,6 +48,7 @@
   --font-mont: "Montserrat", sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: monospace;
+  --font-roboto: Roboto, sans-serif;
   --radius: 0.5rem;
   --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
   --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
@@ -93,6 +97,7 @@
   --font-sans: Inter, sans-serif;
   --font-geist: "Geist", sans-serif;
   --font-mont: "Montserrat", sans-serif;
+  --font-roboto: Roboto, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: monospace;
   --radius: 0.5rem;
@@ -143,6 +148,7 @@
   --font-sans: var(--font-sans);
   --font-mont : var(--font-mont);
   --font-geist: var(--font-geist);
+  --font-roboto: var(--font-roboto);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 

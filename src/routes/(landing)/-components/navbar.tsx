@@ -88,7 +88,9 @@ export default function Navbar() {
 								<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
 									<Button asChild variant="outline" className={cn(isScrolled && "lg:hidden")}>
 										<Link to="/login">
-											<span className="text-white font-semibold text-nowrap font-mont">Login</span>
+											<span className="dark:text-white font-semibold text-nowrap font-mont">
+												Login
+											</span>
 										</Link>
 									</Button>
 									<Button asChild className={cn(isScrolled && "lg:hidden")}>
