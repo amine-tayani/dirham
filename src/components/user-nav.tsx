@@ -33,11 +33,11 @@ export function UserNav({
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<img
-					src="https://i.pravatar.cc/150?img=3"
+					src={user.image || "https://i.pravatar.cc/150?img=3"}
 					alt="Avatar"
 					width={32}
 					height={32}
-					className="shrink-0 rounded-full"
+					className="shrink-0 rounded-full size-10 object-cover object-center"
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
