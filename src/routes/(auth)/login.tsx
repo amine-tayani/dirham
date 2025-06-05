@@ -7,6 +7,7 @@ import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 export const Route = createFileRoute("/(auth)/login")({
@@ -45,6 +46,7 @@ function LoginForm() {
 				},
 				{
 					onError: (ctx) => {
+						toast.error(ctx.error.message);
 						setIsLoading(false);
 					},
 					onSuccess: async () => {

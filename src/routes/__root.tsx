@@ -14,6 +14,7 @@ import {
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
 import type * as React from "react";
+import { Toaster } from "sonner";
 
 const getUser = createServerFn({ method: "GET" }).handler(async () => {
 	const { headers } = getWebRequest()!;
@@ -53,7 +54,7 @@ export const Route = createRootRouteWithContext<{
 			{
 				rel: "apple-touch-icon",
 				sizes: "180x180",
-				href: "/apple-touch-icon.png"
+				href: "/apple-touch-icon-180x180.png"
 			},
 			{
 				rel: "icon",
@@ -104,6 +105,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             )`}
 				</ScriptOnce>
 				{children}
+				<Toaster richColors expand />
 				<Scripts />
 			</body>
 		</html>
