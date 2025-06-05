@@ -80,7 +80,7 @@ function SignupForm() {
 							<div className="bg-background text-foreground w-full rounded-lg border px-4 py-3 shadow-lg sm:w-[var(--width)]">
 								<div className="flex gap-2">
 									<div className="flex grow gap-3">
-										<XIcon className="mt-0.5 shrink-0 text-red-500" size={16} aria-hidden="true" />
+										<AlertTriangleIcon className="size-6 text-red-500" />
 										<div className="flex grow justify-between">
 											<p className="text-sm">{ctx.error.message}</p>
 											<Button
