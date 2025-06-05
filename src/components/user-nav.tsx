@@ -41,17 +41,17 @@ export function UserNav({
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
-				className="max-w-64 rounded-xl p-2 shadow-none"
+				className="max-w-64 rounded-xl p-2 shadow-none dark:bg-neutral-900"
 				sideOffset={6}
 				align="end"
 			>
 				<DropdownMenuLabel className="flex items-start gap-3">
 					<img
-						src="https://i.pravatar.cc/150?img=3"
+						src={user.image || "https://i.pravatar.cc/150?img=3"}
 						alt="Avatar"
 						width={32}
 						height={32}
-						className="shrink-0 rounded-full"
+						className="shrink-0 rounded-full size-10 object-cover object-center"
 					/>
 					<div className="flex min-w-0 flex-col">
 						<span className="text-foreground truncate text-sm font-medium">{user.name}</span>
