@@ -1,4 +1,3 @@
-import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import authClient from "@/lib/auth-client";
@@ -49,19 +48,11 @@ function LoginForm() {
 	};
 
 	return (
-		<div className="flex flex-col gap-6">
+		<div className="flex flex-col gap-6 font-geist">
 			<form onSubmit={handleSubmit}>
 				<div className="flex flex-col gap-6">
-					<div className="flex flex-col items-center gap-2">
-						<a href="#" className="flex flex-col items-center gap-2 font-medium">
-							<div className="flex items-center justify-center rounded-md">
-								<Logo />
-							</div>
-							<span className="sr-only">Dirhamly</span>
-						</a>
-						<h1 className="text-2xl font-bold ">Welcome Back</h1>
-					</div>
-					<div className="flex flex-col gap-5">
+					<h1 className="text-center text-2xl font-bold ">Log in to Dirhamly</h1>
+					<div className="flex flex-col gap-5 mt-4">
 						<div className="grid gap-2">
 							<Input
 								className="h-12 border border-neutral-700 shadow-none dark:border-none"
@@ -88,26 +79,14 @@ function LoginForm() {
 							size="lg"
 							disabled={isLoading}
 						>
-							<div className="flex items-center text-base justify-between w-full ">
-								<span>{isLoading ? "Logging in..." : "Login to Your Account"} </span>
+							<div className="flex items-center">
 								{isLoading ? (
-									<LoaderCircle className="animate-spin" />
+									<>
+										<span>Log in with email</span>
+										<LoaderCircle className="animate-spin ml-2" />
+									</>
 								) : (
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										className="size-6 group-hover:translate-x-2 ease-in-out duration-200"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-										<path d="M5 12l14 0" />
-										<path d="M15 16l4 -4" />
-										<path d="M15 8l4 4" />
-									</svg>
+									"Log in"
 								)}
 							</div>
 						</Button>
@@ -121,7 +100,7 @@ function LoginForm() {
 					<div>
 						<Button
 							variant="outline"
-							className="w-full h-12 border-2 text-base font-semibold border-primary"
+							className="w-full h-12 border-2 font-semibold border-primary dark:border-none"
 							type="button"
 							disabled={isLoading}
 							onClick={() =>
@@ -143,16 +122,7 @@ function LoginForm() {
 								)
 							}
 						>
-							<svg
-								className="size-5 mr-2 dark:text-white"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									fill="currentColor"
-									d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-								/>
-							</svg>
+							<img src="google-icon.svg" alt="Google" className="size-6 mr-2" />
 							Login with Google
 						</Button>
 					</div>
