@@ -22,7 +22,10 @@ function LoginForm() {
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const loginSchema = z.object({
-		email: z.string().email({ message: "Invalid email address" }),
+		email: z
+			.string()
+			.min(1, { message: "Email is required" })
+			.email({ message: "The email you entered is invalid" }),
 		password: z.string().min(8, { message: "Password must be at least 8 characters long" })
 	});
 
@@ -77,10 +80,10 @@ function LoginForm() {
 									<FormControl>
 										<Input
 											{...field}
+											type="email"
 											className="h-12 border border-neutral-700 shadow-none dark:border-none"
 											placeholder="example@gmail.com"
 											readOnly={isLoading}
-											required
 										/>
 									</FormControl>
 									<FormMessage />
@@ -99,7 +102,6 @@ function LoginForm() {
 											className="h-12 border border-neutral-700 shadow-none dark:border-none"
 											placeholder="Your password"
 											readOnly={isLoading}
-											required
 										/>
 									</FormControl>
 									<FormMessage />

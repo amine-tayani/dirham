@@ -10,6 +10,18 @@ export const auth = betterAuth({
 		provider: "pg"
 	}),
 
+	// rateLimit: {
+	// 	enabled: true,
+	// 	max: 10,
+	// 	timeWindow: 10,
+	// 	customRules: {
+	// 		"/sign-in/email": {
+	// 			max: 4,
+	// 			window: 4
+	// 		}
+	// 	}
+	// },
+
 	plugins: [reactStartCookies()],
 
 	session: {

@@ -4,9 +4,10 @@ import { Input } from "@/components/ui/input";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 export const Route = createFileRoute("/(auth)/signup")({
@@ -63,12 +64,46 @@ function SignupForm() {
 		setIsLoading(true);
 		setErrorMessage("");
 		try {
-			await authClient.signUp.email({
-				email: values.email,
-				password: values.password,
-				name: values.name
-			});
-			navigate({ to: redirectUrl || "/dashboard" });
+			await authClient.signUp.email(
+				{
+					email: values.email,
+					password: values.password,
+					name: values.name
+				},
+				{
+					onSuccess: async () => {
+						toast.success("Signup successful. Redirecting...");
+						navigate({ to: redirectUrl });
+					},
+					onError: (ctx) => {
+						toast.custom((t) => (
+							<div className="bg-background text-foreground w-full rounded-lg border px-4 py-3 shadow-lg sm:w-[var(--width)]">
+								<div className="flex gap-2">
+									<div className="flex grow gap-3">
+										<XIcon className="mt-0.5 shrink-0 text-red-500" size={16} aria-hidden="true" />
+										<div className="flex grow justify-between">
+											<p className="text-sm">{ctx.error.message}</p>
+											<Button
+												variant="ghost"
+												className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+												onClick={() => toast.dismiss(t)}
+												aria-label="Close banner"
+											>
+												<XIcon
+													size={16}
+													className="opacity-60 transition-opacity group-hover:opacity-100"
+													aria-hidden="true"
+												/>
+											</Button>
+										</div>
+									</div>
+								</div>
+							</div>
+						));
+						setIsLoading(false);
+					}
+				}
+			);
 		} catch (err: any) {
 			setErrorMessage(err.message || "Signup failed");
 		} finally {
