@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { LoaderCircle, XIcon } from "lucide-react";
+import { AlertTriangleIcon, LoaderCircle, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -82,7 +82,7 @@ function SignupForm() {
 									<div className="flex grow gap-3">
 										<AlertTriangleIcon className="size-6 text-red-500" />
 										<div className="flex grow justify-between">
-											<p className="text-sm">{ctx.error.message}</p>
+											<p className="text-sm">{ctx.error.message}</p>y
 											<Button
 												variant="ghost"
 												className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
