@@ -7,7 +7,9 @@ Dirhamly abudgeting app built to help you track your expenses, plan goals, and g
 ## 🧰 Tech Stack
 
 - [TanStack Start](https://tanstack.com/start/latest)
-- Node.js
+- [Tanstack query](https://tanstack.com/query/latest)
+- [Tanstack Router](https://tanstack.com/router/latest)
+- Node.js 22
 - TypeScript
 - PostgreSQL
 - Drizzle ORM
@@ -15,9 +17,9 @@ Dirhamly abudgeting app built to help you track your expenses, plan goals, and g
 - TailwindCSS + Shadcn UI
 - Docker
 - pnpm
-- Biomejs for linting and formatting
+- Biomejs
 
-I'm going to add in the future zod, rhf and zustand.
+already added zod, rhf and zustand.
 
 ---
 
