@@ -4,10 +4,10 @@ import { Input } from "@/components/ui/input";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { AlertTriangleIcon, LoaderCircle, XIcon } from "lucide-react";
+import { LoaderCircle, OctagonAlertIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast, useSonner } from "sonner";
 import { z } from "zod";
 
 export const Route = createFileRoute("/(auth)/signup")({
@@ -15,8 +15,13 @@ export const Route = createFileRoute("/(auth)/signup")({
 });
 
 function SignupForm() {
+	const { toasts } = useSonner();
 	const { redirectUrl } = Route.useRouteContext();
 	const navigate = useNavigate();
+
+	if (toasts.length > 4) {
+		toasts.forEach((t) => toast.dismiss(t.id));
+	}
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
@@ -72,6 +77,7 @@ function SignupForm() {
 				},
 				{
 					onSuccess: async () => {
+						// here I want to have a custom headless toast as well
 						toast.success("Signup successful. Redirecting...");
 						navigate({ to: redirectUrl });
 					},
@@ -80,9 +86,9 @@ function SignupForm() {
 							<div className="bg-background text-foreground w-full rounded-lg border px-4 py-3 shadow-lg sm:w-[var(--width)]">
 								<div className="flex gap-2">
 									<div className="flex grow gap-3">
-										<AlertTriangleIcon className="size-6 text-red-500" />
+										<OctagonAlertIcon className="size-6 text-red-500" />
 										<div className="flex grow justify-between">
-											<p className="text-sm">{ctx.error.message}</p>y
+											<p className="text-sm">{ctx.error.message}</p>
 											<Button
 												variant="ghost"
 												className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
