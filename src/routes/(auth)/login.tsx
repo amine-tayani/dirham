@@ -81,7 +81,7 @@ function LoginForm() {
 										<Input
 											{...field}
 											type="email"
-											className="h-12 border border-neutral-700 shadow-none dark:border-none"
+											className="h-12 border border-border shadow-none dark:border-none"
 											placeholder="example@gmail.com"
 											readOnly={isLoading}
 										/>
@@ -99,7 +99,7 @@ function LoginForm() {
 										<Input
 											{...field}
 											type="password"
-											className="h-12 border border-neutral-700 shadow-none dark:border-none"
+											className="h-12 border border-border shadow-none dark:border-none"
 											placeholder="Your password"
 											readOnly={isLoading}
 										/>
@@ -133,8 +133,8 @@ function LoginForm() {
 					</div>
 					<div>
 						<Button
-							variant="outline"
-							className="w-full h-12 border-2 font-semibold border-primary dark:border-none"
+							variant="ghost"
+							className="w-full h-12 border font-semibold dark:border-none"
 							type="button"
 							disabled={isLoading}
 							onClick={() =>

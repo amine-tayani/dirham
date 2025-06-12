@@ -113,7 +113,7 @@ function SignupForm() {
 								<FormControl>
 									<Input
 										{...field}
-										className="h-12 border border-neutral-700 shadow-none dark:border-none"
+										className="h-12 border border-border shadow-none dark:border-none"
 										placeholder="John Doe"
 										readOnly={isLoading}
 									/>
@@ -132,7 +132,7 @@ function SignupForm() {
 									<Input
 										{...field}
 										type="email"
-										className="h-12 border border-neutral-700 shadow-none dark:border-none"
+										className="h-12 border border-border shadow-none dark:border-none"
 										placeholder="hello@example.com"
 										readOnly={isLoading}
 									/>
@@ -151,7 +151,7 @@ function SignupForm() {
 									<Input
 										{...field}
 										type="password"
-										className="h-12 border border-neutral-700 shadow-none dark:border-none"
+										className="h-12 border border-border shadow-none dark:border-none"
 										placeholder="Password"
 										readOnly={isLoading}
 									/>
@@ -170,7 +170,7 @@ function SignupForm() {
 									<Input
 										{...field}
 										type="password"
-										className="h-12 border border-neutral-700 shadow-none dark:border-none"
+										className="h-12 border border-border shadow-none dark:border-none"
 										placeholder="Confirm Password"
 										readOnly={isLoading}
 									/>
@@ -205,8 +205,8 @@ function SignupForm() {
 					</div>
 
 					<Button
-						variant="outline"
-						className="w-full h-12 border-2 font-semibold border-primary dark:border-none"
+						variant="ghost"
+						className="w-full h-12 border font-semibold dark:border-none"
 						type="button"
 						disabled={isLoading}
 						onClick={() => {
