@@ -4,14 +4,13 @@ import type { QueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import type { User } from "better-auth";
 import {
-	CreditCardIcon,
-	LayoutIcon,
-	LucideCalendar,
-	LucideLayers3,
-	MapIcon,
+	ArrowLeftRightIcon,
+	CalendarDaysIcon,
+	ClipboardIcon,
+	EclipseIcon,
+	HomeIcon,
 	MoonIcon,
-	PieChartIcon,
-	TargetIcon
+	WalletCardsIcon
 } from "lucide-react";
 import type React from "react";
 import Logo from "../logo";
@@ -24,37 +23,32 @@ const data = {
 		{
 			title: "Dashboard",
 			url: "/dashboard",
-			icon: LayoutIcon
+			icon: HomeIcon
 		},
 		{
 			title: "Accounts",
 			url: "#",
-			icon: LucideLayers3
+			icon: WalletCardsIcon
 		},
 		{
 			title: "Transactions",
 			url: "#",
-			icon: CreditCardIcon
+			icon: ArrowLeftRightIcon
 		},
 		{
-			title: "Budget",
+			title: "Spending Plan",
 			url: "#",
-			icon: MapIcon
+			icon: EclipseIcon
+		},
+		{
+			title: "Upcomings",
+			url: "#",
+			icon: CalendarDaysIcon
 		},
 		{
 			title: "Reports",
 			url: "#",
-			icon: PieChartIcon
-		},
-		{
-			title: "Recurring",
-			url: "#",
-			icon: LucideCalendar
-		},
-		{
-			title: "Goals",
-			url: "#",
-			icon: TargetIcon
+			icon: ClipboardIcon
 		}
 	]
 };

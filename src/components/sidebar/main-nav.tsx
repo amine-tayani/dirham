@@ -18,12 +18,12 @@ export function MainNav({
 }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupContent className="flex flex-col gap-2 px-2 ">
-				<SidebarMenu>
+			<SidebarGroupContent className="px-2">
+				<SidebarMenu className="gap-2">
 					{items.map((item) => (
 						<SidebarMenuItem key={item.title}>
 							<SidebarMenuButton tooltip={item.title}>
-								{item.icon && <item.icon className="mr-1" />}
+								{item.icon && <item.icon className="mr-1.5 stroke-2" />}
 								{item.title}
 							</SidebarMenuButton>
 						</SidebarMenuItem>
