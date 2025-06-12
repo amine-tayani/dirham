@@ -1,5 +1,6 @@
 import { StatsCard } from "@/components/dashboard/stats-card";
 import { DashboardSidebar } from "@/components/sidebar";
+import { SpendingChart } from "@/components/spending-chart";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -67,7 +68,9 @@ function DashboardIndex() {
 						</div>
 					</div>
 					<StatsCard />
-					<div className="min-h-[100vh] flex-1 md:min-h-min">{/* render a table here */}</div>
+					<div className="min-h-[100vh] flex-1 md:min-h-min">
+						<SpendingChart />
+					</div>
 				</div>
 			</SidebarInset>
 		</SidebarProvider>
