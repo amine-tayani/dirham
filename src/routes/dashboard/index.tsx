@@ -1,6 +1,6 @@
 import { StatsCard } from "@/components/dashboard/stats-card";
+import { InteractiveChart } from "@/components/interactive-chart";
 import { DashboardSidebar } from "@/components/sidebar";
-import { SpendingChart } from "@/components/spending-chart";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -12,6 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { UserNav } from "@/components/user-nav";
+import { greetUser } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import type { User } from "better-auth";
 
@@ -25,11 +26,6 @@ export const Route = createFileRoute("/dashboard/")({
 function DashboardIndex() {
 	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
-
-	const getGreeting = (): string => {
-		const hour = new Date().getHours();
-		return hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-	};
 
 	return (
 		<SidebarProvider>
@@ -62,14 +58,14 @@ function DashboardIndex() {
 					<div className="flex items-center justify-between gap-4">
 						<div className="space-y-1">
 							<h1 className="text-2xl font-medium font-mono tracking-tighter">
-								{getGreeting()} {user.name}
+								{`${greetUser()} ${user.name}`}
 							</h1>
 							<p className="text-sm font-medium text-gray-500">Manages your daily finances</p>
 						</div>
 					</div>
 					<StatsCard />
 					<div className="min-h-[100vh] flex-1 md:min-h-min">
-						<SpendingChart />
+						<InteractiveChart />
 					</div>
 				</div>
 			</SidebarInset>
