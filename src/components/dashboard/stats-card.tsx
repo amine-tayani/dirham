@@ -31,7 +31,7 @@ export function StatsCard() {
 			{data.map((item) => (
 				<Card
 					key={item.title}
-					className="flex flex-col border border-neutral-200 shadow-none dark:border-neutral-800"
+					className="flex flex-col shadow-xs dark:border-border dark:shadow-none"
 				>
 					<CardHeader className="relative">
 						<CardDescription className="text-sm font-medium -mt-2 -ml-2">
