@@ -5,11 +5,14 @@ import { Link } from "@tanstack/react-router";
 import type { User } from "better-auth";
 import {
 	ArrowLeftRightIcon,
+	BellIcon,
 	CalendarDaysIcon,
 	ClipboardIcon,
 	EclipseIcon,
 	HomeIcon,
+	LifeBuoy,
 	MoonIcon,
+	SettingsIcon,
 	WalletCardsIcon
 } from "lucide-react";
 import type React from "react";
@@ -50,6 +53,23 @@ const data = {
 			url: "#",
 			icon: ClipboardIcon
 		}
+	],
+	supportNav: [
+		{
+			title: "Notifications",
+			url: "#",
+			icon: BellIcon
+		},
+		{
+			title: "Help Center",
+			url: "#",
+			icon: LifeBuoy
+		},
+		{
+			title: "Settings",
+			url: "#",
+			icon: SettingsIcon
+		}
 	]
 };
 
@@ -77,7 +97,7 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 			</SidebarHeader>
 			<SidebarContent>
 				<MainNav items={data.mainNavigation} />
-				<SupportNav className="mt-auto" />
+				<SupportNav items={data.supportNav} />
 			</SidebarContent>
 		</Sidebar>
 	);
