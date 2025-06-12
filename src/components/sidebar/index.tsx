@@ -10,19 +10,17 @@ import type { QueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import type { User } from "better-auth";
 import {
-	BellIcon,
 	CreditCardIcon,
-	HomeIcon,
 	LayoutIcon,
 	LucideCalendar,
 	LucideLayers3,
 	MapIcon,
 	MoonIcon,
 	PieChartIcon,
-	SearchIcon,
 	TargetIcon
 } from "lucide-react";
 import type React from "react";
+import Logo from "../logo";
 import { MainNav } from "./main-nav";
 import { SupportNav } from "./support-nav";
 
@@ -78,15 +76,9 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 				<SidebarMenu>
 					<div className="flex items-center justify-between mx-2 my-2">
 						<Link to="/">
-							<HomeIcon />
+							<Logo />
 						</Link>
 						<div className="flex items-center gap-4 group-data-[collapsible=icon]:hidden">
-							<SidebarMenuItem>
-								<SearchIcon className="size-5" />
-							</SidebarMenuItem>
-							<SidebarMenuItem>
-								<BellIcon className="size-5" />
-							</SidebarMenuItem>
 							<SidebarMenuItem onClick={toggleTheme}>
 								<MoonIcon className="size-5" />
 							</SidebarMenuItem>

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { CircleAlertIcon, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -19,7 +19,6 @@ function SignupForm() {
 	const navigate = useNavigate();
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
 
 	const signupSchema = z
 		.object({
@@ -62,7 +61,6 @@ function SignupForm() {
 
 	const onSignupSubmit = async (values: z.infer<typeof signupSchema>) => {
 		setIsLoading(true);
-		setErrorMessage("");
 		try {
 			await authClient.signUp.email(
 				{
@@ -72,39 +70,27 @@ function SignupForm() {
 				},
 				{
 					onSuccess: async () => {
-						// here I want to have a custom headless toast as well
 						toast.success("Signup successful. Redirecting...");
-						navigate({ to: redirectUrl });
+						navigate({ to: "/dashboard" });
 					},
 					onError: (ctx) => {
-						toast.custom((t) => (
-							<div className="bg-neutral-50 border text-neutral-700 dark:bg-neutral-800 dark:text-foreground w-full rounded-xl px-5 py-3 sm:w-[var(--width)]">
-								<div className="flex gap-2">
-									<div className="flex grow gap-3">
-										<CircleAlertIcon className="size-6 text-red-400" />
-										<div className="flex grow">
-											<p className="text-sm">{ctx.error.message}</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						));
+						toast.error(ctx.error.message);
 						setIsLoading(false);
 					}
 				}
 			);
 		} catch (err: any) {
-			setErrorMessage(err.message || "Signup failed");
+			toast.error("An error occurred while signing up");
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
 	return (
-		<div className="flex flex-col gap-6 font-geist">
+		<div className="flex flex-col gap-6">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSignupSubmit)} className="flex flex-col gap-6">
-					<h1 className="text-center text-2xl font-bold mb-4">Create your account</h1>
+					<h1 className="text-center text-3xl font-geist font-bold mb-4">Create your account</h1>
 					<FormField
 						control={form.control}
 						name="name"
@@ -180,8 +166,6 @@ function SignupForm() {
 						)}
 					/>
 
-					{errorMessage && <span className="text-red-500 text-center text-sm">{errorMessage}</span>}
-
 					<Button
 						type="submit"
 						className="group mt-2 h-12 bg-blue-700 hover:bg-blue-800 text-white font-sans font-semibold w-full"
@@ -205,14 +189,14 @@ function SignupForm() {
 					</div>
 
 					<Button
-						variant="ghost"
+						variant="outline"
 						className="w-full h-12 border font-semibold dark:border-none"
 						type="button"
 						disabled={isLoading}
 						onClick={() => {
 							authClient.signIn.social({
 								provider: "google",
-								callbackURL: redirectUrl
+								callbackURL: "/dashboard"
 							});
 						}}
 					>

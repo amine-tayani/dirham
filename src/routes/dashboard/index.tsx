@@ -8,7 +8,6 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { UserNav } from "@/components/user-nav";
@@ -66,9 +65,6 @@ function DashboardIndex() {
 							</h1>
 							<p className="text-sm font-medium text-gray-500">Manages your daily finances</p>
 						</div>
-						<Button variant="outline" className="px-3">
-							Add Contact
-						</Button>
 					</div>
 					<StatsCard />
 					<div className="min-h-[100vh] flex-1 md:min-h-min">{/* render a table here */}</div>

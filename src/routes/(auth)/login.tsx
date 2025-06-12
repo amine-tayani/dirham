@@ -15,11 +15,9 @@ export const Route = createFileRoute("/(auth)/login")({
 });
 
 function LoginForm() {
-	const { redirectUrl, queryClient } = Route.useRouteContext();
 	const navigate = useNavigate();
-
+	const { redirectUrl, queryClient } = Route.useRouteContext();
 	const [isLoading, setIsLoading] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
 
 	const loginSchema = z.object({
 		email: z
@@ -39,7 +37,6 @@ function LoginForm() {
 
 	const onLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
 		setIsLoading(true);
-		setErrorMessage("");
 		try {
 			await authClient.signIn.email(
 				{
@@ -53,6 +50,7 @@ function LoginForm() {
 						setIsLoading(false);
 					},
 					onSuccess: async () => {
+						toast.success("You have successfully logged in, redirecting...");
 						await queryClient.invalidateQueries({ queryKey: ["user"] });
 						navigate({ to: redirectUrl });
 					}
@@ -60,18 +58,18 @@ function LoginForm() {
 			);
 			navigate({ to: redirectUrl || "/dashboard" });
 		} catch (err: any) {
-			setErrorMessage(err.message || "Login failed");
+			toast.error("An error occurred while logging in");
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
 	return (
-		<div className="flex flex-col gap-6 font-geist">
+		<div className="flex flex-col gap-6">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onLoginSubmit)} className="flex flex-col gap-6">
 					<div className="flex flex-col gap-6">
-						<h1 className="text-center text-2xl font-bold ">Log in to Dirhamly</h1>
+						<h1 className="text-center text-3xl font-geist font-bold ">Log in to Dirhamly</h1>
 						<FormField
 							control={form.control}
 							name="email"
@@ -127,13 +125,12 @@ function LoginForm() {
 							</div>
 						</Button>
 					</div>
-					{errorMessage && <span className="text-red-500 text-center text-sm">{errorMessage}</span>}
 					<div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
 						<span className="bg-background text-muted-foreground relative z-10 px-2">Or</span>
 					</div>
 					<div>
 						<Button
-							variant="ghost"
+							variant="outline"
 							className="w-full h-12 border font-semibold dark:border-none"
 							type="button"
 							disabled={isLoading}
@@ -146,11 +143,10 @@ function LoginForm() {
 									{
 										onRequest: () => {
 											setIsLoading(true);
-											setErrorMessage("");
 										},
 										onError: (ctx) => {
 											setIsLoading(false);
-											setErrorMessage(ctx.error.message);
+											toast.error(ctx.error.message);
 										}
 									}
 								)
