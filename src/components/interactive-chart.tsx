@@ -19,25 +19,25 @@ export const description = "An interactive area chart";
 
 const chartData = [
 	{ date: "2024-04-01", spend: 222, revenue: 150 },
-	{ date: "2024-04-02", spend: 97, revenue: 180 },
+	{ date: "2024-04-02", spend: 297, revenue: 180 },
 	{ date: "2024-04-03", spend: 167, revenue: 120 },
 	{ date: "2024-04-04", spend: 242, revenue: 260 },
 	{ date: "2024-04-05", spend: 373, revenue: 290 },
 	{ date: "2024-04-06", spend: 301, revenue: 340 },
 	{ date: "2024-04-07", spend: 245, revenue: 180 },
-	{ date: "2024-04-08", spend: 409, revenue: 320 },
-	{ date: "2024-04-09", spend: 59, revenue: 110 },
-	{ date: "2024-04-10", spend: 261, revenue: 190 },
-	{ date: "2024-04-11", spend: 327, revenue: 350 },
-	{ date: "2024-04-12", spend: 292, revenue: 210 },
+	{ date: "2024-04-08", spend: 209, revenue: 320 },
+	{ date: "2024-04-09", spend: 259, revenue: 110 },
+	{ date: "2024-04-10", spend: 2161, revenue: 190 },
+	{ date: "2024-04-11", spend: 1227, revenue: 350 },
+	{ date: "2024-04-12", spend: 292, revenue: 1210 },
 	{ date: "2024-04-13", spend: 342, revenue: 380 },
 	{ date: "2024-04-14", spend: 137, revenue: 220 },
 	{ date: "2024-04-15", spend: 120, revenue: 170 },
-	{ date: "2024-04-16", spend: 138, revenue: 190 },
+	{ date: "2024-04-16", spend: 138, revenue: 1190 },
 	{ date: "2024-04-17", spend: 446, revenue: 360 },
 	{ date: "2024-04-18", spend: 364, revenue: 410 },
 	{ date: "2024-04-19", spend: 243, revenue: 180 },
-	{ date: "2024-04-20", spend: 89, revenue: 150 },
+	{ date: "2024-04-20", spend: 89, revenue: 1150 },
 	{ date: "2024-04-21", spend: 137, revenue: 200 },
 	{ date: "2024-04-22", spend: 224, revenue: 170 },
 	{ date: "2024-04-23", spend: 138, revenue: 230 },
@@ -96,7 +96,7 @@ export function InteractiveChart() {
 				</div>
 				<div className="flex items-center gap-2">
 					<Tabs defaultValue="1w">
-						<TabsList className="flex gap-2">
+						<TabsList className="flex gap-2 bg-red-400">
 							<TabsTrigger value="1w">1W</TabsTrigger>
 							<TabsTrigger value="1m">1M</TabsTrigger>
 							<TabsTrigger value="6m">6M</TabsTrigger>
@@ -139,7 +139,18 @@ export function InteractiveChart() {
 								});
 							}}
 						/>
-						<YAxis tickLine={false} axisLine={false} tickMargin={8} tickCount={5} />
+						<YAxis
+							tickLine={false}
+							axisLine={false}
+							tickMargin={8}
+							tickCount={5}
+							tickFormatter={
+								new Intl.NumberFormat("en", {
+									notation: "compact",
+									compactDisplay: "short"
+								}).format
+							}
+						/>
 						<ChartTooltip
 							cursor={false}
 							content={
