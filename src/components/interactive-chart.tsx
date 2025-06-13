@@ -11,6 +11,7 @@ import {
 	ChartTooltipContent
 } from "@/components/ui/chart";
 
+import { compactNumberFormatter, shorterDateFormatter } from "@/lib/utils";
 import { FilterIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
@@ -131,25 +132,14 @@ export function InteractiveChart() {
 							axisLine={false}
 							tickMargin={8}
 							minTickGap={32}
-							tickFormatter={(value) => {
-								const date = new Date(value);
-								return date.toLocaleDateString("en-US", {
-									month: "short",
-									day: "numeric"
-								});
-							}}
+							tickFormatter={(v) => shorterDateFormatter(v)}
 						/>
 						<YAxis
 							tickLine={false}
 							axisLine={false}
 							tickMargin={8}
 							tickCount={5}
-							tickFormatter={
-								new Intl.NumberFormat("en", {
-									notation: "compact",
-									compactDisplay: "short"
-								}).format
-							}
+							tickFormatter={compactNumberFormatter}
 						/>
 						<ChartTooltip
 							cursor={false}
