@@ -1,6 +1,7 @@
 import {
 	SidebarGroup,
 	SidebarGroupContent,
+	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem
@@ -18,6 +19,7 @@ export function SupportNav({
 }) {
 	return (
 		<SidebarGroup className="mt-auto">
+			<SidebarGroupLabel>Help</SidebarGroupLabel>
 			<SidebarGroupContent className="px-2 mb-4">
 				<SidebarMenu className="gap-2">
 					{items.map((item) => (

@@ -1,6 +1,7 @@
 import {
 	SidebarGroup,
 	SidebarGroupContent,
+	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem
@@ -18,6 +19,7 @@ export function MainNav({
 }) {
 	return (
 		<SidebarGroup>
+			<SidebarGroupLabel>Main</SidebarGroupLabel>
 			<SidebarGroupContent className="px-2">
 				<SidebarMenu className="gap-2">
 					{items.map((item) => (
