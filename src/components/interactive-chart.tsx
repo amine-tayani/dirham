@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
@@ -48,14 +47,7 @@ const chartData = [
 	{ date: "2024-04-27", spend: 383, revenue: 420 },
 	{ date: "2024-04-28", spend: 122, revenue: 180 },
 	{ date: "2024-04-29", spend: 315, revenue: 240 },
-	{ date: "2024-04-30", spend: 454, revenue: 380 },
-	{ date: "2024-05-01", spend: 165, revenue: 220 },
-	{ date: "2024-05-02", spend: 293, revenue: 310 },
-	{ date: "2024-05-03", spend: 247, revenue: 190 },
-	{ date: "2024-05-04", spend: 385, revenue: 420 },
-	{ date: "2024-05-05", spend: 481, revenue: 390 },
-	{ date: "2024-05-06", spend: 498, revenue: 520 },
-	{ date: "2024-05-07", spend: 388, revenue: 300 }
+	{ date: "2024-04-30", spend: 454, revenue: 380 }
 ];
 
 const chartConfig = {
@@ -73,22 +65,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function InteractiveChart() {
-	const [timeRange, setTimeRange] = React.useState("90d");
-
-	const filteredData = chartData.filter((item) => {
-		const date = new Date(item.date);
-		const referenceDate = new Date("2024-06-30");
-		let daysToSubtract = 90;
-		if (timeRange === "30d") {
-			daysToSubtract = 30;
-		} else if (timeRange === "7d") {
-			daysToSubtract = 7;
-		}
-		const startDate = new Date(referenceDate);
-		startDate.setDate(startDate.getDate() - daysToSubtract);
-		return date >= startDate;
-	});
-
 	return (
 		<Card className="pt-0">
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -97,7 +73,7 @@ export function InteractiveChart() {
 				</div>
 				<div className="flex items-center gap-2">
 					<Tabs defaultValue="1w">
-						<TabsList className="flex gap-2 bg-red-400">
+						<TabsList className="flex gap-2 border border-border">
 							<TabsTrigger value="1w">1W</TabsTrigger>
 							<TabsTrigger value="1m">1M</TabsTrigger>
 							<TabsTrigger value="6m">6M</TabsTrigger>
@@ -112,9 +88,9 @@ export function InteractiveChart() {
 					</div>
 				</div>
 			</CardHeader>
-			<CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+			<CardContent className="px-2 pt-4 sm:pr-6 sm:pt-6">
 				<ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-					<AreaChart data={filteredData}>
+					<AreaChart data={chartData}>
 						<defs>
 							<linearGradient id="fillSpend" x1="0" y1="0" x2="0" y2="1">
 								<stop offset="5%" stopColor="var(--chart-6" stopOpacity={0.01} />
@@ -131,28 +107,20 @@ export function InteractiveChart() {
 							tickLine={false}
 							axisLine={false}
 							tickMargin={8}
-							minTickGap={32}
+							minTickGap={70}
 							tickFormatter={(v) => shorterDateFormatter(v)}
 						/>
 						<YAxis
 							tickLine={false}
 							axisLine={false}
-							tickMargin={8}
+							tickMargin={12}
 							tickCount={5}
 							tickFormatter={compactNumberFormatter}
 						/>
 						<ChartTooltip
 							cursor={false}
 							content={
-								<ChartTooltipContent
-									labelFormatter={(value) => {
-										return new Date(value).toLocaleDateString("en-US", {
-											month: "short",
-											year: "numeric"
-										});
-									}}
-									indicator="line"
-								/>
+								<ChartTooltipContent labelFormatter={shorterDateFormatter} indicator="line" />
 							}
 						/>
 						<Area
