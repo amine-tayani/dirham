@@ -39,7 +39,7 @@ export default function Navbar() {
 						<div className="flex w-full justify-between lg:w-auto">
 							<Link to="/" aria-label="home" className="flex items-center">
 								<Logo />
-								<span className="text-lg font-bold ml-1.5 sr-only">Dirhamly</span>
+								<span className="text-lg font-bold font-mont tracking-tighter ml-1 ">Dirhamly</span>
 							</Link>
 
 							<Button
