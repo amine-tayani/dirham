@@ -14,7 +14,9 @@ import type { User } from "better-auth";
 import {
 	CreditCardIcon,
 	GlobeIcon,
+	HelpCircleIcon,
 	LogOutIcon,
+	MapIcon,
 	SettingsIcon,
 	ShieldIcon,
 	UserIcon
@@ -41,13 +43,13 @@ export function UserNav({
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
-				className="max-w-64 rounded-xl p-2 shadow-none dark:bg-neutral-900"
+				className="max-w-64 rounded-xl p-2 shadow-lg border border-transparent dark:shadow-none dark:border-border dark:bg-neutral-900"
 				sideOffset={6}
 				align="end"
 			>
 				<DropdownMenuLabel className="flex items-start gap-3">
 					<img
-						src={user.image || "https://i.pravatar.cc/150?img=3"}
+						src={user.image!}
 						alt="Avatar"
 						width={32}
 						height={32}
@@ -59,9 +61,7 @@ export function UserNav({
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuLabel className="mt-3 text-primary dark:text-blue-400 uppercase text-xs">
-					Profile & Security
-				</DropdownMenuLabel>
+
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
 						<UserIcon size={16} className="opacity-60" aria-hidden="true" />
@@ -71,19 +71,13 @@ export function UserNav({
 						<ShieldIcon size={16} className="opacity-60" aria-hidden="true" />
 						<span>Security</span>
 					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<ShieldIcon size={16} className="opacity-60" aria-hidden="true" />
-						<span>2F Authentication</span>
-					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
-				<DropdownMenuLabel className="mt-3 text-primary dark:text-blue-400 uppercase text-xs">
-					Billing & Settings
-				</DropdownMenuLabel>
+
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
 						<SettingsIcon size={16} className="opacity-60" aria-hidden="true" />
-						<span>General Settings</span>
+						<span>Settings</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<CreditCardIcon size={16} className="opacity-60" aria-hidden="true" />
@@ -95,6 +89,18 @@ export function UserNav({
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
+				<DropdownMenuGroup>
+					<DropdownMenuItem>
+						<HelpCircleIcon size={16} className="opacity-60" aria-hidden="true" />
+						<span>Help center</span>
+					</DropdownMenuItem>{" "}
+					<DropdownMenuItem>
+						<MapIcon size={16} className="opacity-60" aria-hidden="true" />
+						<span>Guide</span>
+					</DropdownMenuItem>
+				</DropdownMenuGroup>
+				<DropdownMenuSeparator />
+
 				<DropdownMenuItem
 					onClick={async () => {
 						await queryClient.invalidateQueries({ queryKey: ["user"] });
