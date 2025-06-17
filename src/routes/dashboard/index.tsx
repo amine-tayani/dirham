@@ -12,7 +12,6 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function DashboardIndex() {
-	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
 
 	return (

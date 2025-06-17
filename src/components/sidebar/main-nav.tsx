@@ -6,6 +6,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem
 } from "@/components/ui/sidebar";
+import { Link, useLocation } from "@tanstack/react-router";
 import type { LucideIcon } from "lucide-react";
 
 export function MainNav({
@@ -17,6 +18,9 @@ export function MainNav({
 		icon?: LucideIcon;
 	}[];
 }) {
+	const pathname = useLocation({
+		select: (location) => location.pathname
+	});
 	return (
 		<SidebarGroup>
 			<SidebarGroupLabel>Main</SidebarGroupLabel>
@@ -24,9 +28,11 @@ export function MainNav({
 				<SidebarMenu className="gap-2">
 					{items.map((item) => (
 						<SidebarMenuItem key={item.title}>
-							<SidebarMenuButton tooltip={item.title}>
-								{item.icon && <item.icon className="mr-1.5 stroke-2" />}
-								{item.title}
+							<SidebarMenuButton tooltip={item.title} asChild isActive={item.url === pathname}>
+								<Link to={item.url}>
+									{item.icon && <item.icon className="mr-1.5 stroke-2" />}
+									{item.title}
+								</Link>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					))}

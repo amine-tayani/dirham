@@ -30,44 +30,44 @@ const data = {
 		},
 		{
 			title: "Accounts",
-			url: "#",
+			url: "/dashboard/accounts",
 			icon: WalletCardsIcon
 		},
 		{
 			title: "Transactions",
-			url: "#",
+			url: "/dashboard/transactions",
 			icon: ArrowLeftRightIcon
 		},
 		{
 			title: "Spending Plan",
-			url: "#",
+			url: "/dashboard/spending",
 			icon: EclipseIcon
 		},
 		{
 			title: "Upcomings",
-			url: "#",
+			url: "/dashboard/upcomings",
 			icon: CalendarDaysIcon
 		},
 		{
 			title: "Reports",
-			url: "#",
+			url: "/dashboard/reports",
 			icon: ClipboardIcon
 		}
 	],
 	supportNav: [
 		{
 			title: "Notifications",
-			url: "#",
+			url: "/dashboard/notifications",
 			icon: BellIcon
 		},
 		{
 			title: "Help Center",
-			url: "#",
+			url: "/dashboard/help",
 			icon: LifeBuoy
 		},
 		{
 			title: "Settings",
-			url: "#",
+			url: "/dashboard/settings",
 			icon: SettingsIcon
 		}
 	]
