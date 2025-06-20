@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/dashboard/settings")({
+export const Route = createFileRoute("/dashboard/transactions")({
 	component: RouteComponent
 });
 
 function RouteComponent() {
 	return (
 		<div>
-			<h1 className="text-xl font-bold">Dashboard Settings</h1>
+			<h1 className="text-xl font-bold">Transactions</h1>
 		</div>
 	);
 }

@@ -15,7 +15,14 @@ import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as authRouteImport } from './routes/(auth)/route'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as landingIndexImport } from './routes/(landing)/index'
+import { Route as DashboardUpcomingsImport } from './routes/dashboard/upcomings'
+import { Route as DashboardTransactionsImport } from './routes/dashboard/transactions'
+import { Route as DashboardSpendingImport } from './routes/dashboard/spending'
 import { Route as DashboardSettingsImport } from './routes/dashboard/settings'
+import { Route as DashboardReportsImport } from './routes/dashboard/reports'
+import { Route as DashboardNotificationsImport } from './routes/dashboard/notifications'
+import { Route as DashboardHelpImport } from './routes/dashboard/help'
+import { Route as DashboardAccountsImport } from './routes/dashboard/accounts'
 import { Route as authSignupImport } from './routes/(auth)/signup'
 import { Route as authLoginImport } from './routes/(auth)/login'
 
@@ -44,9 +51,51 @@ const landingIndexRoute = landingIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DashboardUpcomingsRoute = DashboardUpcomingsImport.update({
+  id: '/upcomings',
+  path: '/upcomings',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardTransactionsRoute = DashboardTransactionsImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardSpendingRoute = DashboardSpendingImport.update({
+  id: '/spending',
+  path: '/spending',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const DashboardSettingsRoute = DashboardSettingsImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardReportsRoute = DashboardReportsImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardNotificationsRoute = DashboardNotificationsImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardHelpRoute = DashboardHelpImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardAccountsRoute = DashboardAccountsImport.update({
+  id: '/accounts',
+  path: '/accounts',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -94,11 +143,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignupImport
       parentRoute: typeof authRouteImport
     }
+    '/dashboard/accounts': {
+      id: '/dashboard/accounts'
+      path: '/accounts'
+      fullPath: '/dashboard/accounts'
+      preLoaderRoute: typeof DashboardAccountsImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/help': {
+      id: '/dashboard/help'
+      path: '/help'
+      fullPath: '/dashboard/help'
+      preLoaderRoute: typeof DashboardHelpImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/notifications': {
+      id: '/dashboard/notifications'
+      path: '/notifications'
+      fullPath: '/dashboard/notifications'
+      preLoaderRoute: typeof DashboardNotificationsImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/reports': {
+      id: '/dashboard/reports'
+      path: '/reports'
+      fullPath: '/dashboard/reports'
+      preLoaderRoute: typeof DashboardReportsImport
+      parentRoute: typeof DashboardRouteImport
+    }
     '/dashboard/settings': {
       id: '/dashboard/settings'
       path: '/settings'
       fullPath: '/dashboard/settings'
       preLoaderRoute: typeof DashboardSettingsImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/spending': {
+      id: '/dashboard/spending'
+      path: '/spending'
+      fullPath: '/dashboard/spending'
+      preLoaderRoute: typeof DashboardSpendingImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/transactions': {
+      id: '/dashboard/transactions'
+      path: '/transactions'
+      fullPath: '/dashboard/transactions'
+      preLoaderRoute: typeof DashboardTransactionsImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/upcomings': {
+      id: '/dashboard/upcomings'
+      path: '/upcomings'
+      fullPath: '/dashboard/upcomings'
+      preLoaderRoute: typeof DashboardUpcomingsImport
       parentRoute: typeof DashboardRouteImport
     }
     '/(landing)/': {
@@ -135,12 +233,26 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 )
 
 interface DashboardRouteRouteChildren {
+  DashboardAccountsRoute: typeof DashboardAccountsRoute
+  DashboardHelpRoute: typeof DashboardHelpRoute
+  DashboardNotificationsRoute: typeof DashboardNotificationsRoute
+  DashboardReportsRoute: typeof DashboardReportsRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardSpendingRoute: typeof DashboardSpendingRoute
+  DashboardTransactionsRoute: typeof DashboardTransactionsRoute
+  DashboardUpcomingsRoute: typeof DashboardUpcomingsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardAccountsRoute: DashboardAccountsRoute,
+  DashboardHelpRoute: DashboardHelpRoute,
+  DashboardNotificationsRoute: DashboardNotificationsRoute,
+  DashboardReportsRoute: DashboardReportsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardSpendingRoute: DashboardSpendingRoute,
+  DashboardTransactionsRoute: DashboardTransactionsRoute,
+  DashboardUpcomingsRoute: DashboardUpcomingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -153,7 +265,14 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof authLoginRoute
   '/signup': typeof authSignupRoute
+  '/dashboard/accounts': typeof DashboardAccountsRoute
+  '/dashboard/help': typeof DashboardHelpRoute
+  '/dashboard/notifications': typeof DashboardNotificationsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/spending': typeof DashboardSpendingRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/dashboard/upcomings': typeof DashboardUpcomingsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 
@@ -161,7 +280,14 @@ export interface FileRoutesByTo {
   '/': typeof landingIndexRoute
   '/login': typeof authLoginRoute
   '/signup': typeof authSignupRoute
+  '/dashboard/accounts': typeof DashboardAccountsRoute
+  '/dashboard/help': typeof DashboardHelpRoute
+  '/dashboard/notifications': typeof DashboardNotificationsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/spending': typeof DashboardSpendingRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/dashboard/upcomings': typeof DashboardUpcomingsRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 
@@ -171,7 +297,14 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/signup': typeof authSignupRoute
+  '/dashboard/accounts': typeof DashboardAccountsRoute
+  '/dashboard/help': typeof DashboardHelpRoute
+  '/dashboard/notifications': typeof DashboardNotificationsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/spending': typeof DashboardSpendingRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/dashboard/upcomings': typeof DashboardUpcomingsRoute
   '/(landing)/': typeof landingIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -183,17 +316,43 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/signup'
+    | '/dashboard/accounts'
+    | '/dashboard/help'
+    | '/dashboard/notifications'
+    | '/dashboard/reports'
     | '/dashboard/settings'
+    | '/dashboard/spending'
+    | '/dashboard/transactions'
+    | '/dashboard/upcomings'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/dashboard/settings' | '/dashboard'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/dashboard/accounts'
+    | '/dashboard/help'
+    | '/dashboard/notifications'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/spending'
+    | '/dashboard/transactions'
+    | '/dashboard/upcomings'
+    | '/dashboard'
   id:
     | '__root__'
     | '/(auth)'
     | '/dashboard'
     | '/(auth)/login'
     | '/(auth)/signup'
+    | '/dashboard/accounts'
+    | '/dashboard/help'
+    | '/dashboard/notifications'
+    | '/dashboard/reports'
     | '/dashboard/settings'
+    | '/dashboard/spending'
+    | '/dashboard/transactions'
+    | '/dashboard/upcomings'
     | '/(landing)/'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -236,7 +395,14 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
+        "/dashboard/accounts",
+        "/dashboard/help",
+        "/dashboard/notifications",
+        "/dashboard/reports",
         "/dashboard/settings",
+        "/dashboard/spending",
+        "/dashboard/transactions",
+        "/dashboard/upcomings",
         "/dashboard/"
       ]
     },
@@ -248,8 +414,36 @@ export const routeTree = rootRoute
       "filePath": "(auth)/signup.tsx",
       "parent": "/(auth)"
     },
+    "/dashboard/accounts": {
+      "filePath": "dashboard/accounts.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/help": {
+      "filePath": "dashboard/help.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/notifications": {
+      "filePath": "dashboard/notifications.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/reports": {
+      "filePath": "dashboard/reports.tsx",
+      "parent": "/dashboard"
+    },
     "/dashboard/settings": {
       "filePath": "dashboard/settings.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/spending": {
+      "filePath": "dashboard/spending.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/transactions": {
+      "filePath": "dashboard/transactions.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/upcomings": {
+      "filePath": "dashboard/upcomings.tsx",
       "parent": "/dashboard"
     },
     "/(landing)/": {
