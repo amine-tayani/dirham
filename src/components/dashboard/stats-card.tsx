@@ -1,6 +1,14 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 
+// cyall the card insight-card.tsx
+
+// interface InsightCardProps {
+// 	title: string;
+// 	value: string;
+// 	changePercent: string;
+// }
+
 const data = [
 	{
 		title: "Total Balance",
