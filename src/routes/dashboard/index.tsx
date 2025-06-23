@@ -1,4 +1,4 @@
-import { StatsCard } from "@/components/dashboard/stats-card";
+import { InsightCard } from "@/components/dashboard/insight-card";
 import { InteractiveChart } from "@/components/interactive-chart";
 import { greetUser } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
@@ -11,6 +11,29 @@ export const Route = createFileRoute("/dashboard/")({
 	}
 });
 
+const data = [
+	{
+		title: "Total Balance",
+		value: "$1234.56",
+		changePercent: "-4.6%"
+	},
+	{
+		title: "Monthly Income",
+		value: "$583.54",
+		changePercent: "-4%"
+	},
+	{
+		title: "Monthly Expenses",
+		value: "$1,000",
+		changePercent: "+10%"
+	},
+	{
+		title: "Savings",
+		value: "$800.32",
+		changePercent: "-2.5%"
+	}
+];
+
 function DashboardIndex() {
 	const { user } = Route.useLoaderData();
 
@@ -21,7 +44,16 @@ function DashboardIndex() {
 					{`${greetUser()} ${user.name}`}
 				</h1>
 			</div>
-			<StatsCard />
+			<div className="grid grid-cols-2 min-[1200px]:grid-cols-4 gap-4">
+				{data.map((item) => (
+					<InsightCard
+						key={item.title}
+						title={item.title}
+						value={item.value}
+						changePercent={item.changePercent}
+					/>
+				))}
+			</div>
 			<div className="min-h-[100vh] flex-1 md:min-h-min">
 				<InteractiveChart />
 			</div>
