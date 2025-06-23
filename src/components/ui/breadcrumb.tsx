@@ -25,7 +25,7 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
 	return (
 		<li
 			data-slot="breadcrumb-item"
-			className={cn("inline-flex items-center gap-1.5", className)}
+			className={cn("inline-flex items-center  gap-1.5", className)}
 			{...props}
 		/>
 	);
@@ -92,11 +92,7 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span"
 }
 
 export {
-	Breadcrumb,
-	BreadcrumbList,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-	BreadcrumbEllipsis
+	Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem,
+	BreadcrumbLink, BreadcrumbList, BreadcrumbPage,
+	BreadcrumbSeparator
 };

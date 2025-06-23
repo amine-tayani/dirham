@@ -23,7 +23,7 @@ export function MainNav({
 	});
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Main</SidebarGroupLabel>
+			<SidebarGroupLabel className="px-3 uppercase">Main</SidebarGroupLabel>
 			<SidebarGroupContent className="px-2">
 				<SidebarMenu className="gap-2">
 					{items.map((item) => (

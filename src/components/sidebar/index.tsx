@@ -83,7 +83,7 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
 				<SidebarMenuItem>
-					<div className="flex items-center justify-between mx-2 my-2">
+				<div className="flex items-center justify-between">
 						<Link to="/" className="flex items-center">
 							<Logo className="group-data-[collapsible=icon]:size-10" />
 							<span className="mr-2 font-geist font-semibold text-card-foreground dark:text-primary-foreground group-data-[collapsible=icon]:hidden">

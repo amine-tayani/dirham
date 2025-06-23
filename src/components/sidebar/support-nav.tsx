@@ -22,8 +22,8 @@ export function SupportNav({
 		select: (location) => location.pathname
 	});
 	return (
-		<SidebarGroup className="mt-auto">
-			<SidebarGroupLabel>Help</SidebarGroupLabel>
+		<SidebarGroup>
+			<SidebarGroupLabel className="px-3 uppercase">Help</SidebarGroupLabel>
 			<SidebarGroupContent className="px-2 mb-4">
 				<SidebarMenu className="gap-2">
 					{items.map((item) => (
