@@ -55,7 +55,9 @@ function DashboardLayout() {
 						<UserNav user={user} queryClient={queryClient} />
 					</div>
 				</header>
-				<Outlet />
+				<div className="p-8">
+					<Outlet />
+				</div>
 			</SidebarInset>
 		</SidebarProvider>
 	);
