@@ -1,39 +1,3 @@
-"use client";
-
-import {
-	type ColumnDef,
-	type ColumnFiltersState,
-	type FilterFn,
-	type PaginationState,
-	type Row,
-	type SortingState,
-	type VisibilityState,
-	flexRender,
-	getCoreRowModel,
-	getFacetedUniqueValues,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	useReactTable
-} from "@tanstack/react-table";
-import {
-	ChevronDownIcon,
-	ChevronFirstIcon,
-	ChevronLastIcon,
-	ChevronLeftIcon,
-	ChevronRightIcon,
-	ChevronUpIcon,
-	CircleAlertIcon,
-	CircleXIcon,
-	Columns3Icon,
-	EllipsisIcon,
-	FilterIcon,
-	ListFilterIcon,
-	PlusIcon,
-	TrashIcon
-} from "lucide-react";
-import { useId, useMemo, useRef, useState } from "react";
-
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -65,15 +29,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from "@/components/ui/select";
 import {
 	Table,
 	TableBody,
@@ -83,6 +39,42 @@ import {
 	TableRow
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import {
+	type ColumnDef,
+	type ColumnFiltersState,
+	type FilterFn,
+	type PaginationState,
+	type Row,
+	type SortingState,
+	type VisibilityState,
+	flexRender,
+	getCoreRowModel,
+	getFacetedUniqueValues,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	useReactTable
+} from "@tanstack/react-table";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import {
+	Check,
+	ChevronDownIcon,
+	ChevronUpIcon,
+	Circle,
+	CircleAlertIcon,
+	Columns3Icon,
+	EllipsisIcon,
+	FilterIcon,
+	ListFilterIcon,
+	LoaderIcon,
+	PlusIcon,
+	TrashIcon,
+	XIcon
+} from "lucide-react";
+import { useId, useMemo, useRef, useState } from "react";
+
+dayjs.extend(localizedFormat);
 
 type Item = {
 	id: string;
@@ -120,8 +112,133 @@ export const transactions: Item[] = [
 		amount: 121,
 		status: "failed",
 		date: new Date("2025-06-20T10:55:03.000Z")
+	},
+	{
+		id: "r38jdkei",
+		activity: "Payment to Plumber (CashApp)",
+		amount: 180,
+		status: "failed",
+		date: new Date("2025-06-19T09:20:14.000Z")
+	},
+	{
+		id: "n20skela",
+		activity: "Boulangerie du Coin - Morning Croissants",
+		amount: 7.5,
+		status: "completed",
+		date: new Date("2025-06-18T07:44:00.000Z")
+	},
+	{
+		id: "vwpl38tq",
+		activity: "Oasis Gym Monthly Subscription",
+		amount: 45,
+		status: "processing",
+		date: new Date("2025-06-16T15:00:00.000Z")
+	},
+	{
+		id: "qpw73lsa",
+		activity: "Mobile Top-Up (IAM 10GB)",
+		amount: 20,
+		status: "failed",
+		date: new Date("2025-06-15T17:12:00.000Z")
+	},
+	{
+		id: "xot8pld2",
+		activity: "Taxi Payment via WalletPay",
+		amount: 14.9,
+		status: "completed",
+		date: new Date("2025-06-14T22:33:01.000Z")
+	},
+	{
+		id: "pm2q49we",
+		activity: "Doctor Visit – Dr. Selma Benyahia",
+		amount: 350,
+		status: "completed",
+		date: new Date("2025-06-13T10:00:00.000Z")
+	},
+	{
+		id: "c9xm7al3",
+		activity: "Failed Card Charge - Bookstore",
+		amount: 92,
+		status: "failed",
+		date: new Date("2025-06-12T13:24:45.000Z")
+	},
+	{
+		id: "a8r49ndp",
+		activity: "Uber Ride - Late Night",
+		amount: 31.2,
+		status: "processing",
+		date: new Date("2025-06-11T01:15:00.000Z")
+	},
+	{
+		id: "jlrn08ma",
+		activity: "eLearning Course – UX Design",
+		amount: 75,
+		status: "completed",
+		date: new Date("2025-06-09T16:00:00.000Z")
+	},
+	{
+		id: "nd38xkq1",
+		activity: "Food Market – Weekend Groceries",
+		amount: 168.45,
+		status: "completed",
+		date: new Date("2025-06-07T10:21:03.000Z")
+	},
+	{
+		id: "uzv29apw",
+		activity: "Electricity Bill – June",
+		amount: 98.6,
+		status: "processing",
+		date: new Date("2025-06-06T08:10:00.000Z")
+	},
+	{
+		id: "ol5kpzmv",
+		activity: "GAMINGTOPUP - PSN Credits",
+		amount: 50,
+		status: "failed",
+		date: new Date("2025-06-04T19:19:00.000Z")
+	},
+	{
+		id: "yqnd30lq",
+		activity: "Subscription - Notion AI Pro",
+		amount: 10,
+		status: "completed",
+		date: new Date("2025-06-02T07:30:00.000Z")
+	},
+	{
+		id: "zxlq27ns",
+		activity: "Train Ticket to Rabat",
+		amount: 79.99,
+		status: "completed",
+		date: new Date("2025-05-30T13:40:00.000Z")
+	},
+	{
+		id: "fpq93klz",
+		activity: "Failed Wire Transfer – Freelancer Payment",
+		amount: 420,
+		status: "failed",
+		date: new Date("2025-05-29T09:00:00.000Z")
+	},
+	{
+		id: "tgo28mea",
+		activity: "Late Night Pizza – Uber Eats",
+		amount: 37.8,
+		status: "processing",
+		date: new Date("2025-05-28T23:59:00.000Z")
 	}
 ];
+
+const statusIcon = (status: Item["status"]) => {
+	switch (status) {
+		case "pending":
+			return <Circle className="text-primary stroke-3" />;
+		case "processing":
+			return <LoaderIcon className="stroke-3" />;
+		case "completed":
+			return <Check className="text-green-500 stroke-3" />;
+		case "failed":
+			return <XIcon className="text-red-500 stroke-3" />;
+	}
+};
 
 // Custom filter function for multi-column searching
 const multiColumnFilterFn: FilterFn<Item> = (row, _, filterValue) => {
@@ -181,7 +298,7 @@ const columns: ColumnDef<Item>[] = [
 				style: "currency",
 				currency: "USD"
 			}).format(amount);
-			return formatted;
+			return <span className="font-mono">{formatted}</span>;
 		},
 		size: 60
 	},
@@ -189,15 +306,8 @@ const columns: ColumnDef<Item>[] = [
 		header: "Status",
 		accessorKey: "status",
 		cell: ({ row }) => (
-			<Badge
-				variant={
-					row.getValue("status") === "failed"
-						? "destructive"
-						: row.getValue("status") === "completed"
-							? "outline"
-							: "secondary"
-				}
-			>
+			<Badge variant="outline" className="text-muted-foreground px-1.5">
+				{statusIcon(row.getValue("status"))}
 				{row.getValue("status")}
 			</Badge>
 		),
@@ -209,7 +319,7 @@ const columns: ColumnDef<Item>[] = [
 		header: "Date",
 		accessorKey: "date",
 		cell: ({ row }) => (
-			<div className="text-right">{new Date(row.getValue("date")).toLocaleDateString()}</div>
+			<div className="text-right text-xs">{dayjs(row.getValue("date")).format("lll")}</div>
 		),
 		size: 30,
 		enableHiding: false
@@ -313,16 +423,14 @@ export default function TransactionsTable() {
 
 	return (
 		<div className="space-y-4">
-			{/* Filters */}
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<div className="flex items-center gap-3">
-					{/* Filter by name or email */}
 					<div className="relative">
 						<Input
 							id={`${id}-input`}
 							ref={inputRef}
 							className={cn(
-								"peer min-w-60 ps-9",
+								"peer min-w-60 ps-9 border-border shadow-none h-8 font-geist",
 								Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
 							)}
 							value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
@@ -332,11 +440,12 @@ export default function TransactionsTable() {
 							aria-label="Filter by activity"
 						/>
 						<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-							<ListFilterIcon size={16} aria-hidden="true" />
+							<ListFilterIcon className="size-4" aria-hidden="true" />
 						</div>
 						{Boolean(table.getColumn("activity")?.getFilterValue()) && (
 							<Button
-								className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+								variant="ghost"
+								className="text-muted-foreground/80 hover:text-foreground  absolute inset-y-0 end-0 flex h-full w-8 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 								aria-label="Clear filter"
 								onClick={() => {
 									table.getColumn("activity")?.setFilterValue("");
@@ -345,27 +454,27 @@ export default function TransactionsTable() {
 									}
 								}}
 							>
-								<CircleXIcon size={16} aria-hidden="true" />
+								<XIcon className="size-4" aria-hidden="true" />
 							</Button>
 						)}
 					</div>
 					{/* Filter by status */}
 					<Popover>
 						<PopoverTrigger asChild>
-							<Button variant="outline">
-								<FilterIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+							<Button variant="outline" className="font-geist h-8">
+								<FilterIcon className="-ms-1 opacity-60 size-3.5" aria-hidden="true" />
 								Status
 								{selectedStatuses.length > 0 && (
-									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
+									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 text-[0.625rem] font-medium">
 										{selectedStatuses.length}
 									</span>
 								)}
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-auto min-w-36 p-3" align="start">
+						<PopoverContent className="w-auto min-w-36 p-4" align="start">
 							<div className="space-y-3">
 								<div className="text-muted-foreground text-xs font-medium">Filters</div>
-								<div className="space-y-3">
+								<div className="space-y-2">
 									{uniqueStatusValues.map((value, i) => (
 										<div key={value} className="flex items-center gap-2">
 											<Checkbox
@@ -373,7 +482,7 @@ export default function TransactionsTable() {
 												checked={selectedStatuses.includes(value)}
 												onCheckedChange={(checked: boolean) => handleStatusChange(checked, value)}
 											/>
-											<Label className="flex grow justify-between gap-2 font-normal">
+											<Label className="flex grow justify-between gap-2 text-[0.825rem] font-normal">
 												{value}{" "}
 												<span className="text-muted-foreground ms-2 text-xs">
 													{statusCounts.get(value)}
@@ -388,7 +497,7 @@ export default function TransactionsTable() {
 					{/* Toggle columns visibility */}
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Button variant="outline">
+							<Button variant="outline" className="font-geist h-8">
 								<Columns3Icon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
 								View
 							</Button>
@@ -451,16 +560,16 @@ export default function TransactionsTable() {
 							</AlertDialogContent>
 						</AlertDialog>
 					)}
-					{/* Add user button */}
-					<Button className="ml-auto" variant="outline">
-						<PlusIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
-						Add user
+					{/* Add transaction button */}
+					<Button variant="outline" className="font-geist h-8 ml-auto">
+						<PlusIcon className="-ms-1 opacity-60 size-3.5" aria-hidden="true" />
+						Add transaction
 					</Button>
 				</div>
 			</div>
 
 			{/* Table */}
-			<div className="bg-background overflow-hidden rounded-md border">
+			<div className="bg-backgroundoverflow-hidden rounded-md border">
 				<Table className="table-fixed">
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -540,9 +649,7 @@ export default function TransactionsTable() {
 				</Table>
 			</div>
 
-			{/* Pagination */}
-			<div className="flex items-center justify-between gap-8">
-				{/* Results per page */}
+			{/* <div className="flex items-center justify-between gap-8">
 				<div className="flex items-center gap-3">
 					<Label className="max-sm:sr-only">Rows per page</Label>
 					<Select
@@ -563,7 +670,6 @@ export default function TransactionsTable() {
 						</SelectContent>
 					</Select>
 				</div>
-				{/* Page number information */}
 				<div className="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
 					<p className="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite">
 						<span className="text-foreground">
@@ -584,7 +690,6 @@ export default function TransactionsTable() {
 				<div>
 					<Pagination>
 						<PaginationContent>
-							{/* First page button */}
 							<PaginationItem>
 								<Button
 									size="icon"
@@ -597,7 +702,6 @@ export default function TransactionsTable() {
 									<ChevronFirstIcon size={16} aria-hidden="true" />
 								</Button>
 							</PaginationItem>
-							{/* Previous page button */}
 							<PaginationItem>
 								<Button
 									size="icon"
@@ -610,7 +714,6 @@ export default function TransactionsTable() {
 									<ChevronLeftIcon size={16} aria-hidden="true" />
 								</Button>
 							</PaginationItem>
-							{/* Next page button */}
 							<PaginationItem>
 								<Button
 									size="icon"
@@ -623,7 +726,6 @@ export default function TransactionsTable() {
 									<ChevronRightIcon size={16} aria-hidden="true" />
 								</Button>
 							</PaginationItem>
-							{/* Last page button */}
 							<PaginationItem>
 								<Button
 									size="icon"
@@ -639,7 +741,7 @@ export default function TransactionsTable() {
 						</PaginationContent>
 					</Pagination>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }
