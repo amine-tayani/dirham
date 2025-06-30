@@ -30,6 +30,9 @@
 				"noSvgWithoutTitle": "off",
 				"useKeyWithClickEvents": "off"
 			},
+			"correctness": {
+				"useExhaustiveDependencies": "off"
+			},
 			"style": {
 				"noNonNullAssertion": "off",
 				"noParameterAssign": "off"

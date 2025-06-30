@@ -1,4 +1,4 @@
-import { TransactionsTable } from "@/components/dashboard/transactions-table";
+import TransactionsTable from "@/components/dashboard/transactions-table";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/transactions")({
