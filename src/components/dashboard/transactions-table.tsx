@@ -253,20 +253,25 @@ const columns: ColumnDef<Item>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
-			<Checkbox
-				checked={
-					table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
-				}
-				onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Select all"
-			/>
+			<div className="flex items-center justify-center h-full">
+				<Checkbox
+					checked={
+						table.getIsAllPageRowsSelected() ||
+						(table.getIsSomePageRowsSelected() && "indeterminate")
+					}
+					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+					aria-label="Select all"
+				/>
+			</div>
 		),
 		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={(value) => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
+			<div className="flex items-center justify-center h-full">
+				<Checkbox
+					checked={row.getIsSelected()}
+					onCheckedChange={(value) => row.toggleSelected(!!value)}
+					aria-label="Select row"
+				/>
+			</div>
 		),
 		size: 28,
 		enableSorting: false,
@@ -496,7 +501,7 @@ export default function TransactionsTable() {
 					{table.getSelectedRowModel().rows.length > 0 && (
 						<AlertDialog>
 							<AlertDialogTrigger asChild>
-								<Button className="ml-auto" variant="outline">
+								<Button className="ml-auto h-8" variant="outline">
 									<TrashIcon className="-ms-1 size-3.5 opacity-60" aria-hidden="true" />
 									Delete
 									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
