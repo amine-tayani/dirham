@@ -14,11 +14,9 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DropdownMenu,
-	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuLabel,
 	DropdownMenuPortal,
 	DropdownMenuSeparator,
 	DropdownMenuShortcut,
@@ -62,8 +60,6 @@ import {
 	ChevronDownIcon,
 	ChevronUpIcon,
 	Circle,
-	CircleAlertIcon,
-	Columns3Icon,
 	EllipsisIcon,
 	FilterIcon,
 	ListFilterIcon,
@@ -430,7 +426,7 @@ export default function TransactionsTable() {
 							id={`${id}-input`}
 							ref={inputRef}
 							className={cn(
-								"peer min-w-60 ps-9 border-border shadow-none h-8 font-geist",
+								"peer min-w-60 ps-9 border-border focus-visible:ring-0 shadow-none h-8 font-geist",
 								Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
 							)}
 							value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
@@ -494,34 +490,6 @@ export default function TransactionsTable() {
 							</div>
 						</PopoverContent>
 					</Popover>
-					{/* Toggle columns visibility */}
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="outline" className="font-geist h-8">
-								<Columns3Icon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
-								View
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
-							{table
-								.getAllColumns()
-								.filter((column) => column.getCanHide())
-								.map((column) => {
-									return (
-										<DropdownMenuCheckboxItem
-											key={column.id}
-											className="capitalize"
-											checked={column.getIsVisible()}
-											onCheckedChange={(value) => column.toggleVisibility(!!value)}
-											onSelect={(event) => event.preventDefault()}
-										>
-											{column.id}
-										</DropdownMenuCheckboxItem>
-									);
-								})}
-						</DropdownMenuContent>
-					</DropdownMenu>
 				</div>
 				<div className="flex items-center gap-3">
 					{/* Delete button */}
@@ -529,7 +497,7 @@ export default function TransactionsTable() {
 						<AlertDialog>
 							<AlertDialogTrigger asChild>
 								<Button className="ml-auto" variant="outline">
-									<TrashIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+									<TrashIcon className="-ms-1 size-3.5 opacity-60" aria-hidden="true" />
 									Delete
 									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
 										{table.getSelectedRowModel().rows.length}
@@ -538,12 +506,6 @@ export default function TransactionsTable() {
 							</AlertDialogTrigger>
 							<AlertDialogContent>
 								<div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
-									<div
-										className="flex size-9 shrink-0 items-center justify-center rounded-full border"
-										aria-hidden="true"
-									>
-										<CircleAlertIcon className="opacity-80" size={16} />
-									</div>
 									<AlertDialogHeader>
 										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 										<AlertDialogDescription>
