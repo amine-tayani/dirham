@@ -1,28 +1,14 @@
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger
-} from "@/components/ui/alert-dialog";
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DropdownMenu,
+	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
-	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuPortal,
 	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -41,219 +27,64 @@ import {
 	type ColumnDef,
 	type ColumnFiltersState,
 	type FilterFn,
-	type PaginationState,
-	type Row,
 	type SortingState,
 	type VisibilityState,
 	flexRender,
 	getCoreRowModel,
+	getFacetedRowModel,
 	getFacetedUniqueValues,
 	getFilteredRowModel,
-	getPaginationRowModel,
 	getSortedRowModel,
 	useReactTable
 } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import {
-	Check,
+	CheckCircle2Icon,
 	ChevronDownIcon,
-	ChevronUpIcon,
-	Circle,
-	EllipsisIcon,
+	ColumnsIcon,
 	FilterIcon,
 	ListFilterIcon,
 	LoaderIcon,
+	MoreVerticalIcon,
 	PlusIcon,
-	TrashIcon,
 	XIcon
 } from "lucide-react";
-import { useId, useMemo, useRef, useState } from "react";
+import * as React from "react";
+import { z } from "zod";
 
 dayjs.extend(localizedFormat);
 
-type Item = {
-	id: string;
-	activity: string;
-	amount: number;
-	status: "pending" | "processing" | "completed" | "failed";
-	date: Date;
-};
+// Schema definition
+export const schema = z.object({
+	id: z.string(),
+	activity: z.string(),
+	amount: z.number(),
+	status: z.enum(["", "processing", "completed", "failed"]),
+	date: z.date()
+});
 
-export const transactions: Item[] = [
-	{
-		id: "m5gr84i9",
-		activity: "ChatGPT App Purchase",
-		amount: 212,
-		status: "completed",
-		date: new Date("2025-06-30T16:35:23.000Z")
-	},
-	{
-		id: "3u1reuv4",
-		activity: "Coffebay Apple Pay",
-		amount: 23,
-		status: "processing",
-		date: new Date("2025-06-29T18:15:03.000Z")
-	},
-	{
-		id: "derv1ws0",
-		activity: "Hotel Booking",
-		amount: 280,
-		status: "completed",
-		date: new Date("2025-06-21T12:15:23.000Z")
-	},
-	{
-		id: "bhqecj4p",
-		activity: "Marjane Shopping",
-		amount: 121,
-		status: "failed",
-		date: new Date("2025-06-20T10:55:03.000Z")
-	},
-	{
-		id: "r38jdkei",
-		activity: "Payment to Plumber (CashApp)",
-		amount: 180,
-		status: "failed",
-		date: new Date("2025-06-19T09:20:14.000Z")
-	},
-	{
-		id: "n20skela",
-		activity: "Boulangerie du Coin - Morning Croissants",
-		amount: 7.5,
-		status: "completed",
-		date: new Date("2025-06-18T07:44:00.000Z")
-	},
-	{
-		id: "vwpl38tq",
-		activity: "Oasis Gym Monthly Subscription",
-		amount: 45,
-		status: "processing",
-		date: new Date("2025-06-16T15:00:00.000Z")
-	},
-	{
-		id: "qpw73lsa",
-		activity: "Mobile Top-Up (IAM 10GB)",
-		amount: 20,
-		status: "failed",
-		date: new Date("2025-06-15T17:12:00.000Z")
-	},
-	{
-		id: "xot8pld2",
-		activity: "Taxi Payment via WalletPay",
-		amount: 14.9,
-		status: "completed",
-		date: new Date("2025-06-14T22:33:01.000Z")
-	},
-	{
-		id: "pm2q49we",
-		activity: "Doctor Visit – Dr. Selma Benyahia",
-		amount: 350,
-		status: "completed",
-		date: new Date("2025-06-13T10:00:00.000Z")
-	},
-	{
-		id: "c9xm7al3",
-		activity: "Failed Card Charge - Bookstore",
-		amount: 92,
-		status: "failed",
-		date: new Date("2025-06-12T13:24:45.000Z")
-	},
-	{
-		id: "a8r49ndp",
-		activity: "Uber Ride - Late Night",
-		amount: 31.2,
-		status: "processing",
-		date: new Date("2025-06-11T01:15:00.000Z")
-	},
-	{
-		id: "jlrn08ma",
-		activity: "eLearning Course – UX Design",
-		amount: 75,
-		status: "completed",
-		date: new Date("2025-06-09T16:00:00.000Z")
-	},
-	{
-		id: "nd38xkq1",
-		activity: "Food Market – Weekend Groceries",
-		amount: 168.45,
-		status: "completed",
-		date: new Date("2025-06-07T10:21:03.000Z")
-	},
-	{
-		id: "uzv29apw",
-		activity: "Electricity Bill – June",
-		amount: 98.6,
-		status: "processing",
-		date: new Date("2025-06-06T08:10:00.000Z")
-	},
-	{
-		id: "ol5kpzmv",
-		activity: "GAMINGTOPUP - PSN Credits",
-		amount: 50,
-		status: "failed",
-		date: new Date("2025-06-04T19:19:00.000Z")
-	},
-	{
-		id: "yqnd30lq",
-		activity: "Subscription - Notion AI Pro",
-		amount: 10,
-		status: "completed",
-		date: new Date("2025-06-02T07:30:00.000Z")
-	},
-	{
-		id: "zxlq27ns",
-		activity: "Train Ticket to Rabat",
-		amount: 79.99,
-		status: "completed",
-		date: new Date("2025-05-30T13:40:00.000Z")
-	},
-	{
-		id: "fpq93klz",
-		activity: "Failed Wire Transfer – Freelancer Payment",
-		amount: 420,
-		status: "failed",
-		date: new Date("2025-05-29T09:00:00.000Z")
-	},
-	{
-		id: "tgo28mea",
-		activity: "Late Night Pizza – Uber Eats",
-		amount: 37.8,
-		status: "processing",
-		date: new Date("2025-05-28T23:59:00.000Z")
-	}
-];
-
-const statusIcon = (status: Item["status"]) => {
-	switch (status) {
-		case "pending":
-			return <Circle className="text-primary stroke-3" />;
-		case "processing":
-			return <LoaderIcon className="stroke-3" />;
-		case "completed":
-			return <Check className="text-green-500 stroke-3" />;
-		case "failed":
-			return <XIcon className="text-red-500 stroke-3" />;
-	}
-};
+export type TransactionItem = z.infer<typeof schema>;
 
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<Item> = (row, _, filterValue) => {
-	const searchableRowContent = `${row.original.activity}`.toLowerCase();
+const multiColumnFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue) => {
+	const searchableRowContent = row.original.activity.toLowerCase();
 	const searchTerm = (filterValue ?? "").toLowerCase();
 	return searchableRowContent.includes(searchTerm);
 };
 
-const statusFilterFn: FilterFn<Item> = (row, columnId, filterValue: string[]) => {
+const statusFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string[]) => {
 	if (!filterValue?.length) return true;
 	const status = row.getValue(columnId) as string;
 	return filterValue.includes(status);
 };
 
-const columns: ColumnDef<Item>[] = [
+// Column definitions
+const columns: ColumnDef<TransactionItem>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
-			<div className="flex items-center justify-center h-full">
+			<div className="flex items-center justify-center">
 				<Checkbox
 					checked={
 						table.getIsAllPageRowsSelected() ||
@@ -265,7 +96,7 @@ const columns: ColumnDef<Item>[] = [
 			</div>
 		),
 		cell: ({ row }) => (
-			<div className="flex items-center justify-center h-full">
+			<div className="flex items-center justify-center">
 				<Checkbox
 					checked={row.getIsSelected()}
 					onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -273,118 +104,120 @@ const columns: ColumnDef<Item>[] = [
 				/>
 			</div>
 		),
-		size: 28,
 		enableSorting: false,
 		enableHiding: false
 	},
 	{
-		header: "Order ID",
 		accessorKey: "id",
-		cell: ({ row }) => <div className="font-medium">{row.getValue("id")}</div>,
-		size: 60,
-		filterFn: multiColumnFilterFn,
-		enableHiding: false
+		header: "Order ID",
+		cell: ({ row }) => <div className="text-muted-foreground">{row.original.id}</div>,
+		enableHiding: false,
+		enableSorting: false
 	},
 	{
-		header: "Activity",
 		accessorKey: "activity",
-		size: 120
+		header: "Activity",
+		cell: ({ row }) => <div className="text-muted-foreground">{row.original.activity}</div>,
+		filterFn: multiColumnFilterFn
 	},
 	{
-		header: "Amount",
-		accessorKey: "amount",
-		cell: ({ row }) => {
-			const amount = Number.parseFloat(row.getValue("amount"));
-			const formatted = new Intl.NumberFormat("en-US", {
-				style: "currency",
-				currency: "USD"
-			}).format(amount);
-			return <span className="font-mono">{formatted}</span>;
-		},
-		size: 60
-	},
-	{
-		header: "Status",
 		accessorKey: "status",
+		header: "Status",
 		cell: ({ row }) => (
-			<Badge variant="outline" className="text-muted-foreground px-1.5">
-				{statusIcon(row.getValue("status"))}
-				{row.getValue("status")}
+			<Badge
+				variant="outline"
+				className="flex gap-1 px-1.5 text-muted-foreground font-mono [&_svg]:size-3"
+			>
+				{row.original.status === "completed" ? (
+					<CheckCircle2Icon className="text-green-500 dark:text-green-400" />
+				) : (
+					<LoaderIcon />
+				)}
+				{row.original.status}
 			</Badge>
 		),
-		size: 60,
 		filterFn: statusFilterFn
 	},
 	{
-		id: "date",
-		header: "Date",
 		accessorKey: "date",
+		header: "Date",
 		cell: ({ row }) => (
-			<div className="text-right text-xs">{dayjs(row.getValue("date")).format("lll")}</div>
-		),
-		size: 30,
-		enableHiding: false
+			<div className="text-muted-foreground font-sans">
+				{dayjs(row.original.date).format("lll")}
+			</div>
+		)
+	},
+	{
+		accessorKey: "amount",
+		header: "Amount",
+		cell: ({ row }) => (
+			<div className="text-muted-foreground">
+				{new Intl.NumberFormat("en-US", {
+					style: "currency",
+					currency: "USD"
+				}).format(row.original.amount)}
+			</div>
+		)
 	},
 	{
 		id: "actions",
-		header: () => <span className="sr-only">Actions</span>,
-		cell: ({ row }) => <RowActions row={row} />,
-		size: 60,
-		enableHiding: false
+		cell: () => (
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button
+						variant="ghost"
+						className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
+						size="icon"
+					>
+						<MoreVerticalIcon />
+						<span className="sr-only">Open menu</span>
+					</Button>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent align="end" className="w-32">
+					<DropdownMenuItem>Edit</DropdownMenuItem>
+					<DropdownMenuItem>Make a copy</DropdownMenuItem>
+					<DropdownMenuItem>Favorite</DropdownMenuItem>
+					<DropdownMenuSeparator />
+					<DropdownMenuItem>Delete</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
+		)
 	}
 ];
 
-export default function TransactionsTable() {
-	const id = useId();
-	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-	const [pagination, setPagination] = useState<PaginationState>({
-		pageIndex: 0,
-		pageSize: 10
-	});
-	const inputRef = useRef<HTMLInputElement>(null);
-
-	const [sorting, setSorting] = useState<SortingState>([
-		{
-			id: "name",
-			desc: false
-		}
-	]);
-
-	const [data, setData] = useState<Item[]>(transactions);
-
-	const handleDeleteRows = () => {
-		const selectedRows = table.getSelectedRowModel().rows;
-		const updatedData = data.filter(
-			(item) => !selectedRows.some((row) => row.original.id === item.id)
-		);
-		setData(updatedData);
-		table.resetRowSelection();
-	};
+// Main Table Component
+export function TransactionsTable({ data }: { data: TransactionItem[] }) {
+	const inputRef = React.useRef<HTMLInputElement>(null);
+	const id = React.useId();
+	const [rowSelection, setRowSelection] = React.useState({});
+	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+	const [sorting, setSorting] = React.useState<SortingState>([]);
 
 	const table = useReactTable({
 		data,
 		columns,
-		getCoreRowModel: getCoreRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		onSortingChange: setSorting,
-		enableSortingRemoval: false,
-		getPaginationRowModel: getPaginationRowModel(),
-		onPaginationChange: setPagination,
-		onColumnFiltersChange: setColumnFilters,
-		onColumnVisibilityChange: setColumnVisibility,
-		getFilteredRowModel: getFilteredRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
 		state: {
 			sorting,
-			pagination,
-			columnFilters,
-			columnVisibility
-		}
+			columnVisibility,
+			rowSelection,
+			columnFilters
+		},
+		getRowId: (row) => row.id.toString(),
+		enableRowSelection: true,
+		onRowSelectionChange: setRowSelection,
+		onSortingChange: setSorting,
+		onColumnFiltersChange: setColumnFilters,
+		onColumnVisibilityChange: setColumnVisibility,
+		getCoreRowModel: getCoreRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getFacetedRowModel: getFacetedRowModel(),
+		getFacetedUniqueValues: getFacetedUniqueValues()
 	});
 
 	// Get unique status values
-	const uniqueStatusValues = useMemo(() => {
+	const uniqueStatusValues = React.useMemo(() => {
 		const statusColumn = table.getColumn("status");
 
 		if (!statusColumn) return [];
@@ -395,13 +228,13 @@ export default function TransactionsTable() {
 	}, [table.getColumn("status")?.getFacetedUniqueValues()]);
 
 	// Get counts for each status
-	const statusCounts = useMemo(() => {
+	const statusCounts = React.useMemo(() => {
 		const statusColumn = table.getColumn("status");
 		if (!statusColumn) return new Map();
 		return statusColumn.getFacetedUniqueValues();
 	}, [table.getColumn("status")?.getFacetedUniqueValues()]);
 
-	const selectedStatuses = useMemo(() => {
+	const selectedStatuses = React.useMemo(() => {
 		const filterValue = table.getColumn("status")?.getFilterValue() as string[];
 		return filterValue ?? [];
 	}, [table.getColumn("status")?.getFilterValue()]);
@@ -423,59 +256,57 @@ export default function TransactionsTable() {
 	};
 
 	return (
-		<div className="space-y-4">
-			<div className="flex flex-wrap items-center justify-between gap-3">
-				<div className="flex items-center gap-3">
-					<div className="relative">
-						<Input
-							id={`${id}-input`}
-							ref={inputRef}
-							className={cn(
-								"peer min-w-60 ps-9 border-border focus-visible:ring-0 shadow-none h-8 font-geist",
-								Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
-							)}
-							value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
-							onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value)}
-							placeholder="Filter by activity..."
-							type="text"
-							aria-label="Filter by activity"
-						/>
-						<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-							<ListFilterIcon className="size-4" aria-hidden="true" />
-						</div>
-						{Boolean(table.getColumn("activity")?.getFilterValue()) && (
-							<Button
-								variant="ghost"
-								className="text-muted-foreground/80 hover:text-foreground  absolute inset-y-0 end-0 flex h-full w-8 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-								aria-label="Clear filter"
-								onClick={() => {
-									table.getColumn("activity")?.setFilterValue("");
-									if (inputRef.current) {
-										inputRef.current.focus();
-									}
-								}}
-							>
-								<XIcon className="size-4" aria-hidden="true" />
-							</Button>
+		<>
+			<div className="flex items-center justify-between mb-4">
+				<div className="flex items-center gap-3 relative">
+					<Input
+						id={`${id}-input`}
+						ref={inputRef}
+						className={cn(
+							"peer min-w-60 ps-9 focus-visible:ring-0",
+							Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
 						)}
+						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
+						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value)}
+						placeholder="Filter by activity..."
+						type="text"
+						aria-label="Filter by activity"
+					/>
+					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+						<ListFilterIcon size={16} aria-hidden="true" />
 					</div>
+					{Boolean(table.getColumn("name")?.getFilterValue()) && (
+						<Button
+							className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+							aria-label="Clear filter"
+							onClick={() => {
+								table.getColumn("name")?.setFilterValue("");
+								if (inputRef.current) {
+									inputRef.current.focus();
+								}
+							}}
+						>
+							<XIcon size={16} className="3.5" aria-hidden="true" />
+						</Button>
+					)}
+
 					{/* Filter by status */}
 					<Popover>
 						<PopoverTrigger asChild>
-							<Button variant="outline" className="font-geist h-8">
-								<FilterIcon className="-ms-1 opacity-60 size-3.5" aria-hidden="true" />
+							<Button variant="outline">
+								<FilterIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
 								Status
 								{selectedStatuses.length > 0 && (
-									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 text-[0.625rem] font-medium">
+									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
 										{selectedStatuses.length}
 									</span>
 								)}
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-auto min-w-36 p-4" align="start">
+						<PopoverContent className="w-auto min-w-36 p-3" align="start">
 							<div className="space-y-3">
 								<div className="text-muted-foreground text-xs font-medium">Filters</div>
-								<div className="space-y-2">
+								<div className="space-y-3">
 									{uniqueStatusValues.map((value, i) => (
 										<div key={value} className="flex items-center gap-2">
 											<Checkbox
@@ -483,7 +314,7 @@ export default function TransactionsTable() {
 												checked={selectedStatuses.includes(value)}
 												onCheckedChange={(checked: boolean) => handleStatusChange(checked, value)}
 											/>
-											<Label className="flex grow justify-between gap-2 text-[0.825rem] font-normal">
+											<Label className="flex grow justify-between gap-2 font-normal">
 												{value}{" "}
 												<span className="text-muted-foreground ms-2 text-xs">
 													{statusCounts.get(value)}
@@ -497,272 +328,75 @@ export default function TransactionsTable() {
 					</Popover>
 				</div>
 				<div className="flex items-center gap-3">
-					{/* Delete button */}
-					{table.getSelectedRowModel().rows.length > 0 && (
-						<AlertDialog>
-							<AlertDialogTrigger asChild>
-								<Button className="ml-auto h-8" variant="outline">
-									<TrashIcon className="-ms-1 size-3.5 opacity-60" aria-hidden="true" />
-									Delete
-									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
-										{table.getSelectedRowModel().rows.length}
-									</span>
-								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
-									<AlertDialogHeader>
-										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete{" "}
-											{table.getSelectedRowModel().rows.length} selected{" "}
-											{table.getSelectedRowModel().rows.length === 1 ? "row" : "rows"}.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-								</div>
-								<AlertDialogFooter>
-									<AlertDialogCancel>Cancel</AlertDialogCancel>
-									<AlertDialogAction onClick={handleDeleteRows}>Delete</AlertDialogAction>
-								</AlertDialogFooter>
-							</AlertDialogContent>
-						</AlertDialog>
-					)}
-					{/* Add transaction button */}
-					<Button variant="outline" className="font-geist h-8 ml-auto">
-						<PlusIcon className="-ms-1 opacity-60 size-3.5" aria-hidden="true" />
-						Add transaction
+					{/* Toggle columns visibility */}
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant="outline" size="sm">
+								<ColumnsIcon className="mr-2 h-4 w-4" />
+								<span className="hidden lg:inline">Customize Columns</span>
+								<span className="lg:hidden">Columns</span>
+								<ChevronDownIcon className="ml-2 h-4 w-4" />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align="end" className="w-56">
+							{table
+								.getAllColumns()
+								.filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
+								.map((column) => (
+									<DropdownMenuCheckboxItem
+										key={column.id}
+										className="capitalize"
+										checked={column.getIsVisible()}
+										onCheckedChange={(value) => column.toggleVisibility(!!value)}
+									>
+										{column.id}
+									</DropdownMenuCheckboxItem>
+								))}
+						</DropdownMenuContent>
+					</DropdownMenu>
+
+					<Button variant="outline" size="sm">
+						<PlusIcon className="mr-2 h-4 w-4" />
+						<span className="hidden lg:inline">Add transaction</span>
+						<span className="lg:hidden">Add</span>
 					</Button>
 				</div>
 			</div>
 
-			{/* Table */}
-			<div className="bg-backgroundoverflow-hidden rounded-md border">
-				<Table className="table-fixed">
-					<TableHeader>
-						{table.getHeaderGroups().map((headerGroup) => (
-							<TableRow key={headerGroup.id} className="hover:bg-transparent">
-								{headerGroup.headers.map((header) => {
-									return (
-										<TableHead
-											key={header.id}
-											style={{ width: `${header.getSize()}px` }}
-											className="h-11"
-										>
-											{header.isPlaceholder ? null : header.column.getCanSort() ? (
-												<div
-													className={cn(
-														header.column.getCanSort() &&
-															"flex h-full cursor-pointer items-center justify-between gap-2 select-none"
-													)}
-													onClick={header.column.getToggleSortingHandler()}
-													onKeyDown={(e) => {
-														// Enhanced keyboard handling for sorting
-														if (
-															header.column.getCanSort() &&
-															(e.key === "Enter" || e.key === " ")
-														) {
-															e.preventDefault();
-															header.column.getToggleSortingHandler()?.(e);
-														}
-													}}
-													tabIndex={header.column.getCanSort() ? 0 : undefined}
-												>
-													{flexRender(header.column.columnDef.header, header.getContext())}
-													{{
-														asc: (
-															<ChevronUpIcon
-																className="shrink-0 opacity-60"
-																size={16}
-																aria-hidden="true"
-															/>
-														),
-														desc: (
-															<ChevronDownIcon
-																className="shrink-0 opacity-60"
-																size={16}
-																aria-hidden="true"
-															/>
-														)
-													}[header.column.getIsSorted() as string] ?? null}
-												</div>
-											) : (
-												flexRender(header.column.columnDef.header, header.getContext())
-											)}
-										</TableHead>
-									);
-								})}
-							</TableRow>
-						))}
-					</TableHeader>
-					<TableBody>
-						{table.getRowModel().rows?.length ? (
-							table.getRowModel().rows.map((row) => (
-								<TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id} className="last:py-0">
-											{flexRender(cell.column.columnDef.cell, cell.getContext())}
-										</TableCell>
-									))}
-								</TableRow>
-							))
-						) : (
-							<TableRow>
-								<TableCell colSpan={columns.length} className="h-24 text-center">
-									No results.
-								</TableCell>
-							</TableRow>
-						)}
-					</TableBody>
-				</Table>
-			</div>
-
-			{/* <div className="flex items-center justify-between gap-8">
-				<div className="flex items-center gap-3">
-					<Label className="max-sm:sr-only">Rows per page</Label>
-					<Select
-						value={table.getState().pagination.pageSize.toString()}
-						onValueChange={(value) => {
-							table.setPageSize(Number(value));
-						}}
-					>
-						<SelectTrigger id={id} className="w-fit whitespace-nowrap">
-							<SelectValue placeholder="Select number of results" />
-						</SelectTrigger>
-						<SelectContent className="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
-							{[5, 10, 25, 50].map((pageSize) => (
-								<SelectItem key={pageSize} value={pageSize.toString()}>
-									{pageSize}
-								</SelectItem>
+			<Table>
+				<TableHeader className="sticky top-0 z-10 bg-muted">
+					{table.getHeaderGroups().map((headerGroup) => (
+						<TableRow key={headerGroup.id}>
+							{headerGroup.headers.map((header) => (
+								<TableHead key={header.id} colSpan={header.colSpan}>
+									{header.isPlaceholder
+										? null
+										: flexRender(header.column.columnDef.header, header.getContext())}
+								</TableHead>
 							))}
-						</SelectContent>
-					</Select>
-				</div>
-				<div className="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
-					<p className="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite">
-						<span className="text-foreground">
-							{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}-
-							{Math.min(
-								Math.max(
-									table.getState().pagination.pageIndex * table.getState().pagination.pageSize +
-										table.getState().pagination.pageSize,
-									0
-								),
-								table.getRowCount()
-							)}
-						</span>{" "}
-						of <span className="text-foreground">{table.getRowCount().toString()}</span>
-					</p>
-				</div>
-				Pagination buttons
-				<div>
-					<Pagination>
-						<PaginationContent>
-							<PaginationItem>
-								<Button
-									size="icon"
-									variant="outline"
-									className="disabled:pointer-events-none disabled:opacity-50"
-									onClick={() => table.firstPage()}
-									disabled={!table.getCanPreviousPage()}
-									aria-label="Go to first page"
-								>
-									<ChevronFirstIcon size={16} aria-hidden="true" />
-								</Button>
-							</PaginationItem>
-							<PaginationItem>
-								<Button
-									size="icon"
-									variant="outline"
-									className="disabled:pointer-events-none disabled:opacity-50"
-									onClick={() => table.previousPage()}
-									disabled={!table.getCanPreviousPage()}
-									aria-label="Go to previous page"
-								>
-									<ChevronLeftIcon size={16} aria-hidden="true" />
-								</Button>
-							</PaginationItem>
-							<PaginationItem>
-								<Button
-									size="icon"
-									variant="outline"
-									className="disabled:pointer-events-none disabled:opacity-50"
-									onClick={() => table.nextPage()}
-									disabled={!table.getCanNextPage()}
-									aria-label="Go to next page"
-								>
-									<ChevronRightIcon size={16} aria-hidden="true" />
-								</Button>
-							</PaginationItem>
-							<PaginationItem>
-								<Button
-									size="icon"
-									variant="outline"
-									className="disabled:pointer-events-none disabled:opacity-50"
-									onClick={() => table.lastPage()}
-									disabled={!table.getCanNextPage()}
-									aria-label="Go to last page"
-								>
-									<ChevronLastIcon size={16} aria-hidden="true" />
-								</Button>
-							</PaginationItem>
-						</PaginationContent>
-					</Pagination>
-				</div>
-			</div> */}
-		</div>
-	);
-}
-
-function RowActions({ row }: { row: Row<Item> }) {
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<div className="flex justify-end">
-					<Button size="icon" variant="ghost" className="shadow-none" aria-label="Edit item">
-						<EllipsisIcon size={16} aria-hidden="true" />
-					</Button>
-				</div>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end">
-				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<span>Edit</span>
-						<DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
-					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<span>Duplicate</span>
-						<DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
-					</DropdownMenuItem>
-				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<span>Archive</span>
-						<DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
-					</DropdownMenuItem>
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>More</DropdownMenuSubTrigger>
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent>
-								<DropdownMenuItem>Move to project</DropdownMenuItem>
-								<DropdownMenuItem>Move to folder</DropdownMenuItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem>Advanced options</DropdownMenuItem>
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
-				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<DropdownMenuGroup>
-					<DropdownMenuItem>Share</DropdownMenuItem>
-					<DropdownMenuItem>Add to favorites</DropdownMenuItem>
-				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem className="text-destructive focus:text-destructive">
-					<span>Delete</span>
-					<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-				</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
+						</TableRow>
+					))}
+				</TableHeader>
+				<TableBody className="relative">
+					{table.getRowModel().rows.length ? (
+						table.getRowModel().rows.map((row) => (
+							<TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+								{row.getVisibleCells().map((cell) => (
+									<TableCell key={cell.id}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</TableCell>
+								))}
+							</TableRow>
+						))
+					) : (
+						<TableRow>
+							<TableCell colSpan={columns.length} className="h-24 text-center">
+								No transactions.
+							</TableCell>
+						</TableRow>
+					)}
+				</TableBody>
+			</Table>
+		</>
 	);
 }
