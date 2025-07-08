@@ -1,5 +1,11 @@
-import { Sidebar, SidebarContent, SidebarHeader, SidebarMenuItem } from "@/components/ui/sidebar";
-import { toggleTheme } from "@/utils/toggle-theme";
+import { Button } from "@/components/ui/button";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarHeader,
+	SidebarMenuItem,
+	useSidebar
+} from "@/components/ui/sidebar";
 import type { QueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import type { User } from "better-auth";
@@ -11,13 +17,12 @@ import {
 	EclipseIcon,
 	HomeIcon,
 	LifeBuoy,
-	MoonIcon,
 	SettingsIcon,
+	SidebarIcon,
 	WalletCardsIcon
 } from "lucide-react";
 import type React from "react";
 import Logo from "../logo";
-import { Button } from "../ui/button";
 import { MainNav } from "./main-nav";
 import { SupportNav } from "./support-nav";
 
@@ -79,22 +84,30 @@ interface Props extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function DashboardSidebar({ user, queryClient, ...props }: Props) {
+	const { toggleSidebar } = useSidebar();
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
 				<SidebarMenuItem>
-				<div className="flex items-center justify-between">
-						<Link to="/" className="flex items-center">
-							<Logo className="group-data-[collapsible=icon]:size-10" />
-							<span className="mr-2 font-geist font-semibold text-card-foreground dark:text-primary-foreground group-data-[collapsible=icon]:hidden">
+					<div className="flex items-center justify-between">
+						<Link to="/" className="flex items-center group-data-[collapsible=icon]:hidden">
+							<Logo />
+							<span className="mr-2 font-geist font-semibold text-card-foreground dark:text-primary-foreground">
 								Dirhamly
 							</span>
 						</Link>
-						<div className="group-data-[collapsible=icon]:hidden">
+
+						<div className="flex mx-auto mt-4 mr-3 not-group-data-[collapsible=icon]:mt-0 not-group-data-[collapsible=icon]:mr-0">
+							<Button size="icon" variant="ghost" onClick={toggleSidebar}>
+								<SidebarIcon className="size-5" />
+							</Button>
+						</div>
+
+						{/* <div className="group-data-[collapsible=icon]:hidden">
 							<Button variant="ghost" onClick={toggleTheme}>
 								<MoonIcon className="size-5" />
 							</Button>
-						</div>
+						</div> */}
 					</div>
 				</SidebarMenuItem>
 			</SidebarHeader>
