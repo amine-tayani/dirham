@@ -86,7 +86,7 @@ interface Props extends React.ComponentProps<typeof Sidebar> {
 export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 	const { toggleSidebar } = useSidebar();
 	return (
-		<Sidebar collapsible="icon" {...props}>
+		<Sidebar collapsible="icon" {...props} className="group-data-[side=left]:border-none">
 			<SidebarHeader>
 				<SidebarMenuItem>
 					<div className="flex items-center justify-between">
@@ -99,15 +99,9 @@ export function DashboardSidebar({ user, queryClient, ...props }: Props) {
 
 						<div className="flex mx-auto mt-4 mr-3 not-group-data-[collapsible=icon]:mt-0 not-group-data-[collapsible=icon]:mr-0">
 							<Button size="icon" variant="ghost" onClick={toggleSidebar}>
-								<SidebarIcon className="size-5" />
+								<SidebarIcon className="size-4.5" />
 							</Button>
 						</div>
-
-						{/* <div className="group-data-[collapsible=icon]:hidden">
-							<Button variant="ghost" onClick={toggleTheme}>
-								<MoonIcon className="size-5" />
-							</Button>
-						</div> */}
 					</div>
 				</SidebarMenuItem>
 			</SidebarHeader>

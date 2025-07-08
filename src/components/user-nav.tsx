@@ -108,7 +108,7 @@ export function UserNav({
 						await router.invalidate();
 					}}
 				>
-					<LogOutIcon size={16} aria-hidden="true" />
+					<LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
 					<span>Logout</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
