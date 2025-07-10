@@ -150,9 +150,23 @@ export const data: TransactionItem[] = [
 
 function RouteComponent() {
 	return (
-		<div className="flex flex-col gap-4">
-			<h1 className="text-xl font-semibold">Transactions</h1>
-			<TransactionsTable data={data} />
+		<div className="flex h-full">
+			<main className="flex-1 flex flex-col h-screen overflow-hidden">
+				<header className="flex h-20 shrink-0 items-center gap-2 border-b pt-2 mb-4 bg-background z-20">
+					<div className="flex flex-1 items-center gap-2">
+						<div className="flex items-center justify-between gap-4 pl-7">
+							<h1 className="text-2xl font-medium tracking-tight">Accounts</h1>
+						</div>
+					</div>
+					<div className="flex ml-auto pr-7">
+						USer
+						{/* <UserNav user={user} queryClient={queryClient} /> */}
+					</div>
+				</header>
+				<div className="flex-1 overflow-y-auto flex flex-col gap-4 mx-7 mb-4">
+					<TransactionsTable data={data} />
+				</div>
+			</main>
 		</div>
 	);
 }

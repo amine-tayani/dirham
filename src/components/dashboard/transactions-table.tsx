@@ -261,15 +261,15 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 				<div className="flex items-center gap-3 relative">
 					<Input
 						id={`${id}-input`}
+						type="text"
 						ref={inputRef}
 						className={cn(
-							"peer min-w-60 ps-9 focus-visible:ring-0",
+							"peer min-w-60 ps-9 focus-visible:ring-0 shadow-none border border-border",
 							Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
 						)}
 						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
 						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value)}
 						placeholder="Filter by activity..."
-						type="text"
 						aria-label="Filter by activity"
 					/>
 					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
