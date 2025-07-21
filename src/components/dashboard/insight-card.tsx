@@ -1,4 +1,3 @@
-// components/insight-card.tsx
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 

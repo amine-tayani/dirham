@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -34,13 +35,12 @@ export function UserNav({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<img
-					src={user.image || "https://i.pravatar.cc/150?img=3"}
-					alt="Avatar"
-					width={32}
-					height={32}
-					className="shrink-0 rounded-full size-10 object-cover object-center"
-				/>
+				<Avatar className="size-10">
+					<AvatarImage src={user.image || ""} alt="Avatar" />
+					<AvatarFallback className="text-neutral-600">
+						{user.name.slice(0, 2).toUpperCase()}
+					</AvatarFallback>
+				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
 				className="max-w-64 rounded-xl p-2 shadow-lg border border-transparent dark:shadow-none dark:border-border dark:bg-neutral-900"
@@ -48,13 +48,12 @@ export function UserNav({
 				align="end"
 			>
 				<DropdownMenuLabel className="flex items-start gap-3">
-					<img
-						src={user.image!}
-						alt="Avatar"
-						width={32}
-						height={32}
-						className="shrink-0 rounded-full size-10 object-cover object-center"
-					/>
+					<Avatar className="size-10">
+						<AvatarImage src={user.image || ""} alt="Avatar" />
+						<AvatarFallback className="text-neutral-600">
+							{user.name.slice(0, 2).toUpperCase()}
+						</AvatarFallback>
+					</Avatar>
 					<div className="flex min-w-0 flex-col">
 						<span className="text-foreground truncate text-sm font-medium">{user.name}</span>
 						<span className="text-muted-foreground truncate text-xs font-normal">{user.email}</span>

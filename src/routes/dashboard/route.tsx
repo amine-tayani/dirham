@@ -25,7 +25,7 @@ function DashboardLayout() {
 				<SidebarInset className="overflow-hidden rounded-2xl">
 					<Outlet />
 				</SidebarInset>
-			</div>
+			</div> 	
 		</SidebarProvider>
 	);
 }
