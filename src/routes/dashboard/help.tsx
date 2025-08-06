@@ -26,7 +26,7 @@ function RouteComponent() {
 				</div>
 			</header>
 			<div className=" flex-col gap-4 lg:gap-6 mt-4 mx-7 mb-4">
-				<AiAssistant />
+				<AiAssistant user={user} />
 			</div>
 		</>
 	);

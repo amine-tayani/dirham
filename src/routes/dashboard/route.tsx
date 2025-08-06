@@ -21,11 +21,11 @@ function DashboardLayout() {
 	return (
 		<SidebarProvider>
 			<DashboardSidebar user={user} queryClient={queryClient} />
-			<div className="pt-5 pr-5 w-full bg-muted">
+			<div className="pt-5 px-5 w-full bg-muted">
 				<SidebarInset className="overflow-hidden rounded-2xl">
 					<Outlet />
 				</SidebarInset>
-			</div> 	
+			</div>
 		</SidebarProvider>
 	);
 }
