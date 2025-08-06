@@ -142,15 +142,15 @@ export function AiAssistant({ user }: AiAssistantProps) {
 							<div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
 								<StarsIcon className="w-8 h-8 text-primary" />
 							</div>
-							<h2 className="text-2xl font-semibold text-muted-foreground mb-2">
+							<h2 className="text-2xl font-semibold text-muted-foreground dark:text-white mb-2">
 								Hi <span className="capitalize">{user.name}</span>, how can I help you?
 							</h2>
 						</div>
 					</div>
 				)}
 			</div>
-			<div className="flex-shrink-0 border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-				<div className="max-w-4xl mx-auto px-6 py-4">
+			<div className="flex-shrink-0 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+				<div className="max-w-4xl mx-auto px-6 py-2">
 					<form onSubmit={handleSubmit} className="w-full">
 						<div className="relative">
 							<textarea
@@ -193,7 +193,7 @@ export function AiAssistant({ user }: AiAssistantProps) {
 										size="icon"
 										variant="outline"
 										className={cn(
-											"size-10 rounded-lg transition-all duration-200",
+											"size-10 rounded-lg transition-all duration-200 ",
 											prompt.trim() && !isGenerating
 												? "bg-neutral-200 text-neutral-700  hover:bg-neutral-300"
 												: "hover:bg-muted text-muted-foreground"
