@@ -125,9 +125,9 @@ export function AiAssistant({ user }: AiAssistantProps) {
 							<div className="w-full py-6">
 								<div className="max-w-4xl mx-auto px-6">
 									<div className="flex gap-1">
-										<div className="w-2 h-2 bg-current rounded-full animate-pulse" />
-										<div className="w-2 h-2 bg-current rounded-full animate-pulse delay-100" />
-										<div className="w-2 h-2 bg-current rounded-full animate-pulse delay-200" />
+										<div className="size-2 bg-current rounded-full animate-pulse" />
+										<div className="size-2 bg-current rounded-full animate-pulse delay-100" />
+										<div className="size-2 bg-current rounded-full animate-pulse delay-200" />
 									</div>
 								</div>
 							</div>
@@ -139,8 +139,8 @@ export function AiAssistant({ user }: AiAssistantProps) {
 					/* Empty State */
 					<div className="flex-1 flex items-center justify-center px-6">
 						<div className="text-center max-w-md">
-							<div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-								<StarsIcon className="w-8 h-8 text-primary" />
+							<div className="size-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+								<StarsIcon className="size-8 text-primary" />
 							</div>
 							<h2 className="text-2xl font-semibold text-muted-foreground dark:text-white mb-2">
 								Hi <span className="capitalize">{user.name}</span>, how can I help you?
@@ -149,24 +149,22 @@ export function AiAssistant({ user }: AiAssistantProps) {
 					</div>
 				)}
 			</div>
-			<div className="flex-shrink-0 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-				<div className="max-w-4xl mx-auto px-6 py-2">
+
+			<div className="flex-shrink-0 border-t border-border/40 bg-background">
+				<div className="max-w-4xl mx-auto p-6">
 					<form onSubmit={handleSubmit} className="w-full">
-						<div className="relative">
+						<div className="relative flex items-end gap-2 bg-background border border-border/60 rounded-2xl shadow-sm focus-within:shadow-md transition-all duration-200 focus-within:border-border">
 							<textarea
 								id="prompt"
-								className={cn(
-									"w-full resize-none rounded-xl border border-border/60 shadow-sm bg-background/50 px-4 py-6 pr-12 text-[15px] leading-6 ring-offset-background transition-all duration-200 placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary/40 disabled:cursor-not-allowed disabled:opacity-50",
-									"min-h-[56px] max-h-[200px]"
-								)}
+								className="flex-1 resize-none bg-transparent px-4 py-3 text-[16px] leading-6 placeholder:text-muted-foreground/60 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 max-h-[200px] min-h-[24px]"
 								value={prompt}
 								onChange={(e) => setPrompt(e.target.value)}
 								onKeyDown={handleKeyDown}
 								rows={1}
-								placeholder="Ask anything..."
+								placeholder="Type your prompt here..."
 								style={{
 									height: "auto",
-									minHeight: "56px"
+									minHeight: "24px"
 								}}
 								onInput={(e) => {
 									const target = e.target as HTMLTextAreaElement;
@@ -175,13 +173,13 @@ export function AiAssistant({ user }: AiAssistantProps) {
 								}}
 							/>
 
-							<div className="absolute right-3 bottom-3">
+							<div className="flex-shrink-0 p-2">
 								{isGenerating ? (
 									<Button
 										type="button"
 										size="icon"
-										variant="secondary"
-										className="size-10 rounded-lg hover:bg-muted"
+										variant="ghost"
+										className="size-8 rounded-lg hover:bg-muted"
 										aria-label="Stop generating"
 										onClick={stop}
 									>
@@ -191,17 +189,16 @@ export function AiAssistant({ user }: AiAssistantProps) {
 									<Button
 										type="submit"
 										size="icon"
-										variant="outline"
 										className={cn(
-											"size-10 rounded-lg transition-all duration-200 ",
+											"size-8 rounded-lg transition-all duration-200",
 											prompt.trim() && !isGenerating
-												? "bg-neutral-200 text-neutral-700  hover:bg-neutral-300"
-												: "hover:bg-muted text-muted-foreground"
+												? "bg-foreground text-background hover:bg-foreground/90"
+												: "bg-muted text-muted-foreground cursor-not-allowed"
 										)}
 										aria-label="Send message"
 										disabled={!prompt.trim() || isGenerating}
 									>
-										<ArrowUpIcon className="size-5" />
+										<ArrowUpIcon className="size-4" />
 									</Button>
 								)}
 							</div>
@@ -209,7 +206,6 @@ export function AiAssistant({ user }: AiAssistantProps) {
 					</form>
 				</div>
 			</div>
-			;
 		</div>
 	);
 }
