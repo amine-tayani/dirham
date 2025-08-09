@@ -45,12 +45,11 @@ export function HeroSection() {
 							<AnimatedGroup variants={transitionVariants}>
 								<Link
 									to="/dashboard"
-									className="hover:bg-neutral-200 dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+									className="dark:hover:bg-neutral-800 hover:bg-neutral-200 dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
 								>
 									<span className="text-foreground text-sm">
 										Introducing The Next Generation of Personal Budgeting Apps
 									</span>
-									<span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700" />
 
 									<div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
 										<div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
