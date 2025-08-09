@@ -17,7 +17,7 @@ export const chatWithAi = createServerFn({
 			},
 
 			body: JSON.stringify({
-				model: "openrouter/horizon-beta",
+				model: "openai/gpt-oss-20b:free",
 				messages: [
 					{
 						role: "user",
