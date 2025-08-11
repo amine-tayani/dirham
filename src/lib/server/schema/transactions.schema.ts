@@ -27,3 +27,10 @@ export const transactions = pgTable("transactions", {
 export const userRelations = relations(userSchema, ({ many }) => ({
 	transactions: many(transactions)
 }));
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+	user: one(userSchema, {
+		fields: [transactions.userId],
+		references: [userSchema.id]
+	})
+}));
