@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { transactions } from "../db/schema";
 import { db } from "./db";
+import { transactions } from "./db/schema";
 
 export const Prompt = z.string();
 

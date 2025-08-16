@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { chatWithAi } from "@/lib/server/chat";
+import { chatWithAi } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import type { User } from "better-auth";
 import { ArrowUpIcon, SquareIcon, StarsIcon } from "lucide-react";
