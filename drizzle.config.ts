@@ -13,7 +13,7 @@ if (!DATABASE_URL) {
 
 export default {
 	out: "./drizzle",
-	schema: "./src/lib/server/schema/index.ts",
+	schema: "./src/lib/db/schema/index.ts",
 	breakpoints: true,
 	verbose: true,
 	strict: true,

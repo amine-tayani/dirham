@@ -1,3 +1,4 @@
+CREATE TYPE "public"."status" AS ENUM('failed', 'processing', 'completed');--> statement-breakpoint
 CREATE TABLE "account" (
 	"id" text PRIMARY KEY NOT NULL,
 	"account_id" text NOT NULL,
@@ -46,5 +47,18 @@ CREATE TABLE "verification" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE "transactions" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"amount" numeric NOT NULL,
+	"currency" text DEFAULT 'USD' NOT NULL,
+	"activity" text NOT NULL,
+	"status" "status" NOT NULL,
+	"date" timestamp with time zone NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "transactions" ADD CONSTRAINT "transactions_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;

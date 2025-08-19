@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { decimal, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { numeric, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { user as userSchema } from "./auth.schema";
 
 export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]);
@@ -9,10 +9,7 @@ export const transactions = pgTable("transactions", {
 	userId: text("user_id")
 		.notNull()
 		.references(() => userSchema.id, { onDelete: "cascade" }),
-	amount: decimal("amount", {
-		precision: 10,
-		scale: 2
-	}).notNull(),
+	amount: numeric("amount").notNull(),
 	currency: text("currency").notNull().default("USD"),
 	activity: text("activity").notNull(),
 	status: statusEnum("status").notNull(),
