@@ -1,5 +1,3 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,6 +20,7 @@ import {
 	TableHeader,
 	TableRow
 } from "@/components/ui/table";
+import type { transactions } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
 import {
 	type ColumnDef,
@@ -39,6 +38,7 @@ import {
 } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import type { InferSelectModel } from "drizzle-orm";
 import {
 	CheckCircle2Icon,
 	ChevronDownIcon,
@@ -51,21 +51,12 @@ import {
 	XIcon
 } from "lucide-react";
 import * as React from "react";
-import { z } from "zod";
 
 dayjs.extend(localizedFormat);
 
 // Schema definition
-export const schema = z.object({
-	id: z.string(),
-	activity: z.string(),
-	amount: z.number(),
-	status: z.enum(["", "processing", "completed", "failed"]),
-	date: z.date()
-});
 
-export type TransactionItem = z.infer<typeof schema>;
-
+export type TransactionItem = Omit<InferSelectModel<typeof transactions>, "userId" | "updated_at">;
 // Custom filter function for multi-column searching
 const multiColumnFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue) => {
 	const searchableRowContent = row.original.activity.toLowerCase();
@@ -155,7 +146,7 @@ const columns: ColumnDef<TransactionItem>[] = [
 				{new Intl.NumberFormat("en-US", {
 					style: "currency",
 					currency: "USD"
-				}).format(row.original.amount)}
+				}).format(Number(row.original.amount))}
 			</div>
 		)
 	},
