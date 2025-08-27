@@ -2,7 +2,7 @@ import { AiAssistant } from "@/components/dashboard/ai-assistant";
 import { createFileRoute } from "@tanstack/react-router";
 import type { User } from "better-auth";
 
-export const Route = createFileRoute("/dashboard/help")({
+export const Route = createFileRoute("/dashboard/assistant")({
 	component: RouteComponent,
 	loader: ({ context }) => {
 		return { user: context.user as User };

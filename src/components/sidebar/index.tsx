@@ -66,8 +66,8 @@ const data = {
 			icon: BellIcon
 		},
 		{
-			title: "Help Center",
-			url: "/dashboard/help",
+			title: "Ai Assistant",
+			url: "/dashboard/assistant",
 			icon: LifeBuoy
 		},
 		{

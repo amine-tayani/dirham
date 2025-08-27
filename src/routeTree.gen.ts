@@ -21,7 +21,7 @@ import { Route as DashboardSpendingImport } from './routes/dashboard/spending'
 import { Route as DashboardSettingsImport } from './routes/dashboard/settings'
 import { Route as DashboardReportsImport } from './routes/dashboard/reports'
 import { Route as DashboardNotificationsImport } from './routes/dashboard/notifications'
-import { Route as DashboardHelpImport } from './routes/dashboard/help'
+import { Route as DashboardAssistantImport } from './routes/dashboard/assistant'
 import { Route as DashboardAccountsImport } from './routes/dashboard/accounts'
 import { Route as authSignupImport } from './routes/(auth)/signup'
 import { Route as authLoginImport } from './routes/(auth)/login'
@@ -87,9 +87,9 @@ const DashboardNotificationsRoute = DashboardNotificationsImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
-const DashboardHelpRoute = DashboardHelpImport.update({
-  id: '/help',
-  path: '/help',
+const DashboardAssistantRoute = DashboardAssistantImport.update({
+  id: '/assistant',
+  path: '/assistant',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -150,11 +150,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAccountsImport
       parentRoute: typeof DashboardRouteImport
     }
-    '/dashboard/help': {
-      id: '/dashboard/help'
-      path: '/help'
-      fullPath: '/dashboard/help'
-      preLoaderRoute: typeof DashboardHelpImport
+    '/dashboard/assistant': {
+      id: '/dashboard/assistant'
+      path: '/assistant'
+      fullPath: '/dashboard/assistant'
+      preLoaderRoute: typeof DashboardAssistantImport
       parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/notifications': {
@@ -234,7 +234,7 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 
 interface DashboardRouteRouteChildren {
   DashboardAccountsRoute: typeof DashboardAccountsRoute
-  DashboardHelpRoute: typeof DashboardHelpRoute
+  DashboardAssistantRoute: typeof DashboardAssistantRoute
   DashboardNotificationsRoute: typeof DashboardNotificationsRoute
   DashboardReportsRoute: typeof DashboardReportsRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
@@ -246,7 +246,7 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAccountsRoute: DashboardAccountsRoute,
-  DashboardHelpRoute: DashboardHelpRoute,
+  DashboardAssistantRoute: DashboardAssistantRoute,
   DashboardNotificationsRoute: DashboardNotificationsRoute,
   DashboardReportsRoute: DashboardReportsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
@@ -266,7 +266,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof authLoginRoute
   '/signup': typeof authSignupRoute
   '/dashboard/accounts': typeof DashboardAccountsRoute
-  '/dashboard/help': typeof DashboardHelpRoute
+  '/dashboard/assistant': typeof DashboardAssistantRoute
   '/dashboard/notifications': typeof DashboardNotificationsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -281,7 +281,7 @@ export interface FileRoutesByTo {
   '/login': typeof authLoginRoute
   '/signup': typeof authSignupRoute
   '/dashboard/accounts': typeof DashboardAccountsRoute
-  '/dashboard/help': typeof DashboardHelpRoute
+  '/dashboard/assistant': typeof DashboardAssistantRoute
   '/dashboard/notifications': typeof DashboardNotificationsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -298,7 +298,7 @@ export interface FileRoutesById {
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/signup': typeof authSignupRoute
   '/dashboard/accounts': typeof DashboardAccountsRoute
-  '/dashboard/help': typeof DashboardHelpRoute
+  '/dashboard/assistant': typeof DashboardAssistantRoute
   '/dashboard/notifications': typeof DashboardNotificationsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -317,7 +317,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/dashboard/accounts'
-    | '/dashboard/help'
+    | '/dashboard/assistant'
     | '/dashboard/notifications'
     | '/dashboard/reports'
     | '/dashboard/settings'
@@ -331,7 +331,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/dashboard/accounts'
-    | '/dashboard/help'
+    | '/dashboard/assistant'
     | '/dashboard/notifications'
     | '/dashboard/reports'
     | '/dashboard/settings'
@@ -346,7 +346,7 @@ export interface FileRouteTypes {
     | '/(auth)/login'
     | '/(auth)/signup'
     | '/dashboard/accounts'
-    | '/dashboard/help'
+    | '/dashboard/assistant'
     | '/dashboard/notifications'
     | '/dashboard/reports'
     | '/dashboard/settings'
@@ -396,7 +396,7 @@ export const routeTree = rootRoute
       "filePath": "dashboard/route.tsx",
       "children": [
         "/dashboard/accounts",
-        "/dashboard/help",
+        "/dashboard/assistant",
         "/dashboard/notifications",
         "/dashboard/reports",
         "/dashboard/settings",
@@ -418,8 +418,8 @@ export const routeTree = rootRoute
       "filePath": "dashboard/accounts.tsx",
       "parent": "/dashboard"
     },
-    "/dashboard/help": {
-      "filePath": "dashboard/help.tsx",
+    "/dashboard/assistant": {
+      "filePath": "dashboard/assistant.tsx",
       "parent": "/dashboard"
     },
     "/dashboard/notifications": {
