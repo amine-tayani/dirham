@@ -29,7 +29,7 @@ import { SupportNav } from "./support-nav";
 const data = {
 	mainNavigation: [
 		{
-			title: "Dashboard",
+			title: "Home",
 			url: "/dashboard",
 			icon: HomeIcon
 		},
