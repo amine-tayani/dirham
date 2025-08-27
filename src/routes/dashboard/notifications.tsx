@@ -6,8 +6,8 @@ export const Route = createFileRoute("/dashboard/notifications")({
 
 function RouteComponent() {
 	return (
-		<div>
-			<h1 className="text-xl font-bold">Notifications</h1>
+		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mx-7 mt-4 mb-7">
+			This page is under construction
 		</div>
 	);
 }

@@ -6,8 +6,8 @@ export const Route = createFileRoute("/dashboard/reports")({
 
 function RouteComponent() {
 	return (
-		<div>
-			<h1 className="text-xl font-bold">Reports</h1>
+		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mx-7 mt-4 mb-7">
+			This is the reports page
 		</div>
 	);
 }
