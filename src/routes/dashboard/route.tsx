@@ -1,6 +1,8 @@
 import { DashboardSidebar } from "@/components/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { UserNav } from "@/components/user-nav";
+import { greetUser } from "@/lib/utils";
+import { Outlet, createFileRoute, redirect, useMatches } from "@tanstack/react-router";
 import type { User } from "better-auth";
 
 export const Route = createFileRoute("/dashboard")({
@@ -18,12 +20,50 @@ export const Route = createFileRoute("/dashboard")({
 function DashboardLayout() {
 	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
+	const matches = useMatches();
+
+	const currentMatch = matches[matches.length - 1];
+	const currentRoute = currentMatch?.routeId || "";
+
+	const getHeaderTitle = () => {
+		const contextWithTitle = currentMatch?.context as any;
+
+		if (contextWithTitle?.title) {
+			return contextWithTitle.title;
+		}
+
+		if (currentRoute === "/dashboard/") {
+			return `${greetUser()} ${user?.name}`;
+		}
+
+		const routeParts = currentRoute.split("/");
+		const pageName = routeParts[routeParts.length - 1];
+
+		if (pageName && pageName !== "dashboard") {
+			return pageName.charAt(0).toUpperCase() + pageName.slice(1);
+		}
+
+		return "Dashboard";
+	};
+
 	return (
 		<SidebarProvider>
 			<DashboardSidebar user={user} queryClient={queryClient} />
 			<div className="pt-5 px-5 w-full bg-muted">
 				<SidebarInset className="overflow-hidden rounded-2xl">
-					<Outlet />
+					<>
+						<header className="flex h-20 shrink-0 items-center gap-2 border-b pt-2 mb-4">
+							<div className="flex flex-1 items-center gap-2">
+								<div className="flex items-center justify-between gap-4 pl-7">
+									<h1 className="text-2xl font-medium tracking-tight"> {getHeaderTitle()}</h1>
+								</div>
+							</div>
+							<div className="flex ml-auto pr-7">
+								<UserNav user={user} queryClient={queryClient} />
+							</div>
+						</header>
+						<Outlet />
+					</>
 				</SidebarInset>
 			</div>
 		</SidebarProvider>
