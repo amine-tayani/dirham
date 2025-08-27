@@ -11,10 +11,10 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 export const Route = createFileRoute("/(auth)/login")({
-	component: LoginForm
+	component: LoginPage
 });
 
-function LoginForm() {
+function LoginPage() {
 	const navigate = useNavigate();
 	const { redirectUrl, queryClient } = Route.useRouteContext();
 	const [isLoading, setIsLoading] = useState(false);

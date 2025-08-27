@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { User } from "better-auth";
 
 export const Route = createFileRoute("/dashboard/")({
-	component: RouteComponent,
+	component: DashboardPage,
 	loader: ({ context }) => {
 		return { user: context.user as User };
 	}
@@ -33,7 +33,7 @@ const data = [
 	}
 ];
 
-function RouteComponent() {
+function DashboardPage() {
 	return (
 		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mt-4 mx-7 mb-4">
 			<div className="grid grid-cols-2 min-[1200px]:grid-cols-4 gap-4">

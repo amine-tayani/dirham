@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/spending")({
-	component: RouteComponent
+	component: SpendingsPage
 });
 
-function RouteComponent() {
+function SpendingsPage() {
 	return (
 		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mx-7 mt-4 mb-7">
 			This is the spending page

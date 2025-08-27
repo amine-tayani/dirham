@@ -11,10 +11,10 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 export const Route = createFileRoute("/(auth)/signup")({
-	component: SignupForm
+	component: SignupPage
 });
 
-function SignupForm() {
+function SignupPage() {
 	const { redirectUrl } = Route.useRouteContext();
 	const navigate = useNavigate();
 

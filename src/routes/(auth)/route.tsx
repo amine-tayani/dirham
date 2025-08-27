@@ -1,7 +1,7 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(auth)")({
-	component: RouteComponent,
+	component: AuthGroupPage,
 	beforeLoad: async ({ context }) => {
 		const REDIRECT_URL = "/dashboard";
 		if (context.user) {
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/(auth)")({
 	}
 });
 
-function RouteComponent() {
+function AuthGroupPage() {
 	return (
 		<div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
 			<div className="w-full max-w-sm">
