@@ -45,7 +45,7 @@ export function AddAccountButton() {
 				<CommandInput hideIcon placeholder="What would you like to add?" />
 				<CommandList>
 					<CommandEmpty>We found nothing for you to add.</CommandEmpty>
-					<CommandGroup heading="Quick start">
+					<CommandGroup heading="Add a new account">
 						<CommandItem>
 							<FolderPlusIcon size={16} className="opacity-60" aria-hidden="true" />
 							<span>New folder</span>
