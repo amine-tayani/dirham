@@ -1,8 +1,9 @@
 import {
 	ArrowUpRightIcon,
-	CircleFadingPlusIcon,
-	FileInputIcon,
-	FolderPlusIcon,
+	BadgeDollarSignIcon,
+	BitcoinIcon,
+	CreditCardIcon,
+	HouseIcon,
 	PlusIcon
 } from "lucide-react";
 import * as React from "react";
@@ -45,29 +46,28 @@ export function AddAccountButton() {
 				<CommandInput hideIcon placeholder="What would you like to add?" />
 				<CommandList>
 					<CommandEmpty>We found nothing for you to add.</CommandEmpty>
-					<CommandGroup heading="Add a new account">
+					<CommandGroup>
 						<CommandItem>
-							<FolderPlusIcon size={16} className="opacity-60" aria-hidden="true" />
-							<span>New folder</span>
-							<CommandShortcut className="justify-center">⌘N</CommandShortcut>
-						</CommandItem>
-						<CommandItem>
-							<FileInputIcon size={16} className="opacity-60" aria-hidden="true" />
-							<span>Import document</span>
-							<CommandShortcut className="justify-center">⌘I</CommandShortcut>
-						</CommandItem>
-						<CommandItem>
-							<CircleFadingPlusIcon size={16} className="opacity-60" aria-hidden="true" />
-							<span>Add block</span>
+							<BadgeDollarSignIcon size={16} className="opacity-60" aria-hidden="true" />
+							<span>Cash</span>
 							<CommandShortcut className="justify-center">⌘B</CommandShortcut>
+						</CommandItem>
+
+						<CommandItem>
+							<CreditCardIcon size={16} className="opacity-60" aria-hidden="true" />
+							<span>Credit Card</span>
+						</CommandItem>
+						<CommandItem>
+							<BitcoinIcon size={16} className="opacity-60" aria-hidden="true" />
+							<span>Crypto</span>
+						</CommandItem>
+						<CommandItem>
+							<HouseIcon size={16} className="opacity-60" aria-hidden="true" />
+							<span>Proprety</span>
 						</CommandItem>
 					</CommandGroup>
 					<CommandSeparator />
 					<CommandGroup heading="Navigation">
-						<CommandItem>
-							<ArrowUpRightIcon size={16} className="opacity-60" aria-hidden="true" />
-							<span>Go to dashboard</span>
-						</CommandItem>
 						<CommandItem>
 							<ArrowUpRightIcon size={16} className="opacity-60" aria-hidden="true" />
 							<span>Go to apps</span>
