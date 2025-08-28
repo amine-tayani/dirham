@@ -1,10 +1,9 @@
 "use client"
 
-import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
 import { SearchIcon } from "lucide-react"
+import * as React from "react"
 
-import { cn } from "@/lib/utils"
 import {
   Dialog,
   DialogContent,
@@ -12,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils"
 
 function Command({
   className,
@@ -55,14 +55,14 @@ function CommandDialog({
 
 function CommandInput({
   className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Input>) {
+  ...props 
+}: React.ComponentProps<typeof CommandPrimitive.Input> & { hideIcon?: boolean }) {
   return (
     <div
       className="border-input flex items-center border-b px-5"
       cmdk-input-wrapper=""
     >
-      <SearchIcon size={20} className="text-muted-foreground/80 me-3" />
+      <SearchIcon size={20} className={cn("text-muted-foreground/80 me-3", { "hidden": props.hideIcon })} />
       <CommandPrimitive.Input
         data-slot="command-input-wrapper"
         className={cn(
@@ -173,5 +173,5 @@ export {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
+  CommandShortcut
 }

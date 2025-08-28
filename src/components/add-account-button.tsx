@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/command";
 import { Button } from "./ui/button";
 
-export default function AddAccountButton() {
+export function AddAccountButton() {
 	const [open, setOpen] = React.useState(false);
 
 	React.useEffect(() => {
@@ -42,9 +42,9 @@ export default function AddAccountButton() {
 			</Button>
 
 			<CommandDialog open={open} onOpenChange={setOpen}>
-				<CommandInput placeholder="Type a command or search..." />
+				<CommandInput hideIcon placeholder="What would you like to add?" />
 				<CommandList>
-					<CommandEmpty>No results found.</CommandEmpty>
+					<CommandEmpty>We found nothing for you to add.</CommandEmpty>
 					<CommandGroup heading="Quick start">
 						<CommandItem>
 							<FolderPlusIcon size={16} className="opacity-60" aria-hidden="true" />

@@ -1,4 +1,4 @@
-import AddAccountCommandButton from "@/components/add-account-button";
+import { AddAccountButton } from "@/components/add-account-button";
 import { Card } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
 import { LayersIcon } from "lucide-react";
@@ -19,7 +19,7 @@ function AccountsPage() {
 						</div>
 						<h3 className="text-lg font-medium mb-2">No accounts yet</h3>
 						<p className="text-muted-foreground mb-6">Add accounts to display net worth data</p>
-						<AddAccountCommandButton />
+						<AddAccountButton />
 					</div>
 				</Card>
 			</div>
