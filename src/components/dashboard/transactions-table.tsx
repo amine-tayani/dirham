@@ -48,10 +48,10 @@ import {
 	ListFilterIcon,
 	LoaderIcon,
 	MoreVerticalIcon,
-	PlusIcon,
 	XIcon
 } from "lucide-react";
 import * as React from "react";
+import AddTransaction from "../add-transaction";
 
 dayjs.extend(localizedFormat);
 
@@ -351,11 +351,7 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 						<span className="hidden lg:inline">Import</span>
 						<span className="lg:hidden">Import</span>
 					</Button>
-					<Button variant="outline" size="sm">
-						<PlusIcon className="size-4" />
-						<span className="hidden lg:inline">New transaction</span>
-						<span className="lg:hidden">Add</span>
-					</Button>
+					<AddTransaction />
 				</div>
 			</div>
 

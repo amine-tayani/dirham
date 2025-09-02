@@ -54,7 +54,8 @@ function TransactionsPage() {
 											? item.value
 											: new Intl.NumberFormat("en-US", {
 													style: "currency",
-													currency: "USD"
+													currency: "USD",
+													currencyDisplay: "narrowSymbol"
 												}).format(item.value)}
 									</CardTitle>
 								</CardHeader>
