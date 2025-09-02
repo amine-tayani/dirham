@@ -26,24 +26,18 @@ function TransactionsPage() {
 	const { transactions } = Route.useLoaderData();
 	const data = [
 		{
-			title: "Total Balance",
-			value: "$1234.56",
-			changePercent: "-4.6%"
+			title: "Total Transactions",
+			value: "5"
 		},
 		{
-			title: "Monthly Income",
-			value: "$583.54",
-			changePercent: "-4%"
+			title: "Income",
+			value: "$1583.54",
+			changePercent: "+3.5%"
 		},
 		{
-			title: "Monthly Expenses",
-			value: "$1,000",
-			changePercent: "+10%"
-		},
-		{
-			title: "Savings",
-			value: "$800.32",
-			changePercent: "-2.5%"
+			title: "Expenses",
+			value: "$683.54",
+			changePercent: "+7.5%"
 		}
 	];
 	return (

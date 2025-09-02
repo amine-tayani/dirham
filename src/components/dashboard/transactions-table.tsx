@@ -43,6 +43,7 @@ import {
 	CheckCircle2Icon,
 	ChevronDownIcon,
 	ColumnsIcon,
+	DownloadIcon,
 	FilterIcon,
 	ListFilterIcon,
 	LoaderIcon,
@@ -317,16 +318,14 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 							</div>
 						</PopoverContent>
 					</Popover>
-				</div>
-				<div className="flex items-center gap-3">
 					{/* Toggle columns visibility */}
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="outline" size="sm">
-								<ColumnsIcon className="mr-2 h-4 w-4" />
-								<span className="hidden lg:inline">Customize Columns</span>
+								<ColumnsIcon className="size-4 mr-1" />
+								<span className="hidden lg:inline">Columns</span>
 								<span className="lg:hidden">Columns</span>
-								<ChevronDownIcon className="ml-2 h-4 w-4" />
+								<ChevronDownIcon className="size-4" />
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end" className="w-56">
@@ -345,10 +344,16 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 								))}
 						</DropdownMenuContent>
 					</DropdownMenu>
-
+				</div>
+				<div className="flex items-center gap-3">
 					<Button variant="outline" size="sm">
-						<PlusIcon className="mr-2 h-4 w-4" />
-						<span className="hidden lg:inline">Add transaction</span>
+						<DownloadIcon className="size-4" />
+						<span className="hidden lg:inline">Import</span>
+						<span className="lg:hidden">Import</span>
+					</Button>
+					<Button variant="outline" size="sm">
+						<PlusIcon className="size-4" />
+						<span className="hidden lg:inline">New transaction</span>
 						<span className="lg:hidden">Add</span>
 					</Button>
 				</div>
