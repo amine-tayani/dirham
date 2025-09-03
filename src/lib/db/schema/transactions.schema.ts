@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import { numeric, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
 import { user as userSchema } from "./auth.schema";
 
 export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]);
@@ -31,3 +32,8 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 		references: [userSchema.id]
 	})
 }));
+
+// create transaction schema using drizzle-zod package
+
+export const insertTransactionSchema = createInsertSchema(transactions);
+export const updateTransactionSchema = createUpdateSchema(transactions);

@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { insertTransactionSchema } from "@/lib/db/schema";
 
 export default function AddTransaction() {
+	const formSchema = insertTransactionSchema.pick({ amount: true });
+
 	return (
 		<div>
 			<Dialog>
