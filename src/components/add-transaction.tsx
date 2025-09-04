@@ -11,9 +11,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { insertTransactionSchema } from "@/lib/db/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import type z from "zod";
 
 export default function AddTransaction() {
-	const formSchema = insertTransactionSchema.pick({ amount: true });
+	const formSchema = insertTransactionSchema.omit({
+		id: true,
+		createdAt: true,
+		updatedAt: true,
+		userId: true
+	});
+	type FormValues = z.infer<typeof formSchema>;
+
+	const form = useForm<FormValues>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			activity: "",
+			amount: 0,
+			date: new Date(),
+			status: "processing",
+			currency: "USD"
+		}
+	});
 
 	return (
 		<div>

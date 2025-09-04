@@ -21,10 +21,15 @@ function LoginPage() {
 
 	const loginSchema = z.object({
 		email: z
-			.string()
-			.min(1, { message: "Email is required" })
-			.email({ message: "The email you entered is invalid" }),
-		password: z.string().min(8, { message: "Password must be at least 8 characters long" })
+			.email({
+				error: "The email you entered is invalid"
+			})
+			.min(1, {
+				error: "Email is required"
+			}),
+		password: z.string().min(8, {
+			error: "Password must be at least 8 characters long"
+		})
 	});
 
 	const form = useForm<z.infer<typeof loginSchema>>({

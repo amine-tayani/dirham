@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { numeric, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
+import z from "zod";
 import { user as userSchema } from "./auth.schema";
 
 export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]);
@@ -35,5 +36,11 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 
 // create transaction schema using drizzle-zod package
 
-export const insertTransactionSchema = createInsertSchema(transactions);
+export const insertTransactionSchema = createInsertSchema(transactions, {
+	date: z.coerce.date(),
+	amount: z
+		.string()
+		.regex(/^\d+(\.\d{1,2})?$/, "Amount must be a valid number with up to 2 decimal places")
+		.transform((val) => Number.parseFloat(val))
+});
 export const updateTransactionSchema = createUpdateSchema(transactions);

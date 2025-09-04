@@ -15,7 +15,6 @@ export const Route = createFileRoute("/(auth)/signup")({
 });
 
 function SignupPage() {
-	const { redirectUrl } = Route.useRouteContext();
 	const navigate = useNavigate();
 
 	const [isLoading, setIsLoading] = useState(false);
@@ -23,30 +22,38 @@ function SignupPage() {
 	const signupSchema = z
 		.object({
 			name: z.string().min(3, {
-				message: "Username must be at least 3 characters long"
+				error: "Username must be at least 3 characters long"
 			}),
-			email: z.string().email({ message: "Invalid email address" }),
+			email: z.email({
+				error: "Invalid email address"
+			}),
 			password: z
 				.string()
-				.min(8, { message: "Password must be at least 8 characters long" })
-				.max(255, { message: "Password must be at most 255 characters long" })
+				.min(8, {
+					error: "Password must be at least 8 characters long"
+				})
+				.max(255, {
+					error: "Password must be at most 255 characters long"
+				})
 				.refine((val) => /[A-Z]/.test(val), {
-					message: "Password must contain at least one uppercase letter"
+					error: "Password must contain at least one uppercase letter"
 				})
 				.refine((val) => /[a-z]/.test(val), {
-					message: "Password must contain at least one lowercase letter"
+					error: "Password must contain at least one lowercase letter"
 				})
 				.refine((val) => /[0-9]/.test(val), {
-					message: "Password must contain at least one number"
+					error: "Password must contain at least one number"
 				})
 				.refine((val) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(val), {
-					message: "Password must contain at least one special character"
+					error: "Password must contain at least one special character"
 				}),
-			confirmPassword: z.string().min(8, { message: "Password must be at least 8 characters long" })
+			confirmPassword: z.string().min(8, {
+				error: "Password must be at least 8 characters long"
+			})
 		})
 		.refine((data) => data.password === data.confirmPassword, {
-			message: "Passwords do not match",
-			path: ["confirmPassword"]
+			path: ["confirmPassword"],
+			error: "Passwords do not match"
 		});
 
 	const form = useForm<z.infer<typeof signupSchema>>({
