@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -103,12 +103,12 @@ function SignupPage() {
 					</h3>
 					<p className="mt-2 text-sm text-muted-foreground dark:text-muted-foreground">
 						Already have an account?{" "}
-						<a
-							href="/login"
+						<Link
+							to="/login"
 							className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
 						>
 							Login
-						</a>
+						</Link>
 					</p>
 					<div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
 						<Button
