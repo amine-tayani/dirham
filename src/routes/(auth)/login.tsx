@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -70,73 +72,25 @@ function LoginPage() {
 	};
 
 	return (
-		<div className="flex flex-col gap-6">
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onLoginSubmit)} className="flex flex-col gap-6">
-					<div className="flex flex-col gap-6">
-						<h1 className="text-center text-3xl font-geist font-bold ">Log in to Dirhamly</h1>
-						<FormField
-							control={form.control}
-							name="email"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input
-											{...field}
-											type="email"
-											className="h-12 border border-border shadow-none dark:border-none"
-											placeholder="example@gmail.com"
-											readOnly={isLoading}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="password"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input
-											{...field}
-											type="password"
-											className="h-12 border border-border shadow-none dark:border-none"
-											placeholder="Your password"
-											readOnly={isLoading}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<Button
-							type="submit"
-							className="group mt-2 h-12 bg-blue-700 hover:bg-blue-800 text-white font-sans font-semibold w-full"
-							size="lg"
-							disabled={isLoading}
+		<div className="flex justify-center ">
+			<div className="flex flex-1 flex-col justify-center px-4 py-10 lg:px-6">
+				<div className="sm:mx-auto sm:w-full sm:max-w-md">
+					<h3 className="mt-6 text-lg font-semibold text-foreground dark:text-foreground">
+						Sign in to your account
+					</h3>
+					<p className="mt-2 text-sm text-muted-foreground dark:text-muted-foreground">
+						Don&apos;t have an account?{" "}
+						<a
+							href="/signup"
+							className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
 						>
-							<div className="flex items-center">
-								{isLoading ? (
-									<>
-										<span>Log in with email</span>
-										<LoaderCircle className="animate-spin ml-2" />
-									</>
-								) : (
-									"Log in"
-								)}
-							</div>
-						</Button>
-					</div>
-					<div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-						<span className="bg-background text-muted-foreground relative z-10 px-2">Or</span>
-					</div>
-					<div>
+							Sign up
+						</a>
+					</p>
+					<div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
 						<Button
 							variant="outline"
-							className="w-full h-12 border font-semibold dark:border-none"
+							className="dark:border-none mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
 							type="button"
 							disabled={isLoading}
 							onClick={() =>
@@ -157,17 +111,105 @@ function LoginPage() {
 								)
 							}
 						>
-							<img src="google-icon.svg" alt="Google" className="size-6 mr-2" />
+							<img src="google-icon.svg" alt="Google" className="size-4 mr-2" />
 							Login with Google
 						</Button>
 					</div>
-				</form>
-			</Form>
-			<div className="text-center text-sm">
-				Don&apos;t have an account?{" "}
-				<Link to="/signup" className="text-primary hover:text-primary/80">
-					Sign up
-				</Link>
+
+					<div className="relative my-6">
+						<div className="absolute inset-0 flex items-center">
+							<Separator className="w-full" />
+						</div>
+						<div className="relative flex justify-center text-xs uppercase">
+							<span className="bg-background px-2 text-muted-foreground">or</span>
+						</div>
+					</div>
+
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onLoginSubmit)} className="mt-6 space-y-4">
+							<div>
+								<Label
+									htmlFor="email"
+									className="text-sm font-medium text-foreground dark:text-foreground"
+								>
+									Email
+								</Label>
+								<FormField
+									control={form.control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													id="email"
+													{...field}
+													type="email"
+													className="mt-2 border border-border shadow-none dark:border-none"
+													placeholder="example@gmail.com"
+													readOnly={isLoading}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div>
+								<Label
+									htmlFor="password"
+									className="text-sm font-medium text-foreground dark:text-foreground"
+								>
+									Password
+								</Label>
+								<FormField
+									control={form.control}
+									name="password"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													id="password"
+													{...field}
+													type="password"
+													className="mt-2 border border-border shadow-none dark:border-none"
+													placeholder="Your password"
+													readOnly={isLoading}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<Button
+								variant="dark"
+								disabled={isLoading}
+								type="submit"
+								className="mt-4 w-full py-2 font-medium"
+							>
+								<div className="flex items-center">
+									{isLoading ? (
+										<>
+											<span>Sign In</span>
+											<LoaderCircle className="animate-spin ml-2" />
+										</>
+									) : (
+										"Sign In"
+									)}
+								</div>
+							</Button>
+						</form>
+					</Form>
+					<p className="mt-6 text-sm text-muted-foreground dark:text-muted-foreground">
+						Forgot your password?{" "}
+						<a
+							href="#"
+							className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
+						>
+							Reset password
+						</a>
+					</p>
+				</div>
 			</div>
 		</div>
 	);
