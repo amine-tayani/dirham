@@ -1,7 +1,9 @@
-import { InsightCard } from "@/components/dashboard/insight-card";
 import { InteractiveChart } from "@/components/interactive-chart";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
 import type { User } from "better-auth";
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/")({
 	component: DashboardPage,
@@ -11,39 +13,77 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function DashboardPage() {
-	const data = [
+	const stats = [
 		{
 			title: "Total Balance",
-			value: "$1234.56",
-			changePercent: "-4.6%"
+			value: 15678.45,
+			lastMonth: 10592,
+			delta: 4.6,
+			positive: true,
+			prefix: "$",
+			suffix: ""
 		},
 		{
 			title: "Monthly Income",
-			value: "$583.54",
-			changePercent: "-4%"
+			value: 1250.75,
+			lastMonth: 1400,
+			delta: -2.5,
+			positive: false,
+			prefix: "$",
+			suffix: ""
 		},
 		{
 			title: "Monthly Expenses",
-			value: "$1,000",
-			changePercent: "+10%"
+			value: 800.32,
+			lastMonth: 1000,
+			delta: 2.5,
+			positive: true,
+			prefix: "$",
+			suffix: ""
 		},
 		{
 			title: "Savings",
-			value: "$800.32",
-			changePercent: "-2.5%"
+			value: 48200,
+			lastMonth: 50480,
+			delta: -2.5,
+			positive: false,
+			prefix: "$",
+			suffix: ""
 		}
 	];
 	return (
 		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mt-4 mx-7 mb-4">
 			<div className="h-screen min-h-[570px] flex-1">
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
-					{data.map((item) => (
-						<InsightCard
-							key={item.title}
-							title={item.title}
-							value={item.value}
-							changePercent={item.changePercent}
-						/>
+				<div className="grow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+					{stats.map((stat, index) => (
+						<Card key={index}>
+							<CardHeader className="border-0">
+								<CardTitle className="text-muted-foreground text-sm font-medium">
+									{stat.title}
+								</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="flex items-center gap-2.5 -mt-2">
+									<span className="text-2xl font-medium text-foreground tracking-tight">
+										{stat.prefix + stat.value + stat.suffix}
+									</span>
+									<Badge variant={stat.positive ? "success" : "destructive"}>
+										{stat.delta > 0 ? (
+											<ArrowUpIcon className="size-3.5" />
+										) : (
+											<ArrowDownIcon className="size-3.5" />
+										)}
+										{stat.delta}%
+									</Badge>
+								</div>
+								<div className="text-xs text-muted-foreground mt-2 border-t pt-2.5">
+									Vs last month:{" "}
+									<span className="font-medium text-foreground">
+										{stat.prefix + stat.lastMonth + stat.suffix}
+									</span>
+								</div>
+							</CardContent>
+						</Card>
 					))}
 				</div>
 				<InteractiveChart />
