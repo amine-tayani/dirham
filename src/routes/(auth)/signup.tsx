@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import authClient from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,7 +18,6 @@ export const Route = createFileRoute("/(auth)/signup")({
 
 function SignupPage() {
 	const navigate = useNavigate();
-
 	const [isLoading, setIsLoading] = useState(false);
 
 	const signupSchema = z
@@ -94,130 +95,188 @@ function SignupPage() {
 	};
 
 	return (
-		<div className="flex flex-col gap-6">
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSignupSubmit)} className="flex flex-col gap-6">
-					<h1 className="text-center text-3xl font-geist font-bold mb-4">Create your account</h1>
-					<FormField
-						control={form.control}
-						name="name"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input
-										{...field}
-										className="h-12 border border-border shadow-none dark:border-none"
-										placeholder="John Doe"
-										readOnly={isLoading}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<FormField
-						control={form.control}
-						name="email"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input
-										{...field}
-										type="email"
-										className="h-12 border border-border shadow-none dark:border-none"
-										placeholder="hello@example.com"
-										readOnly={isLoading}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<FormField
-						control={form.control}
-						name="password"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input
-										{...field}
-										type="password"
-										className="h-12 border border-border shadow-none dark:border-none"
-										placeholder="Password"
-										readOnly={isLoading}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<FormField
-						control={form.control}
-						name="confirmPassword"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input
-										{...field}
-										type="password"
-										className="h-12 border border-border shadow-none dark:border-none"
-										placeholder="Confirm Password"
-										readOnly={isLoading}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<Button
-						type="submit"
-						className="group mt-2 h-12 bg-blue-700 hover:bg-blue-800 text-white font-sans font-semibold w-full"
-						size="lg"
-						disabled={isLoading}
-					>
-						<div className="flex items-center">
-							{isLoading ? (
-								<>
-									<LoaderCircle className="animate-spin mr-2" />
-									<span>Signing up...</span>
-								</>
-							) : (
-								"Sign up with Dirhamly"
-							)}
-						</div>
-					</Button>
-
-					<div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-						<span className="bg-background text-muted-foreground relative z-10 px-2">Or</span>
+		<div className="flex justify-center ">
+			<div className="flex flex-1 flex-col justify-center px-4 py-10 lg:px-6">
+				<div className="sm:mx-auto sm:w-full sm:max-w-md">
+					<h3 className="mt-6 text-lg font-semibold text-foreground dark:text-foreground">
+						Sign up to your account
+					</h3>
+					<p className="mt-2 text-sm text-muted-foreground dark:text-muted-foreground">
+						Already have an account?{" "}
+						<a
+							href="/login"
+							className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
+						>
+							Login
+						</a>
+					</p>
+					<div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
+						<Button
+							variant="outline"
+							className="dark:border-none mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
+							type="button"
+							disabled={isLoading}
+							onClick={() =>
+								authClient.signIn.social(
+									{
+										provider: "google",
+										callbackURL: "/dashboard"
+									},
+									{
+										onRequest: () => {
+											setIsLoading(true);
+										},
+										onError: (ctx) => {
+											setIsLoading(false);
+											toast.error(ctx.error.message);
+										}
+									}
+								)
+							}
+						>
+							<img src="google-icon.svg" alt="Google" className="size-4 mr-2" />
+							Sign up with Google
+						</Button>
 					</div>
 
-					<Button
-						variant="outline"
-						className="w-full h-12 border font-semibold dark:border-none"
-						type="button"
-						disabled={isLoading}
-						onClick={() => {
-							authClient.signIn.social({
-								provider: "google",
-								callbackURL: "/dashboard"
-							});
-						}}
-					>
-						<img src="google-icon.svg" alt="Google" className="size-6 mr-2" />
-						Sign up with Google
-					</Button>
-				</form>
-			</Form>
+					<div className="relative my-6">
+						<div className="absolute inset-0 flex items-center">
+							<Separator className="w-full" />
+						</div>
+						<div className="relative flex justify-center text-xs uppercase">
+							<span className="bg-background px-2 text-muted-foreground">or</span>
+						</div>
+					</div>
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onSignupSubmit)} className="mt-6 space-y-4">
+							<div>
+								<Label
+									htmlFor="name"
+									className="text-sm font-medium text-foreground dark:text-foreground"
+								>
+									Name
+								</Label>
+								<FormField
+									control={form.control}
+									name="name"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													{...field}
+													id="name"
+													className="mt-2 border border-border shadow-none dark:border-none"
+													placeholder="John Doe"
+													readOnly={isLoading}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div>
+								<Label
+									htmlFor="email"
+									className="text-sm font-medium text-foreground dark:text-foreground"
+								>
+									Email
+								</Label>
+								<FormField
+									control={form.control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													{...field}
+													id="email"
+													type="email"
+													className="mt-2 border border-border shadow-none dark:border-none"
+													placeholder="hello@example.com"
+													readOnly={isLoading}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div>
+								<Label
+									htmlFor="password"
+									className="text-sm font-medium text-foreground dark:text-foreground"
+								>
+									Password
+								</Label>
+								<FormField
+									control={form.control}
+									name="password"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													{...field}
+													id="password"
+													type="password"
+													className="mt-2 border border-border shadow-none dark:border-none"
+													placeholder="Your password"
+													readOnly={isLoading}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div>
+								<Label
+									htmlFor="confirmPassword"
+									className="text-sm font-medium text-foreground dark:text-foreground"
+								>
+									Password
+								</Label>
+								<FormField
+									control={form.control}
+									name="confirmPassword"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													{...field}
+													id="confirmPassword"
+													type="password"
+													className="mt-2 border border-border shadow-none dark:border-none"
+													placeholder="Confirm Password"
+													readOnly={isLoading}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
 
-			<div className="text-center text-sm">
-				Already have an account?{" "}
-				<Link to="/login" className="text-blue-600 hover:text-blue-500">
-					Login
-				</Link>
+							<Button
+								variant="dark"
+								disabled={isLoading}
+								type="submit"
+								className="mt-4 w-full py-2 font-medium"
+							>
+								<div className="flex items-center">
+									{isLoading ? (
+										<>
+											<LoaderCircle className="animate-spin mr-2" />
+											<span>Signing up...</span>
+										</>
+									) : (
+										"Sign up"
+									)}
+								</div>
+							</Button>
+						</form>
+					</Form>
+				</div>
 			</div>
 		</div>
 	);
