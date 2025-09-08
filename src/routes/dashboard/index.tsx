@@ -36,14 +36,16 @@ function DashboardPage() {
 	return (
 		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mt-4 mx-7 mb-4">
 			<div className="h-screen min-h-[570px] flex-1">
-				{data.map((item) => (
-					<InsightCard
-						key={item.title}
-						title={item.title}
-						value={item.value}
-						changePercent={item.changePercent}
-					/>
-				))}
+				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+					{data.map((item) => (
+						<InsightCard
+							key={item.title}
+							title={item.title}
+							value={item.value}
+							changePercent={item.changePercent}
+						/>
+					))}
+				</div>
 				<InteractiveChart />
 			</div>
 		</div>
