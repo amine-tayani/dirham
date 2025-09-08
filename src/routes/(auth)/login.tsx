@@ -34,7 +34,7 @@ function LoginPage() {
 		})
 	});
 
-	const form = useForm<z.infer<typeof loginSchema>>({
+	const form = useForm<z.input<typeof loginSchema>, unknown, z.output<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
 			email: "",

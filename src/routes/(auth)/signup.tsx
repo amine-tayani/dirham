@@ -57,7 +57,7 @@ function SignupPage() {
 			error: "Passwords do not match"
 		});
 
-	const form = useForm<z.infer<typeof signupSchema>>({
+	const form = useForm<z.input<typeof signupSchema>, unknown, z.output<typeof signupSchema>>({
 		resolver: zodResolver(signupSchema),
 		defaultValues: {
 			name: "",
