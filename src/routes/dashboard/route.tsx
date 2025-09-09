@@ -1,9 +1,12 @@
 import { DashboardSidebar } from "@/components/sidebar";
+import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { UserNav } from "@/components/user-nav";
 import { greetUser } from "@/lib/utils";
+import { toggleTheme } from "@/utils/toggle-theme";
 import { Outlet, createFileRoute, redirect, useMatches } from "@tanstack/react-router";
 import type { User } from "better-auth";
+import { MoonIcon } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
 	component: DashboardLayout,
@@ -58,7 +61,10 @@ function DashboardLayout() {
 									<h1 className="text-2xl font-medium tracking-tight"> {getHeaderTitle()}</h1>
 								</div>
 							</div>
-							<div className="flex ml-auto pr-7">
+							<div className="flex gap-4 ml-auto pr-7">
+								<Button size="icon" variant="ghost" onClick={toggleTheme} aria-label="Toggle theme">
+									<MoonIcon className="m-auto size-5 text-neutral-600 dark:text-neutral-400" />
+								</Button>
 								<UserNav user={user} queryClient={queryClient} />
 							</div>
 						</header>

@@ -1,6 +1,7 @@
 import { InteractiveChart } from "@/components/interactive-chart";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import type { User } from "better-auth";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
@@ -56,7 +57,16 @@ function DashboardPage() {
 			<div className="h-screen min-h-[570px] flex-1">
 				<div className="grow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
 					{stats.map((stat, index) => (
-						<Card key={index}>
+						<Card
+							key={index}
+							className={cn(
+								"bg-white dark:bg-neutral-950/70",
+								"bg-linear-to-br from-neutral-100 to-neutral-50 dark:from-neutral-900/90 dark:to-neutral-900/60",
+								"backdrop-blur-xl backdrop-saturate-[180%]",
+								"border-none dark:border dark:border-white/10",
+								"shadow-[0_8px_16px_rgb(0_0_0_/_0.15)] dark:shadow-[0_8px_16px_rgb(0_0_0_/_0.25)]"
+							)}
+						>
 							<CardHeader className="border-0">
 								<CardTitle className="text-muted-foreground text-sm font-medium">
 									{stat.title}
