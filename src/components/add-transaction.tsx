@@ -1,4 +1,4 @@
-import { transactionFormSchema } from "@/lib/db/schema";
+import { statusValues, transactionFormSchema } from "@/lib/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
+import { toast } from "sonner";
 import type z from "zod";
 
 export default function AddTransaction() {
@@ -52,7 +53,8 @@ export default function AddTransaction() {
 
 	const onSubmit = async (values: z.infer<typeof transactionFormSchema>) => {
 		setIsLoading(true);
-		console.log(values);
+		toast.info(<pre>{JSON.stringify(values, null, 2)}</pre>);
+		setIsLoading(false);
 	};
 
 	return (
@@ -155,26 +157,59 @@ export default function AddTransaction() {
 								</div>
 							</div>
 
-							<div className="space-y-2 col-span-2">
-								<Label htmlFor="date">Date</Label>
-								<Popover>
-									<PopoverTrigger asChild>
-										<Button
-											id="date"
-											variant={"outline"}
-											className={cn(
-												"w-full justify-start text-left font-normal",
-												!date && "text-muted-foreground"
-											)}
-										>
-											<CalendarIcon className="mr-1 h-4 w-4 shrink-0" />{" "}
-											{date ? format(date, "PPP") : <span>Pick a date</span>}
-										</Button>
-									</PopoverTrigger>
-									<PopoverContent className="w-auto p-0" align="center">
-										<Calendar mode="single" selected={date} onSelect={setDate} />
-									</PopoverContent>
-								</Popover>
+							<div className="grid grid-cols-3 gap-4">
+								<div className="space-y-2 col-span-2">
+									<Label htmlFor="date">Date</Label>
+									<Popover>
+										<PopoverTrigger asChild>
+											<Button
+												id="date"
+												variant={"outline"}
+												className={cn(
+													"w-full justify-start text-left font-normal",
+													!date && "text-muted-foreground"
+												)}
+											>
+												<CalendarIcon className="mr-1 h-4 w-4 shrink-0" />{" "}
+												{date ? format(date, "PPP") : <span>Pick a date</span>}
+											</Button>
+										</PopoverTrigger>
+										<PopoverContent className="w-auto p-0" align="center">
+											<Calendar mode="single" selected={date} onSelect={setDate} />
+										</PopoverContent>
+									</Popover>
+								</div>
+								<div className="space-y-2">
+									<Label
+										className="text-sm font-medium text-foreground dark:text-foreground"
+										htmlFor="status"
+									>
+										Status
+									</Label>
+									<FormField
+										control={form.control}
+										name="status"
+										render={({ field }) => (
+											<FormItem>
+												<Select onValueChange={field.onChange} defaultValue={field.value}>
+													<FormControl>
+														<SelectTrigger id="currency" className="w-full">
+															<SelectValue placeholder="Select the status" />
+														</SelectTrigger>
+													</FormControl>
+													<SelectContent>
+														{statusValues.map((value) => (
+															<SelectItem key={value} value={value}>
+																{value.toLocaleUpperCase()}
+															</SelectItem>
+														))}
+													</SelectContent>
+												</Select>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
 							</div>
 						</div>
 

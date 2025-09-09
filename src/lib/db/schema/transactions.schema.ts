@@ -6,6 +6,8 @@ import { user as userSchema } from "./auth.schema";
 
 export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]);
 
+export const statusValues = statusEnum.enumValues as string[];
+
 export const transactions = pgTable("transactions", {
 	id: serial("id").primaryKey(),
 	userId: text("user_id")
