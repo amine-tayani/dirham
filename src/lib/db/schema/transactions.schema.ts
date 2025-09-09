@@ -38,9 +38,14 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 
 export const insertTransactionSchema = createInsertSchema(transactions, {
 	date: z.coerce.date(),
-	amount: z
-		.string()
-		.regex(/^\d+(\.\d{1,2})?$/, "Amount must be a valid number with up to 2 decimal places")
-		.transform((val) => Number.parseFloat(val))
+	amount: z.coerce.number()
 });
+
+export const transactionFormSchema = insertTransactionSchema.omit({
+	id: true,
+	createdAt: true,
+	updatedAt: true,
+	userId: true
+});
+
 export const updateTransactionSchema = createUpdateSchema(transactions);

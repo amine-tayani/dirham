@@ -42,7 +42,7 @@ function LoginPage() {
 		}
 	});
 
-	const onLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
+	const onSubmit = async (values: z.infer<typeof loginSchema>) => {
 		setIsLoading(true);
 		try {
 			await authClient.signIn.email(
@@ -126,7 +126,7 @@ function LoginPage() {
 					</div>
 
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onLoginSubmit)} className="mt-6 space-y-4">
+						<form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
 							<div>
 								<Label
 									htmlFor="email"
