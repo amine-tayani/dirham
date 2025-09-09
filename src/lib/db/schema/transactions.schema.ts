@@ -37,8 +37,7 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 // create transaction schema using drizzle-zod package
 
 export const insertTransactionSchema = createInsertSchema(transactions, {
-	date: z.coerce.date(),
-	amount: z.coerce.number()
+	date: z.coerce.date()
 });
 
 export const transactionFormSchema = insertTransactionSchema.omit({

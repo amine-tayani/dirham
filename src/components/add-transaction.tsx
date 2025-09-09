@@ -1,10 +1,11 @@
 import { transactionFormSchema } from "@/lib/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
 	Dialog,
 	DialogClose,
@@ -16,7 +17,16 @@ import {
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LoaderCircle } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { CalendarIcon, LoaderCircle } from "lucide-react";
 import type z from "zod";
 
 export default function AddTransaction() {
@@ -30,7 +40,7 @@ export default function AddTransaction() {
 		resolver: zodResolver(transactionFormSchema),
 		defaultValues: {
 			activity: "",
-			amount: 0,
+			amount: "",
 			date: new Date(),
 			status: "processing",
 			currency: "USD"
@@ -39,30 +49,9 @@ export default function AddTransaction() {
 
 	const [open, setOpen] = useState(true);
 	const [date, setDate] = useState<Date | undefined>(new Date());
-	const [startTime, setStartTime] = useState("09:00");
-
-	const timeOptions = useMemo(() => {
-		const options = [];
-		for (let hour = 0; hour <= 23; hour++) {
-			for (let minute = 0; minute < 60; minute += 30) {
-				const formattedHour = hour.toString().padStart(2, "0");
-				const formattedMinute = minute.toString().padStart(2, "0");
-				const value = `${formattedHour}:${formattedMinute}`;
-				const tempDate = new Date(2000, 0, 1, hour, minute);
-				const label = format(tempDate, "h:mm a");
-				options.push({ value, label });
-			}
-		}
-
-		if (!options.find((opt) => opt.value === "23:59")) {
-			const endOfDay = new Date(2000, 0, 1, 23, 59);
-			options.push({ value: "23:59", label: format(endOfDay, "h:mm a") });
-		}
-
-		return options;
-	}, []);
 
 	const onSubmit = async (values: z.infer<typeof transactionFormSchema>) => {
+		setIsLoading(true);
 		console.log(values);
 	};
 
@@ -107,20 +96,65 @@ export default function AddTransaction() {
 									)}
 								/>
 							</div>
+							<div className="grid grid-cols-3 gap-4">
+								<div className="col-span-2">
+									<Label
+										className="text-sm font-medium text-foreground dark:text-foreground"
+										htmlFor="amount"
+									>
+										Amount
+									</Label>
+									<FormField
+										control={form.control}
+										name="amount"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														{...field}
+														className="mt-2 border border-border shadow-none dark:border-none"
+														readOnly={isLoading}
+														id="amount"
+														name="amount"
+														placeholder="e.g., 100"
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+								<div className="space-y-2">
+									<Label
+										className="text-sm font-medium text-foreground dark:text-foreground"
+										htmlFor="currency"
+									>
+										Currency
+									</Label>
+									<FormField
+										control={form.control}
+										name="currency"
+										render={({ field }) => (
+											<FormItem>
+												<Select onValueChange={field.onChange} defaultValue={field.value}>
+													<FormControl>
+														<SelectTrigger id="currency" className="w-full">
+															<SelectValue placeholder="Select a currency" />
+														</SelectTrigger>
+													</FormControl>
+													<SelectContent>
+														<SelectItem value="USD">USD</SelectItem>
+														<SelectItem value="EUR">EUR</SelectItem>
+														<SelectItem value="MAD">MAD</SelectItem>
+													</SelectContent>
+												</Select>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+							</div>
 
-							{/* <div className="space-y-2">
-							<Label htmlFor="attendees">Attendees</Label>
-							<Input
-								id="attendees"
-								name="attendees"
-								placeholder="user1@example.com, user2@example.com"
-							/>
-							<p className="text-xs text-muted-foreground">
-								Enter email addresses separated by commas.
-							</p>
-						</div> */}
-
-							{/* <div className="grid grid-cols-3 gap-4">
 							<div className="space-y-2 col-span-2">
 								<Label htmlFor="date">Date</Label>
 								<Popover>
@@ -137,28 +171,11 @@ export default function AddTransaction() {
 											{date ? format(date, "PPP") : <span>Pick a date</span>}
 										</Button>
 									</PopoverTrigger>
-									<PopoverContent className="w-auto p-0" align="start">
-										<Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+									<PopoverContent className="w-auto p-0" align="center">
+										<Calendar mode="single" selected={date} onSelect={setDate} />
 									</PopoverContent>
 								</Popover>
 							</div>
-
-							<div className="space-y-2">
-								<Label htmlFor="time">Time</Label>
-								<Select value={startTime} onValueChange={setStartTime}>
-									<SelectTrigger id="time" className="w-full">
-										<SelectValue placeholder="Select time" />
-									</SelectTrigger>
-									<SelectContent>
-										{timeOptions.map((option) => (
-											<SelectItem key={option.value} value={option.value}>
-												{option.label}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</div>
-						</div> */}
 						</div>
 
 						<div className="flex items-center justify-end border-t p-4 space-x-2">
