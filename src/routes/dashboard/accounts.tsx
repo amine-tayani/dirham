@@ -1,7 +1,8 @@
 import { AddAccountButton } from "@/components/add-account-button";
 import { Card } from "@/components/ui/card";
+import { Kbd } from "@/components/ui/kbd";
 import { createFileRoute } from "@tanstack/react-router";
-import { LayersIcon } from "lucide-react";
+import { CommandIcon, LayersIcon } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/accounts")({
 	component: AccountsPage
@@ -18,7 +19,14 @@ function AccountsPage() {
 							<LayersIcon className="size-6 text-muted-foreground/70 dark:text-muted-foreground" />
 						</div>
 						<h3 className="text-lg font-medium mb-2">No accounts yet</h3>
-						<p className="text-muted-foreground mb-6">Add accounts to display net worth data</p>
+						<p className="text-muted-foreground mb-6">
+							you can use{" "}
+							<Kbd size="xs" className="mx-1">
+								<CommandIcon /> +K
+							</Kbd>
+							to quickly add an account
+						</p>
+
 						<AddAccountButton />
 					</div>
 				</Card>
