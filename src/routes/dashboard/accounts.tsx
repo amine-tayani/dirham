@@ -11,7 +11,6 @@ export const Route = createFileRoute("/dashboard/accounts")({
 function AccountsPage() {
 	return (
 		<div className="flex flex-1 flex-col gap-4 lg:gap-6 mx-7 mt-4 mb-7">
-			{/* Empty placeholder when user has no accounts */}
 			<div className="flex mx-auto flex-col justify-center items-center h-[calc(100vh-180px)]">
 				<Card className=" px-10 py-20 min-w-[600px] max-w-[700px] shadow-none">
 					<div className="text-center">
@@ -31,7 +30,6 @@ function AccountsPage() {
 					</div>
 				</Card>
 			</div>
-			{/* end of empty placeholder */}
 		</div>
 	);
 }

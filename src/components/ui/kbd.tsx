@@ -1,8 +1,6 @@
-'use client';
-
-import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const kbdVariants = cva('inline-flex items-center justify-center font-mono rounded-md', {
   variants: {
