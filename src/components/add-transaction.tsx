@@ -25,13 +25,17 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "@/components/ui/select";
+import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import type z from "zod";
 
 export default function AddTransaction() {
 	const [isLoading, setIsLoading] = useState(false);
+	const [open, setOpen] = useState(true);
+	const [date, setDate] = useState<Date | undefined>(new Date());
 
 	const form = useForm<
 		z.input<typeof transactionFormSchema>,
@@ -48,13 +52,27 @@ export default function AddTransaction() {
 		}
 	});
 
-	const [open, setOpen] = useState(true);
-	const [date, setDate] = useState<Date | undefined>(new Date());
+	const AddTransactionMutation = useMutation({
+		mutationFn: createTransactionFn,
+		onSuccess: () => {
+			setIsLoading(false);
+			toast.success("Transaction added successfully");
+		},
+		onError: (error) => {
+			setIsLoading(false);
+			toast.error(error.message);
+		}
+	});
 
 	const onSubmit = async (values: z.infer<typeof transactionFormSchema>) => {
 		setIsLoading(true);
-		toast.info(<pre>{JSON.stringify(values, null, 2)}</pre>);
-		setIsLoading(false);
+		try {
+			await AddTransactionMutation.mutateAsync({
+				data: values
+			});
+		} catch (error) {
+			toast.error("Something went wrong while adding the transaction");
+		}
 	};
 
 	return (
