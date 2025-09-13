@@ -59,7 +59,7 @@ dayjs.extend(localizedFormat);
 
 export type TransactionItem = Omit<InferSelectModel<typeof transactions>, "userId" | "updated_at">;
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue) => {
+const multiColumnFilterFn: FilterFn<TransactionItem> = (row, filterValue) => {
 	const searchableRowContent = row.original.activity.toLowerCase();
 	const searchTerm = (filterValue ?? "").toLowerCase();
 	return searchableRowContent.includes(searchTerm);
@@ -267,12 +267,12 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
 						<ListFilterIcon size={16} aria-hidden="true" />
 					</div>
-					{Boolean(table.getColumn("name")?.getFilterValue()) && (
+					{Boolean(table.getColumn("activity")?.getFilterValue()) && (
 						<Button
 							className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 							aria-label="Clear filter"
 							onClick={() => {
-								table.getColumn("name")?.setFilterValue("");
+								table.getColumn("activity")?.setFilterValue("");
 								if (inputRef.current) {
 									inputRef.current.focus();
 								}
