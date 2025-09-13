@@ -13,7 +13,7 @@ const getTransactions = createServerFn().handler(async () => {
 export const Route = createFileRoute("/dashboard/transactions")({
 	component: TransactionsPage,
 	beforeLoad: async ({ context }) => {
-		return { ...context, title: "Transactions" };
+		return { title: "Transactions" };
 	},
 	loader: async () => {
 		return {
