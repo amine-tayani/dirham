@@ -110,12 +110,8 @@ export default function Navbar() {
 									</Button>
 								</div>
 							) : (
-								<Button asChild className="hidden md:block">
-									<Link to="/dashboard">
-										<span className="text-white font-semibold text-nowrap font-mont">
-											Dashboard
-										</span>
-									</Link>
+								<Button size="sm" asChild className="hidden md:flex font-semibold text-white">
+									<Link to="/dashboard">Dashboard</Link>
 								</Button>
 							)}
 							<Button size="icon" variant="ghost" onClick={toggleTheme}>

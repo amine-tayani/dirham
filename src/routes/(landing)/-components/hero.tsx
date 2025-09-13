@@ -15,7 +15,7 @@ const transitionVariants = {
 			filter: "blur(0px)",
 			y: 0,
 			transition: {
-				type: "spring",
+				type: "spring" as const,
 				bounce: 0.3,
 				duration: 1.5
 			}
@@ -86,18 +86,12 @@ export function HeroSection() {
 								}}
 								className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
 							>
-								<Button asChild size="lg" className="text-white rounded-xl px-5">
+								<Button asChild size="lg">
 									<Link to="/signup">
-										<span className="text-nowrap font-geist text-sm">Start Building</span>
+										<span className="text-nowrap font-semibold text-white">Start Building</span>
 									</Link>
 								</Button>
-								<Button
-									key={2}
-									asChild
-									size="lg"
-									variant="ghost"
-									className="h-10.5 rounded-xl px-5"
-								>
+								<Button asChild size="lg" variant="ghost">
 									<Link to="/signup">
 										<span className="text-nowrap">Request a demo</span>
 									</Link>
