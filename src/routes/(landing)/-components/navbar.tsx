@@ -17,8 +17,8 @@ const menuItems = [
 export default function Navbar() {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
-	const { data: session, isPending, error } = authClient.useSession();
-	const { setCurrentTheme } = useTheme();
+	const { data: session, isPending } = authClient.useSession();
+	const { theme, setCurrentTheme } = useTheme();
 
 	React.useEffect(() => {
 		const handleScroll = () => {
@@ -116,7 +116,11 @@ export default function Navbar() {
 									<Link to="/dashboard">Dashboard</Link>
 								</Button>
 							)}
-							<Button size="icon" variant="ghost" onClick={() => setCurrentTheme("dark")}>
+							<Button
+								size="icon"
+								variant="ghost"
+								onClick={() => setCurrentTheme(theme === "dark" ? "light" : "dark")}
+							>
 								<MoonIcon className="m-auto size-5 text-neutral-600 dark:text-neutral-400" />
 							</Button>
 						</div>

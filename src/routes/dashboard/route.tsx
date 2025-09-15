@@ -1,9 +1,9 @@
 import { DashboardSidebar } from "@/components/sidebar";
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { UserNav } from "@/components/user-nav";
 import { greetUser } from "@/lib/utils";
-import { toggleTheme } from "@/utils/toggle-theme";
 import { Outlet, createFileRoute, redirect, useMatches } from "@tanstack/react-router";
 import type { User } from "better-auth";
 import { MoonIcon } from "lucide-react";
@@ -24,6 +24,7 @@ function DashboardLayout() {
 	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
 	const matches = useMatches();
+	const { theme, setCurrentTheme } = useTheme();
 
 	const currentMatch = matches[matches.length - 1];
 	const currentRoute = currentMatch?.routeId || "";
@@ -62,7 +63,12 @@ function DashboardLayout() {
 								</div>
 							</div>
 							<div className="flex gap-4 ml-auto pr-7">
-								<Button size="icon" variant="ghost" onClick={toggleTheme} aria-label="Toggle theme">
+								<Button
+									size="icon"
+									variant="ghost"
+									onClick={() => setCurrentTheme(theme === "dark" ? "light" : "dark")}
+									aria-label="Toggle theme"
+								>
 									<MoonIcon className="m-auto size-5 text-neutral-600 dark:text-neutral-400" />
 								</Button>
 								<UserNav user={user} queryClient={queryClient} />

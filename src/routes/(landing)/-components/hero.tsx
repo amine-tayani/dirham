@@ -1,7 +1,7 @@
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const transitionVariants = {
 	item: {
@@ -99,68 +99,9 @@ export default function Hero() {
 							</AnimatedGroup>
 						</div>
 					</div>
-
-					<AnimatedGroup
-						variants={{
-							container: {
-								visible: {
-									transition: {
-										staggerChildren: 0.05,
-										delayChildren: 0.75
-									}
-								}
-							},
-							...transitionVariants
-						}}
-					>
-						<div className="relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20">
-							<div
-								aria-hidden
-								className="bg-gradient-to-b to-background absolute inset-0 z-10 from-transparent from-35%"
-							/>
-							<div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
-								<img
-									className="bg-background aspect-16/8 relative hidden rounded-2xl dark:block"
-									src="/screenshot.png"
-									alt="dark app screen"
-								/>
-								<img
-									className="z-2 aspect-16/8 relative rounded-2xl dark:hidden object-contain"
-									src="/screenshot.png"
-									alt="light app screen"
-								/>
-							</div>
-						</div>
-					</AnimatedGroup>
 				</div>
 			</section>
 			{/* we can move this section to a separate file */}
-			<section className="bg-background pb-16 pt-16 md:pb-32">
-				<div className="group relative m-auto max-w-5xl px-6">
-					<div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
-						<Link to="/" className="block text-sm duration-150 hover:opacity-75">
-							<span> Our Customers</span>
-							<ChevronRight className="ml-1 inline-block size-3" />
-						</Link>
-					</div>
-					<div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
-						{Array(8)
-							.fill(0)
-							.map((_, index) => (
-								<div className="flex" key={index}>
-									logo {index + 1}
-									{/* <img
-									className="mx-auto h-6 w-fit dark:invert"
-									src="https://html.tailus.io/blocks/customers/openai.svg"
-									alt="OpenAI Logo"
-									height="24"
-									width="auto"
-								/> */}
-								</div>
-							))}
-					</div>
-				</div>
-			</section>
 		</main>
 	);
 }
