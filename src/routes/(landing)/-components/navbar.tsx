@@ -1,8 +1,8 @@
 import Logo from "@/components/logo";
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import authClient from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { toggleTheme } from "@/utils/toggle-theme";
 import { Link } from "@tanstack/react-router";
 import { Loader2Icon, MenuIcon, MoonIcon, XIcon } from "lucide-react";
 import * as React from "react";
@@ -18,6 +18,7 @@ export default function Navbar() {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
 	const { data: session, isPending, error } = authClient.useSession();
+	const { setCurrentTheme } = useTheme();
 
 	React.useEffect(() => {
 		const handleScroll = () => {
@@ -115,7 +116,7 @@ export default function Navbar() {
 									<Link to="/dashboard">Dashboard</Link>
 								</Button>
 							)}
-							<Button size="icon" variant="ghost" onClick={toggleTheme}>
+							<Button size="icon" variant="ghost" onClick={() => setCurrentTheme("dark")}>
 								<MoonIcon className="m-auto size-5 text-neutral-600 dark:text-neutral-400" />
 							</Button>
 						</div>

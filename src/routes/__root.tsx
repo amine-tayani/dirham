@@ -1,16 +1,11 @@
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
+import { ThemeProvider } from "@/components/theme-provider";
 import { auth } from "@/lib/server/auth";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import type { QueryClient } from "@tanstack/react-query";
-import {
-	HeadContent,
-	Outlet,
-	ScriptOnce,
-	Scripts,
-	createRootRouteWithContext
-} from "@tanstack/react-router";
+import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
 import type * as React from "react";
@@ -98,15 +93,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ScriptOnce>
-					{`document.documentElement.classList.toggle(
-            'dark',
-            localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-            )`}
-				</ScriptOnce>
-				{children}
-				<Toaster richColors expand />
-				<Scripts />
+				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+					{children}
+					<Toaster richColors expand />
+					<Scripts />
+				</ThemeProvider>
 			</body>
 		</html>
 	);
