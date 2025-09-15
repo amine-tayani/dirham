@@ -97,22 +97,14 @@ export default function Navbar() {
 										</Link>
 									</Button>
 									<Button asChild className={cn(isScrolled && "lg:hidden")}>
-										<Link to="/signup">
-											<span className="text-white font-semibold text-nowrap font-mont">
-												Sign Up
-											</span>
-										</Link>
+										<Link to="/signup">Sign Up</Link>
 									</Button>
 									<Button asChild className={cn(isScrolled ? "lg:inline-flex" : "hidden")}>
-										<Link to="/signup">
-											<span className="text-white font-semibold text-nowrap font-mont">
-												Get Started
-											</span>
-										</Link>
+										<Link to="/signup">Get Started</Link>
 									</Button>
 								</div>
 							) : (
-								<Button size="sm" asChild className="hidden md:flex font-semibold text-white">
+								<Button size="sm" asChild>
 									<Link to="/dashboard">Dashboard</Link>
 								</Button>
 							)}

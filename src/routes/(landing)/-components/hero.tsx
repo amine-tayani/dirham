@@ -87,14 +87,10 @@ export default function Hero() {
 								className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
 							>
 								<Button asChild size="lg">
-									<Link to="/signup">
-										<span className="text-nowrap font-semibold text-white">Start Building</span>
-									</Link>
+									<Link to="/signup">Start Building</Link>
 								</Button>
 								<Button asChild size="lg" variant="ghost">
-									<Link to="/signup">
-										<span className="text-nowrap">Request a demo</span>
-									</Link>
+									<Link to="/signup">Request a demo</Link>
 								</Button>
 							</AnimatedGroup>
 						</div>
