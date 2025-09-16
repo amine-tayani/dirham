@@ -1,8 +1,8 @@
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ThemeSwitcher } from "@/components/ui/theme-switch";
 import { Label } from "@/components/ui/label";
+import { ThemeSwitcher } from "@/components/ui/theme-switch";
 import { Link } from "@tanstack/react-router";
 
 const links = [
@@ -297,7 +297,7 @@ export default function Footer() {
 				<div className="mt-12 flex flex-wrap items-end justify-between gap-6 border-t py-6">
 					<ThemeSwitcher />
 					<small className="text-muted-foreground order-last block text-center text-sm md:order-first">
-						© {new Date().getFullYear()} Tailark, All rights reserved
+						© {new Date().getFullYear()} Dirhamly, All rights reserved
 					</small>
 				</div>
 			</div>
