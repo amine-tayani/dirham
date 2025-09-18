@@ -1,103 +1,73 @@
-import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-
-const transitionVariants = {
-	item: {
-		hidden: {
-			opacity: 0,
-			filter: "blur(12px)",
-			y: 12
-		},
-		visible: {
-			opacity: 1,
-			filter: "blur(0px)",
-			y: 0,
-			transition: {
-				type: "spring" as const,
-				bounce: 0.3,
-				duration: 1.5
-			}
-		}
-	}
-};
+import { ArrowRightIcon } from "lucide-react";
 
 export default function Hero() {
 	return (
-		<main className="overflow-hidden">
-			<div
-				aria-hidden
-				className="z-[2] absolute inset-0 pointer-events-none isolate opacity-50 contain-strict hidden lg:block"
-			>
-				<div className="w-[35rem] h-[80rem] -translate-y-[350px] absolute left-0 top-0 -rotate-45 rounded-full bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,hsla(0,0%,85%,.08)_0,hsla(0,0%,55%,.02)_50%,hsla(0,0%,45%,0)_80%)]" />
-				<div className="h-[80rem] absolute left-0 top-0 w-56 -rotate-45 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.06)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)] [translate:5%_-50%]" />
-				<div className="h-[80rem] -translate-y-[350px] absolute left-0 top-0 w-56 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.04)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)]" />
-			</div>
-			<section>
-				<div className="relative pt-24 md:pt-36">
-					<div
-						aria-hidden
-						className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--background)_75%)]"
-					/>
-					<div className="mx-auto max-w-7xl px-6">
-						<div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
-							<AnimatedGroup variants={transitionVariants}>
-								<Link
-									to="/dashboard"
-									className="dark:hover:bg-neutral-800 hover:bg-neutral-200 dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
-								>
-									<span className="text-foreground text-sm">
-										Introducing The Next Generation of Personal Budgeting Apps
-									</span>
+		<section className="relative w-full max-w-[1350px] mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-24s">
+			<div className="flex flex-col items-start justify-center px-6 md:px-12 lg:px-26 lg:pt-26 pt-20 pb-24">
+				<h1 className="text-4xl sm:text-4xl lg:text-[4.01rem] leading-[1.02] tracking-[-0.021em] text-start font-medium ">
+					<span className="sr-only">
+						Dirhamly is a purpose-built tool for tracking and managing your finances
+					</span>
 
-									<div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
-										<div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
-											<span className="flex size-6">
-												<ArrowRight className="m-auto size-3" />
-											</span>
-											<span className="flex size-6">
-												<ArrowRight className="m-auto size-3" />
-											</span>
-										</div>
-									</div>
-								</Link>
+					<span aria-hidden="true" className="hidden sm:block max-w-4xl leading-[1.17]">
+						Dirhamly is a purpose-built tool for managing your finances
+					</span>
 
-								<h1 className="mt-8 max-w-4xl font-geist font-semibold mx-auto text-balance text-6xl md:text-7xl lg:mt-12 xl:text-[5.25rem]">
-									Dirhamly Your Personal Budgeting App
-								</h1>
-								<p className="mx-auto mt-8 max-w-2xl text-balance text-lg font-geist">
-									Offering everything from smart expense tracking to savings goal planning, all
-									wrapped in an elegant interface with real-time guidance from AI
-								</p>
-							</AnimatedGroup>
+					{/* Mobile title */}
+					<span
+						aria-hidden="true"
+						className="block sm:hidden max-w-md mx-auto text-center leading-tight"
+					>
+						Plan and build your product
+					</span>
+				</h1>
 
-							<AnimatedGroup
-								variants={{
-									container: {
-										visible: {
-											transition: {
-												staggerChildren: 0.05,
-												delayChildren: 0.75
-											}
-										}
-									},
-									...transitionVariants
-								}}
-								className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
-							>
-								<Button asChild size="lg">
-									<Link to="/signup">Start Building</Link>
-								</Button>
-								<Button asChild size="lg" variant="ghost">
-									<Link to="/signup">Request a demo</Link>
-								</Button>
-							</AnimatedGroup>
-						</div>
-					</div>
+				<div className="h-5" />
+
+				<p className="text-muted-foreground text-lg sm:text-base max-w-2xl lg:max-w-sm  ">
+					<span className="hidden sm:inline">
+						Meet Dirhamly, the tool for keeping your finances in check and managing your accounts.
+					</span>
+					<span className="sm:hidden block text-center">
+						Linear is a purpose-built tool for modern product development. Streamline issues,
+						projects, and product roadmaps.
+					</span>
+				</p>
+
+				<div className="h-8 sm:h-12" />
+
+				<div className="hidden sm:flex items-center gap-4">
+					<Button asChild variant="milk">
+						<a href="/signup">Start building</a>
+					</Button>
+
+					<Button asChild variant="ghost" className="flex items-center group">
+						<a href="/">
+							<span>New: Product Intelligence</span>
+							<ArrowRightIcon className="size-4 text-muted-foreground group-hover:translate-x-1.5 ease-in-out duration-300" />
+						</a>
+					</Button>
 				</div>
-			</section>
-			{/* we can move this section to a separate file */}
-		</main>
+
+				{/* Mobile buttons */}
+				<div className="sm:hidden w-full flex flex-col items-center gap-4 mt-6">
+					<Button asChild variant="secondary" className="w-full max-w-xs">
+						<a href="/login">Start building</a>
+					</Button>
+
+					<Button
+						asChild
+						variant="ghost"
+						className="flex items-center gap-1 w-full max-w-xs justify-center"
+					>
+						<a href="/">
+							<span>New: Product Intelligence</span>
+							<ArrowRightIcon className="h-4 w-4 text-muted-foreground" />
+						</a>
+					</Button>
+				</div>
+			</div>
+		</section>
 	);
 }
