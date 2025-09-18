@@ -39,7 +39,7 @@ export const Route = createRootRouteWithContext<{
 				content: "width=device-width, initial-scale=1"
 			},
 			...seo({
-				title: "Dirhamly Your financial assistant",
+				title: "Dirhamly - AI-powered personal budgeting assistant",
 				description:
 					"Dirhamly is an AI-powered personal budgeting assistant designed to help individuals and families take control of their finances. "
 			})
