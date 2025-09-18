@@ -183,10 +183,10 @@
 @layer base {
   * {
     border-color: var(--border);
-    font-family: var(--font-geist);
   }
   body {
     background-color: var(--background);
+    font-family: var(--font-geist);
     color: var(--foreground);
     letter-spacing: var(--tracking-normal);
   }
