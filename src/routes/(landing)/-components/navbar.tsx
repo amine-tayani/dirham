@@ -1,4 +1,4 @@
-import Logo from "@/components/logo";
+import Logo from "@/components/blocks/logo";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import authClient from "@/lib/auth-client";
@@ -61,9 +61,9 @@ export default function Navbar() {
 						) : !session ? (
 							<>
 								<Button asChild variant="ghost" size="sm" className="hidden lg:inline-flex">
-									<Link to="/login">Login</Link>
+									<Link to="/login">Log in</Link>
 								</Button>
-								<Button asChild size="sm" className="hidden lg:inline-flex">
+								<Button variant="milk" asChild size="sm" className="hidden lg:inline-flex">
 									<Link to="/signup">Sign Up</Link>
 								</Button>
 								<Button asChild size="sm" className="lg:hidden">

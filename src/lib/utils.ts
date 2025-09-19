@@ -10,7 +10,7 @@ export function greetUser() {
 	return hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 }
 
-export function shorterDateFormatter(value : any) {
+export function shorterDateFormatter(value: any) {
 	const date = new Date(value);
 	return date.toLocaleDateString("en-US", {
 		month: "short",

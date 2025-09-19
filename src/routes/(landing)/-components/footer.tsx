@@ -1,4 +1,4 @@
-import Logo from "@/components/logo";
+import Logo from "@/components/blocks/logo";
 import { ThemeSwitcher } from "@/components/ui/theme-switch";
 import { Link } from "@tanstack/react-router";
 

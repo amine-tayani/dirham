@@ -1,5 +1,5 @@
+import { NotFound } from "@/components/blocks/not-found";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
-import { NotFound } from "@/components/not-found";
 import { ThemeProvider } from "@/components/theme-provider";
 import { auth } from "@/lib/server/auth";
 import appCss from "@/styles/app.css?url";

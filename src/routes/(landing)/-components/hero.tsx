@@ -35,9 +35,7 @@ export default function Hero() {
 					</span>
 				</p>
 
-				<div className="h-8 sm:h-12" />
-
-				<div className="hidden sm:flex items-center gap-4">
+				<div className="hidden sm:flex items-center gap-4 mt-10">
 					<Button asChild variant="milk">
 						<a href="/signup">Start building</a>
 					</Button>
@@ -51,7 +49,7 @@ export default function Hero() {
 				</div>
 
 				{/* Mobile buttons */}
-				<div className="sm:hidden w-full flex flex-col items-center gap-4 mt-6">
+				<div className="sm:hidden w-full flex flex-col items-center gap-4 mt-4">
 					<Button asChild variant="secondary" className="w-full max-w-xs">
 						<a href="/login">Start building</a>
 					</Button>

@@ -1,4 +1,4 @@
-import { InteractiveChart } from "@/components/interactive-chart";
+import { Chart } from "@/components/blocks/chart";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -96,7 +96,7 @@ function DashboardPage() {
 						</Card>
 					))}
 				</div>
-				<InteractiveChart />
+				<Chart />
 			</div>
 		</div>
 	);

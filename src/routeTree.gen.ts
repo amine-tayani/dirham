@@ -8,390 +8,388 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from '@tanstack/react-start/server'
+import { createServerRootRoute } from "@tanstack/react-start/server";
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
-import { Route as authRouteRouteImport } from './routes/(auth)/route'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as landingIndexRouteImport } from './routes/(landing)/index'
-import { Route as DashboardUpcomingsRouteImport } from './routes/dashboard/upcomings'
-import { Route as DashboardTransactionsRouteImport } from './routes/dashboard/transactions'
-import { Route as DashboardSpendingRouteImport } from './routes/dashboard/spending'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
-import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
-import { Route as DashboardNotificationsRouteImport } from './routes/dashboard/notifications'
-import { Route as DashboardAssistantRouteImport } from './routes/dashboard/assistant'
-import { Route as DashboardAccountsRouteImport } from './routes/dashboard/accounts'
-import { Route as authSignupRouteImport } from './routes/(auth)/signup'
-import { Route as authLoginRouteImport } from './routes/(auth)/login'
-import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
+import { Route as authLoginRouteImport } from "./routes/(auth)/login";
+import { Route as authRouteRouteImport } from "./routes/(auth)/route";
+import { Route as authSignupRouteImport } from "./routes/(auth)/signup";
+import { Route as landingIndexRouteImport } from "./routes/(landing)/index";
+import { Route as rootRouteImport } from "./routes/__root";
+import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/$";
+import { Route as DashboardAccountsRouteImport } from "./routes/dashboard/accounts";
+import { Route as DashboardAssistantRouteImport } from "./routes/dashboard/assistant";
+import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
+import { Route as DashboardNotificationsRouteImport } from "./routes/dashboard/notifications";
+import { Route as DashboardReportsRouteImport } from "./routes/dashboard/reports";
+import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
+import { Route as DashboardSettingsRouteImport } from "./routes/dashboard/settings";
+import { Route as DashboardSpendingRouteImport } from "./routes/dashboard/spending";
+import { Route as DashboardTransactionsRouteImport } from "./routes/dashboard/transactions";
+import { Route as DashboardUpcomingsRouteImport } from "./routes/dashboard/upcomings";
 
-const rootServerRouteImport = createServerRootRoute()
+const rootServerRouteImport = createServerRootRoute();
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/dashboard",
+	path: "/dashboard",
+	getParentRoute: () => rootRouteImport
+} as any);
 const authRouteRoute = authRouteRouteImport.update({
-  id: '/(auth)',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/(auth)",
+	getParentRoute: () => rootRouteImport
+} as any);
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/",
+	path: "/",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const landingIndexRoute = landingIndexRouteImport.update({
-  id: '/(landing)/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/(landing)/",
+	path: "/",
+	getParentRoute: () => rootRouteImport
+} as any);
 const DashboardUpcomingsRoute = DashboardUpcomingsRouteImport.update({
-  id: '/upcomings',
-  path: '/upcomings',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/upcomings",
+	path: "/upcomings",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
-  id: '/transactions',
-  path: '/transactions',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/transactions",
+	path: "/transactions",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardSpendingRoute = DashboardSpendingRouteImport.update({
-  id: '/spending',
-  path: '/spending',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/spending",
+	path: "/spending",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/settings",
+	path: "/settings",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardReportsRoute = DashboardReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/reports",
+	path: "/reports",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardNotificationsRoute = DashboardNotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/notifications",
+	path: "/notifications",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardAssistantRoute = DashboardAssistantRouteImport.update({
-  id: '/assistant',
-  path: '/assistant',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/assistant",
+	path: "/assistant",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const DashboardAccountsRoute = DashboardAccountsRouteImport.update({
-  id: '/accounts',
-  path: '/accounts',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+	id: "/accounts",
+	path: "/accounts",
+	getParentRoute: () => DashboardRouteRoute
+} as any);
 const authSignupRoute = authSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => authRouteRoute,
-} as any)
+	id: "/signup",
+	path: "/signup",
+	getParentRoute: () => authRouteRoute
+} as any);
 const authLoginRoute = authLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => authRouteRoute,
-} as any)
+	id: "/login",
+	path: "/login",
+	getParentRoute: () => authRouteRoute
+} as any);
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
+	id: "/api/auth/$",
+	path: "/api/auth/$",
+	getParentRoute: () => rootServerRouteImport
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof landingIndexRoute
-  '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/login': typeof authLoginRoute
-  '/signup': typeof authSignupRoute
-  '/dashboard/accounts': typeof DashboardAccountsRoute
-  '/dashboard/assistant': typeof DashboardAssistantRoute
-  '/dashboard/notifications': typeof DashboardNotificationsRoute
-  '/dashboard/reports': typeof DashboardReportsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/spending': typeof DashboardSpendingRoute
-  '/dashboard/transactions': typeof DashboardTransactionsRoute
-  '/dashboard/upcomings': typeof DashboardUpcomingsRoute
-  '/dashboard/': typeof DashboardIndexRoute
+	"/": typeof landingIndexRoute;
+	"/dashboard": typeof DashboardRouteRouteWithChildren;
+	"/login": typeof authLoginRoute;
+	"/signup": typeof authSignupRoute;
+	"/dashboard/accounts": typeof DashboardAccountsRoute;
+	"/dashboard/assistant": typeof DashboardAssistantRoute;
+	"/dashboard/notifications": typeof DashboardNotificationsRoute;
+	"/dashboard/reports": typeof DashboardReportsRoute;
+	"/dashboard/settings": typeof DashboardSettingsRoute;
+	"/dashboard/spending": typeof DashboardSpendingRoute;
+	"/dashboard/transactions": typeof DashboardTransactionsRoute;
+	"/dashboard/upcomings": typeof DashboardUpcomingsRoute;
+	"/dashboard/": typeof DashboardIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof landingIndexRoute
-  '/login': typeof authLoginRoute
-  '/signup': typeof authSignupRoute
-  '/dashboard/accounts': typeof DashboardAccountsRoute
-  '/dashboard/assistant': typeof DashboardAssistantRoute
-  '/dashboard/notifications': typeof DashboardNotificationsRoute
-  '/dashboard/reports': typeof DashboardReportsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/spending': typeof DashboardSpendingRoute
-  '/dashboard/transactions': typeof DashboardTransactionsRoute
-  '/dashboard/upcomings': typeof DashboardUpcomingsRoute
-  '/dashboard': typeof DashboardIndexRoute
+	"/": typeof landingIndexRoute;
+	"/login": typeof authLoginRoute;
+	"/signup": typeof authSignupRoute;
+	"/dashboard/accounts": typeof DashboardAccountsRoute;
+	"/dashboard/assistant": typeof DashboardAssistantRoute;
+	"/dashboard/notifications": typeof DashboardNotificationsRoute;
+	"/dashboard/reports": typeof DashboardReportsRoute;
+	"/dashboard/settings": typeof DashboardSettingsRoute;
+	"/dashboard/spending": typeof DashboardSpendingRoute;
+	"/dashboard/transactions": typeof DashboardTransactionsRoute;
+	"/dashboard/upcomings": typeof DashboardUpcomingsRoute;
+	"/dashboard": typeof DashboardIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/(auth)': typeof authRouteRouteWithChildren
-  '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/(auth)/login': typeof authLoginRoute
-  '/(auth)/signup': typeof authSignupRoute
-  '/dashboard/accounts': typeof DashboardAccountsRoute
-  '/dashboard/assistant': typeof DashboardAssistantRoute
-  '/dashboard/notifications': typeof DashboardNotificationsRoute
-  '/dashboard/reports': typeof DashboardReportsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/spending': typeof DashboardSpendingRoute
-  '/dashboard/transactions': typeof DashboardTransactionsRoute
-  '/dashboard/upcomings': typeof DashboardUpcomingsRoute
-  '/(landing)/': typeof landingIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
+	__root__: typeof rootRouteImport;
+	"/(auth)": typeof authRouteRouteWithChildren;
+	"/dashboard": typeof DashboardRouteRouteWithChildren;
+	"/(auth)/login": typeof authLoginRoute;
+	"/(auth)/signup": typeof authSignupRoute;
+	"/dashboard/accounts": typeof DashboardAccountsRoute;
+	"/dashboard/assistant": typeof DashboardAssistantRoute;
+	"/dashboard/notifications": typeof DashboardNotificationsRoute;
+	"/dashboard/reports": typeof DashboardReportsRoute;
+	"/dashboard/settings": typeof DashboardSettingsRoute;
+	"/dashboard/spending": typeof DashboardSpendingRoute;
+	"/dashboard/transactions": typeof DashboardTransactionsRoute;
+	"/dashboard/upcomings": typeof DashboardUpcomingsRoute;
+	"/(landing)/": typeof landingIndexRoute;
+	"/dashboard/": typeof DashboardIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/dashboard'
-    | '/login'
-    | '/signup'
-    | '/dashboard/accounts'
-    | '/dashboard/assistant'
-    | '/dashboard/notifications'
-    | '/dashboard/reports'
-    | '/dashboard/settings'
-    | '/dashboard/spending'
-    | '/dashboard/transactions'
-    | '/dashboard/upcomings'
-    | '/dashboard/'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/login'
-    | '/signup'
-    | '/dashboard/accounts'
-    | '/dashboard/assistant'
-    | '/dashboard/notifications'
-    | '/dashboard/reports'
-    | '/dashboard/settings'
-    | '/dashboard/spending'
-    | '/dashboard/transactions'
-    | '/dashboard/upcomings'
-    | '/dashboard'
-  id:
-    | '__root__'
-    | '/(auth)'
-    | '/dashboard'
-    | '/(auth)/login'
-    | '/(auth)/signup'
-    | '/dashboard/accounts'
-    | '/dashboard/assistant'
-    | '/dashboard/notifications'
-    | '/dashboard/reports'
-    | '/dashboard/settings'
-    | '/dashboard/spending'
-    | '/dashboard/transactions'
-    | '/dashboard/upcomings'
-    | '/(landing)/'
-    | '/dashboard/'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths:
+		| "/"
+		| "/dashboard"
+		| "/login"
+		| "/signup"
+		| "/dashboard/accounts"
+		| "/dashboard/assistant"
+		| "/dashboard/notifications"
+		| "/dashboard/reports"
+		| "/dashboard/settings"
+		| "/dashboard/spending"
+		| "/dashboard/transactions"
+		| "/dashboard/upcomings"
+		| "/dashboard/";
+	fileRoutesByTo: FileRoutesByTo;
+	to:
+		| "/"
+		| "/login"
+		| "/signup"
+		| "/dashboard/accounts"
+		| "/dashboard/assistant"
+		| "/dashboard/notifications"
+		| "/dashboard/reports"
+		| "/dashboard/settings"
+		| "/dashboard/spending"
+		| "/dashboard/transactions"
+		| "/dashboard/upcomings"
+		| "/dashboard";
+	id:
+		| "__root__"
+		| "/(auth)"
+		| "/dashboard"
+		| "/(auth)/login"
+		| "/(auth)/signup"
+		| "/dashboard/accounts"
+		| "/dashboard/assistant"
+		| "/dashboard/notifications"
+		| "/dashboard/reports"
+		| "/dashboard/settings"
+		| "/dashboard/spending"
+		| "/dashboard/transactions"
+		| "/dashboard/upcomings"
+		| "/(landing)/"
+		| "/dashboard/";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  authRouteRoute: typeof authRouteRouteWithChildren
-  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  landingIndexRoute: typeof landingIndexRoute
+	authRouteRoute: typeof authRouteRouteWithChildren;
+	DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+	landingIndexRoute: typeof landingIndexRoute;
 }
 export interface FileServerRoutesByFullPath {
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
+	"/api/auth/$": typeof ApiAuthSplatServerRoute;
 }
 export interface FileServerRoutesByTo {
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
+	"/api/auth/$": typeof ApiAuthSplatServerRoute;
 }
 export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
+	__root__: typeof rootServerRouteImport;
+	"/api/auth/$": typeof ApiAuthSplatServerRoute;
 }
 export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/api/auth/$'
-  fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/api/auth/$'
-  id: '__root__' | '/api/auth/$'
-  fileServerRoutesById: FileServerRoutesById
+	fileServerRoutesByFullPath: FileServerRoutesByFullPath;
+	fullPaths: "/api/auth/$";
+	fileServerRoutesByTo: FileServerRoutesByTo;
+	to: "/api/auth/$";
+	id: "__root__" | "/api/auth/$";
+	fileServerRoutesById: FileServerRoutesById;
 }
 export interface RootServerRouteChildren {
-  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
+	ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)': {
-      id: '/(auth)'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof authRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/(landing)/': {
-      id: '/(landing)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof landingIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/upcomings': {
-      id: '/dashboard/upcomings'
-      path: '/upcomings'
-      fullPath: '/dashboard/upcomings'
-      preLoaderRoute: typeof DashboardUpcomingsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/transactions': {
-      id: '/dashboard/transactions'
-      path: '/transactions'
-      fullPath: '/dashboard/transactions'
-      preLoaderRoute: typeof DashboardTransactionsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/spending': {
-      id: '/dashboard/spending'
-      path: '/spending'
-      fullPath: '/dashboard/spending'
-      preLoaderRoute: typeof DashboardSpendingRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/reports': {
-      id: '/dashboard/reports'
-      path: '/reports'
-      fullPath: '/dashboard/reports'
-      preLoaderRoute: typeof DashboardReportsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/notifications': {
-      id: '/dashboard/notifications'
-      path: '/notifications'
-      fullPath: '/dashboard/notifications'
-      preLoaderRoute: typeof DashboardNotificationsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/assistant': {
-      id: '/dashboard/assistant'
-      path: '/assistant'
-      fullPath: '/dashboard/assistant'
-      preLoaderRoute: typeof DashboardAssistantRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/accounts': {
-      id: '/dashboard/accounts'
-      path: '/accounts'
-      fullPath: '/dashboard/accounts'
-      preLoaderRoute: typeof DashboardAccountsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/(auth)/signup': {
-      id: '/(auth)/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof authSignupRouteImport
-      parentRoute: typeof authRouteRoute
-    }
-    '/(auth)/login': {
-      id: '/(auth)/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof authLoginRouteImport
-      parentRoute: typeof authRouteRoute
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/dashboard": {
+			id: "/dashboard";
+			path: "/dashboard";
+			fullPath: "/dashboard";
+			preLoaderRoute: typeof DashboardRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/(auth)": {
+			id: "/(auth)";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof authRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/dashboard/": {
+			id: "/dashboard/";
+			path: "/";
+			fullPath: "/dashboard/";
+			preLoaderRoute: typeof DashboardIndexRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/(landing)/": {
+			id: "/(landing)/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof landingIndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/dashboard/upcomings": {
+			id: "/dashboard/upcomings";
+			path: "/upcomings";
+			fullPath: "/dashboard/upcomings";
+			preLoaderRoute: typeof DashboardUpcomingsRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/transactions": {
+			id: "/dashboard/transactions";
+			path: "/transactions";
+			fullPath: "/dashboard/transactions";
+			preLoaderRoute: typeof DashboardTransactionsRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/spending": {
+			id: "/dashboard/spending";
+			path: "/spending";
+			fullPath: "/dashboard/spending";
+			preLoaderRoute: typeof DashboardSpendingRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/settings": {
+			id: "/dashboard/settings";
+			path: "/settings";
+			fullPath: "/dashboard/settings";
+			preLoaderRoute: typeof DashboardSettingsRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/reports": {
+			id: "/dashboard/reports";
+			path: "/reports";
+			fullPath: "/dashboard/reports";
+			preLoaderRoute: typeof DashboardReportsRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/notifications": {
+			id: "/dashboard/notifications";
+			path: "/notifications";
+			fullPath: "/dashboard/notifications";
+			preLoaderRoute: typeof DashboardNotificationsRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/assistant": {
+			id: "/dashboard/assistant";
+			path: "/assistant";
+			fullPath: "/dashboard/assistant";
+			preLoaderRoute: typeof DashboardAssistantRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/dashboard/accounts": {
+			id: "/dashboard/accounts";
+			path: "/accounts";
+			fullPath: "/dashboard/accounts";
+			preLoaderRoute: typeof DashboardAccountsRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/(auth)/signup": {
+			id: "/(auth)/signup";
+			path: "/signup";
+			fullPath: "/signup";
+			preLoaderRoute: typeof authSignupRouteImport;
+			parentRoute: typeof authRouteRoute;
+		};
+		"/(auth)/login": {
+			id: "/(auth)/login";
+			path: "/login";
+			fullPath: "/login";
+			preLoaderRoute: typeof authLoginRouteImport;
+			parentRoute: typeof authRouteRoute;
+		};
+	}
 }
-declare module '@tanstack/react-start/server' {
-  interface ServerFileRoutesByPath {
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-  }
+declare module "@tanstack/react-start/server" {
+	interface ServerFileRoutesByPath {
+		"/api/auth/$": {
+			id: "/api/auth/$";
+			path: "/api/auth/$";
+			fullPath: "/api/auth/$";
+			preLoaderRoute: typeof ApiAuthSplatServerRouteImport;
+			parentRoute: typeof rootServerRouteImport;
+		};
+	}
 }
 
 interface authRouteRouteChildren {
-  authLoginRoute: typeof authLoginRoute
-  authSignupRoute: typeof authSignupRoute
+	authLoginRoute: typeof authLoginRoute;
+	authSignupRoute: typeof authSignupRoute;
 }
 
 const authRouteRouteChildren: authRouteRouteChildren = {
-  authLoginRoute: authLoginRoute,
-  authSignupRoute: authSignupRoute,
-}
+	authLoginRoute: authLoginRoute,
+	authSignupRoute: authSignupRoute
+};
 
-const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
-  authRouteRouteChildren,
-)
+const authRouteRouteWithChildren = authRouteRoute._addFileChildren(authRouteRouteChildren);
 
 interface DashboardRouteRouteChildren {
-  DashboardAccountsRoute: typeof DashboardAccountsRoute
-  DashboardAssistantRoute: typeof DashboardAssistantRoute
-  DashboardNotificationsRoute: typeof DashboardNotificationsRoute
-  DashboardReportsRoute: typeof DashboardReportsRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardSpendingRoute: typeof DashboardSpendingRoute
-  DashboardTransactionsRoute: typeof DashboardTransactionsRoute
-  DashboardUpcomingsRoute: typeof DashboardUpcomingsRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
+	DashboardAccountsRoute: typeof DashboardAccountsRoute;
+	DashboardAssistantRoute: typeof DashboardAssistantRoute;
+	DashboardNotificationsRoute: typeof DashboardNotificationsRoute;
+	DashboardReportsRoute: typeof DashboardReportsRoute;
+	DashboardSettingsRoute: typeof DashboardSettingsRoute;
+	DashboardSpendingRoute: typeof DashboardSpendingRoute;
+	DashboardTransactionsRoute: typeof DashboardTransactionsRoute;
+	DashboardUpcomingsRoute: typeof DashboardUpcomingsRoute;
+	DashboardIndexRoute: typeof DashboardIndexRoute;
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
-  DashboardAccountsRoute: DashboardAccountsRoute,
-  DashboardAssistantRoute: DashboardAssistantRoute,
-  DashboardNotificationsRoute: DashboardNotificationsRoute,
-  DashboardReportsRoute: DashboardReportsRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardSpendingRoute: DashboardSpendingRoute,
-  DashboardTransactionsRoute: DashboardTransactionsRoute,
-  DashboardUpcomingsRoute: DashboardUpcomingsRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-}
+	DashboardAccountsRoute: DashboardAccountsRoute,
+	DashboardAssistantRoute: DashboardAssistantRoute,
+	DashboardNotificationsRoute: DashboardNotificationsRoute,
+	DashboardReportsRoute: DashboardReportsRoute,
+	DashboardSettingsRoute: DashboardSettingsRoute,
+	DashboardSpendingRoute: DashboardSpendingRoute,
+	DashboardTransactionsRoute: DashboardTransactionsRoute,
+	DashboardUpcomingsRoute: DashboardUpcomingsRoute,
+	DashboardIndexRoute: DashboardIndexRoute
+};
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
-  DashboardRouteRouteChildren,
-)
+	DashboardRouteRouteChildren
+);
 
 const rootRouteChildren: RootRouteChildren = {
-  authRouteRoute: authRouteRouteWithChildren,
-  DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  landingIndexRoute: landingIndexRoute,
-}
+	authRouteRoute: authRouteRouteWithChildren,
+	DashboardRouteRoute: DashboardRouteRouteWithChildren,
+	landingIndexRoute: landingIndexRoute
+};
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
 const rootServerRouteChildren: RootServerRouteChildren = {
-  ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
-}
+	ApiAuthSplatServerRoute: ApiAuthSplatServerRoute
+};
 export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>()
+	._addFileChildren(rootServerRouteChildren)
+	._addFileTypes<FileServerRouteTypes>();
