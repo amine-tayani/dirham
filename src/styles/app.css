@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 @import "tw-animate-css";
 
@@ -49,7 +50,7 @@
   --font-geist: "Geist", sans-serif;
   --font-mont: "Montserrat", sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: monospace;
+  --font-mono: "JetBrains Mono", monospace;
   --font-roboto: Roboto, sans-serif;
   --radius: 0.5rem;
   --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
@@ -64,7 +65,7 @@
 }
 
 .dark {
-  --background: oklch(0.18 0 0);
+  --background: oklch(0.139 0.0029 246.26);
   --foreground: oklch(0.93 0.01 255.51);
   --card: oklch(21.342% 0.00002 271.152);
   --card-foreground: oklch(0.93 0.01 255.51);
@@ -103,7 +104,7 @@
   --font-mont: "Montserrat", sans-serif;
   --font-roboto: Roboto, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: monospace;
+  --font-mono: "JetBrains Mono", monospace;
   --radius: 0.5rem;
   --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
   --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
@@ -187,6 +188,7 @@
   body {
     background-color: var(--background);
     font-family: var(--font-geist);
+
     color: var(--foreground);
     letter-spacing: var(--tracking-normal);
   }

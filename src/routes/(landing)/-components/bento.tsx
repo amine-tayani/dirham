@@ -10,6 +10,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, CheckCircle2, Clock, Mic, Plus, Sparkles, Zap } from "lucide-react";
 import { type Variants, motion, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 interface BentoItem {
 	id: string;
@@ -51,29 +53,29 @@ interface BentoItem {
 const bentoItems: BentoItem[] = [
 	{
 		id: "main",
-		title: "Building tomorrow's technology",
+		title: "Empowering financial decisions",
 		description:
-			"We architect and develop enterprise-grade applications that scale seamlessly with cloud-native technologies and microservices.",
+			"Dirhamly helps individuals and small businesses take control of their finances with smart budgeting, expense tracking, and AI-powered insights.",
 		href: "#",
 		feature: "spotlight",
 		spotlightItems: [
-			"Microservices architecture",
-			"Serverless computing",
-			"Container orchestration",
-			"API-first design",
-			"Event-driven systems"
+			"Smart budgeting tools",
+			"AI financial assistant",
+			"Real-time expense tracking",
+			"Customizable financial goals",
+			"Secure cloud-based storage"
 		],
 		size: "lg",
 		className: "col-span-2 row-span-1 md:col-span-2 md:row-span-1"
 	},
 	{
 		id: "stat1",
-		title: "AI Agents & Automation",
-		description: "Intelligent agents that learn, adapt, and automate complex workflows",
+		title: "AI Assistant & Insights",
+		description: "Ask questions about your spending and get instant, personalized answers",
 		href: "#",
 		feature: "typing",
 		typingText:
-			"const createAgent = async () => {\n  const agent = new AIAgent({\n    model: 'gpt-4-turbo',\n    tools: [codeAnalysis, dataProcessing],\n    memory: new ConversationalMemory()\n  });\n\n  // Train on domain knowledge\n  await agent.learn(domainData);\n\n  return agent;\n};",
+			"const askFinanceBot = async (question: string) => {\n  const assistant = new DirhamlyAI({\n    model: 'finance-llm',\n    tools: [budgetAnalysis, trendForecast],\n    memory: new SpendingHistory()\n  });\n\n  const answer = await assistant.respond(question);\n  return answer;\n};",
 		size: "md",
 		className: "col-span-2 row-span-1 col-start-1 col-end-3"
 	},
@@ -81,7 +83,7 @@ const bentoItems: BentoItem[] = [
 		id: "partners",
 		title: "Trusted partners",
 		description:
-			"Working with the leading AI and cloud providers to deliver cutting-edge solutions",
+			"Collaborating with financial institutions, banks, and payment providers to bring you reliable and secure financial management.",
 		icons: true,
 		href: "#",
 		feature: "icons",
@@ -90,19 +92,17 @@ const bentoItems: BentoItem[] = [
 	},
 	{
 		id: "innovation",
-		title: "Innovation timeline",
-		description: "Pioneering the future of AI and cloud computing with breakthrough innovations",
+		title: "Our journey",
+		description:
+			"Continuously innovating to make financial literacy and empowerment accessible to everyone",
 		href: "#",
 		feature: "timeline",
 		timeline: [
-			{ year: "2020", event: "Launch of Cloud-Native Platform" },
-			{ year: "2021", event: "Advanced AI Integration & LLM APIs" },
-			{ year: "2022", event: "Multi-Agent Systems & RAG Architecture" },
-			{ year: "2023", event: "Autonomous AI Agents & Neural Networks" },
-			{
-				year: "2024",
-				event: "AGI-Ready Infrastructure & Edge Computing"
-			}
+			{ year: "2023", event: "Launch of Dirhamly budgeting platform" },
+			{ year: "2024", event: "AI-powered financial assistant" },
+			{ year: "2025", event: "Integration with Moroccan banks & payment apps" },
+			{ year: "2026", event: "Predictive analytics for smarter savings" },
+			{ year: "2027", event: "Regional expansion across MENA" }
 		],
 		size: "sm",
 		className: "col-span-1 row-span-1"
@@ -211,50 +211,50 @@ const IconsFeature = () => {
 	return (
 		<div className="grid grid-cols-3 gap-4 mt-4">
 			<motion.div className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-b from-neutral-100/80 to-neutral-100 dark:from-neutral-800/80 dark:to-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 group transition-all duration-300 hover:border-neutral-300 dark:hover:border-neutral-600">
-				<div className="relative size-8 flex items-center justify-center">
-					<OpenAI className="size-7 dark:hidden transition-transform " />
-					<OpenAIDark className="size-7 hidden dark:block transition-transform " />
+				<div className="relative w-8 h-8 flex items-center justify-center">
+					<OpenAI className="w-7 h-7 dark:hidden transition-transform " />
+					<OpenAIDark className="w-7 h-7 hidden dark:block transition-transform " />
 				</div>
 				<span className="text-xs font-medium text-center text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200">
 					OpenAI
 				</span>
 			</motion.div>
 			<motion.div className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-b from-neutral-100/80 to-neutral-100 dark:from-neutral-800/80 dark:to-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 group transition-all duration-300 hover:border-neutral-300 dark:hover:border-neutral-600">
-				<div className="relative size-8 flex items-center justify-center">
-					<Anthropic className="size-7 dark:hidden transition-transform " />
-					<AnthropicDark className="size-7 hidden dark:block transition-transform " />
+				<div className="relative w-8 h-8 flex items-center justify-center">
+					<Anthropic className="w-7 h-7 dark:hidden transition-transform " />
+					<AnthropicDark className="w-7 h-7 hidden dark:block transition-transform " />
 				</div>
 				<span className="text-xs font-medium text-center text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200">
 					Anthropic
 				</span>
 			</motion.div>
 			<motion.div className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-b from-neutral-100/80 to-neutral-100 dark:from-neutral-800/80 dark:to-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 group transition-all duration-300 hover:border-neutral-300 dark:hover:border-neutral-600">
-				<div className="relative size-8 flex items-center justify-center">
-					<Google className="size-7 transition-transform " />
+				<div className="relative w-8 h-8 flex items-center justify-center">
+					<Google className="w-7 h-7 transition-transform " />
 				</div>
 				<span className="text-xs font-medium text-center text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200">
 					Google
 				</span>
 			</motion.div>
 			<motion.div className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-b from-neutral-100/80 to-neutral-100 dark:from-neutral-800/80 dark:to-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 group transition-all duration-300 hover:border-neutral-300 dark:hover:border-neutral-600">
-				<div className="relative size-8 flex items-center justify-center">
-					<MistralAI className="size-7 transition-transform " />
+				<div className="relative w-8 h-8 flex items-center justify-center">
+					<MistralAI className="w-7 h-7 transition-transform " />
 				</div>
 				<span className="text-xs font-medium text-center text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200">
 					Mistral
 				</span>
 			</motion.div>
 			<motion.div className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-b from-neutral-100/80 to-neutral-100 dark:from-neutral-800/80 dark:to-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 group transition-all duration-300 hover:border-neutral-300 dark:hover:border-neutral-600">
-				<div className="relative size-8 flex items-center justify-center">
-					<DeepSeek className="size-7 transition-transform " />
+				<div className="relative w-8 h-8 flex items-center justify-center">
+					<DeepSeek className="w-7 h-7 transition-transform " />
 				</div>
 				<span className="text-xs font-medium text-center text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200">
 					DeepSeek
 				</span>
 			</motion.div>
 			<motion.div className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-b from-neutral-100/80 to-neutral-100 dark:from-neutral-800/80 dark:to-neutral-800 border border-neutral-200/50 dark:border-neutral-700/50 group transition-all duration-300 hover:border-neutral-300 dark:hover:border-neutral-600">
-				<div className="relative size-8 flex items-center justify-center">
-					<Plus className="size-6 text-neutral-600 dark:text-neutral-400 transition-transform " />
+				<div className="relative w-8 h-8 flex items-center justify-center">
+					<Plus className="w-6 h-6 text-neutral-600 dark:text-neutral-400 transition-transform " />
 				</div>
 				<span className="text-xs font-medium text-center text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200">
 					More
@@ -282,7 +282,7 @@ const TimelineFeature = ({
 						delay: (0.15 * Number.parseInt(item.year)) % 10
 					}}
 				>
-					<div className="size-5 rounded-full bg-neutral-100 dark:bg-neutral-800 border-2 border-neutral-300 dark:border-neutral-600 flex-shrink-0 z-10 mt-0.5" />
+					<div className="w-5 h-5 rounded-full bg-neutral-100 dark:bg-neutral-800 border-2 border-neutral-300 dark:border-neutral-600 flex-shrink-0 z-10 mt-0.5" />
 					<div>
 						<div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
 							{item.year}
@@ -330,13 +330,18 @@ const TypingCodeFeature = ({ text }: { text: string }) => {
 			<div className="flex items-center gap-2 mb-2">
 				<div className="text-xs text-neutral-500 dark:text-neutral-400">server.ts</div>
 			</div>
-			<div
-				ref={terminalRef}
-				className="bg-neutral-900 dark:bg-black text-neutral-100 p-3 rounded-md text-xs font-mono h-[150px] overflow-y-auto"
-			>
+			<div ref={terminalRef} className="p-2 rounded-xl text-xs font-mono h-[150px] overflow-y-auto">
 				<pre className="whitespace-pre-wrap">
-					{displayedText}
-					<span className="animate-pulse">|</span>
+					<SyntaxHighlighter
+						language="typescript"
+						style={gruvboxDark}
+						customStyle={{
+							borderRadius: "0.5rem",
+							padding: "0.5rem"
+						}}
+					>
+						{displayedText}
+					</SyntaxHighlighter>
 				</pre>
 			</div>
 		</div>
@@ -376,9 +381,9 @@ const MetricsFeature = ({
 				>
 					<div className="flex justify-between items-center text-sm">
 						<div className="text-neutral-700 dark:text-neutral-300 font-medium flex items-center gap-1.5">
-							{metric.label === "Uptime" && <Clock className="size-3.5" />}
-							{metric.label === "Response time" && <Zap className="size-3.5" />}
-							{metric.label === "Cost reduction" && <Sparkles className="size-3.5" />}
+							{metric.label === "Uptime" && <Clock className="w-3.5 h-3.5" />}
+							{metric.label === "Response time" && <Zap className="w-3.5 h-3.5" />}
+							{metric.label === "Cost reduction" && <Sparkles className="w-3.5 h-3.5" />}
 							{metric.label}
 						</div>
 						<div className="text-neutral-700 dark:text-neutral-300 font-semibold">
@@ -469,7 +474,7 @@ function AIInput_Voice() {
 			<div className="relative max-w-xl w-full mx-auto flex items-center flex-col gap-2">
 				<button
 					className={cn(
-						"group size-16 rounded-xl flex items-center justify-center transition-colors",
+						"group w-16 h-16 rounded-xl flex items-center justify-center transition-colors",
 						submitted ? "bg-none" : "bg-none hover:bg-black/10 dark:hover:bg-white/10"
 					)}
 					type="button"
@@ -477,11 +482,11 @@ function AIInput_Voice() {
 				>
 					{submitted ? (
 						<div
-							className="size-6 rounded-sm animate-spin bg-black  dark:bg-white cursor-pointer pointer-events-auto"
+							className="w-6 h-6 rounded-sm animate-spin bg-black  dark:bg-white cursor-pointer pointer-events-auto"
 							style={{ animationDuration: "3s" }}
 						/>
 					) : (
-						<Mic className="size-6 text-black/70 dark:text-white/70" />
+						<Mic className="w-6 h-6 text-black/70 dark:text-white/70" />
 					)}
 				</button>
 
@@ -569,8 +574,8 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 				className={`
                     group relative flex flex-col gap-4 h-full rounded-xl p-5
                     bg-gradient-to-b from-neutral-50/60 via-neutral-50/40 to-neutral-50/30 
-                    dark:from-neutral-900/60 dark:via-neutral-900/40 dark:to-neutral-900/30
-                    border border-neutral-200/60 dark:border-neutral-800/60
+                    dark:from-black dark:via-neutral-950/40 dark:to-neutral-950/30
+                    border border-neutral-200/60 dark:border-none
                     before:absolute before:inset-0 before:rounded-xl
                     before:bg-gradient-to-b before:from-white/10 before:via-white/20 before:to-transparent 
                     dark:before:from-black/10 dark:before:via-black/20 dark:before:to-transparent
@@ -598,7 +603,7 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 								{item.title}
 							</h3>
 							<div className="text-neutral-400 dark:text-neutral-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-								<ArrowUpRight className="size-5" />
+								<ArrowUpRight className="h-5 w-5" />
 							</div>
 						</div>
 
@@ -652,13 +657,13 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 
 						{item.icons && !item.feature && (
 							<div className="mt-auto pt-4 flex items-center flex-wrap gap-4 border-t border-neutral-200/70 dark:border-neutral-800/70">
-								<OpenAI className="size-5 dark:hidden opacity-70 hover:opacity-100 transition-opacity" />
-								<OpenAIDark className="size-5 hidden dark:block opacity-70 hover:opacity-100 transition-opacity" />
-								<AnthropicDark className="size-5 dark:block hidden opacity-70 hover:opacity-100 transition-opacity" />
-								<Anthropic className="size-5 dark:hidden opacity-70 hover:opacity-100 transition-opacity" />
-								<Google className="size-5 opacity-70 hover:opacity-100 transition-opacity" />
-								<MistralAI className="size-5 opacity-70 hover:opacity-100 transition-opacity" />
-								<DeepSeek className="size-5 opacity-70 hover:opacity-100 transition-opacity" />
+								<OpenAI className="w-5 h-5 dark:hidden opacity-70 hover:opacity-100 transition-opacity" />
+								<OpenAIDark className="w-5 h-5 hidden dark:block opacity-70 hover:opacity-100 transition-opacity" />
+								<AnthropicDark className="w-5 h-5 dark:block hidden opacity-70 hover:opacity-100 transition-opacity" />
+								<Anthropic className="w-5 h-5 dark:hidden opacity-70 hover:opacity-100 transition-opacity" />
+								<Google className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
+								<MistralAI className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
+								<DeepSeek className="w-5 h-5 opacity-70 hover:opacity-100 transition-opacity" />
 							</div>
 						)}
 					</div>
@@ -668,7 +673,7 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 	);
 };
 
-export default function BentoSection() {
+export default function BentoGrid() {
 	return (
 		<section className="relative py-24 sm:py-32 overflow-hidden">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -699,12 +704,12 @@ export default function BentoSection() {
 							<div className="p-5">
 								<div className="flex items-center justify-between mb-4">
 									<h3 className="text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-										Voice Assistant
+										Dirhamly
 									</h3>
 								</div>
 								<p className="text-sm text-neutral-600 dark:text-neutral-400 tracking-tight mb-4">
-									Interact with our AI using natural voice commands. Experience seamless
-									voice-driven interactions with advanced speech recognition.
+									Interact with Dirhamly AI assistant using natural voice commands. Experience
+									seamless voice-driven interactions with advanced speech recognition.
 								</p>
 								<AIInput_Voice />
 							</div>

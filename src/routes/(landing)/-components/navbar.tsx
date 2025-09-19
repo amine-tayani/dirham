@@ -33,7 +33,7 @@ export default function Navbar() {
 				data-state={menuOpen ? "active" : ""}
 				className={cn(
 					"transition-all duration-300",
-					isScrolled ? "backdrop-blur-md bg-background/70 border-b" : "bg-transparent"
+					isScrolled ? "backdrop-blur-md bg-background/70" : "bg-transparent"
 				)}
 			>
 				<div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 lg:px-20">
