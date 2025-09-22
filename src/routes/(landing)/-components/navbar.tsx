@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import authClient from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { EqualIcon, Loader2Icon, XIcon } from "lucide-react";
 import * as React from "react";
 
@@ -85,7 +86,13 @@ export default function Navbar() {
 				</div>
 
 				{menuOpen && (
-					<div className="lg:hidden border-t bg-background/90 backdrop-blur-md min-h-dvh px-6 py-6">
+					<motion.div
+						key={menuOpen ? "open" : "close"}
+						initial={{ opacity: 0 }}
+						onClickCapture={() => setMenuOpen(false)}
+						animate={{ opacity: 1 }}
+						className="lg:hidden border-t bg-background/90 backdrop-blur-md min-h-dvh px-6 py-6"
+					>
 						<div className="h-2.5" />
 						<span className="text-muted-foreground text-sm font-medium">Product</span>
 						<div className="h-4" />
@@ -98,7 +105,7 @@ export default function Navbar() {
 								</li>
 							))}
 						</ul>
-					</div>
+					</motion.div>
 				)}
 			</nav>
 		</header>
