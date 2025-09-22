@@ -15,6 +15,14 @@ const menuItems = [
 	{ name: "Documentation", href: "/" }
 ];
 
+const ressourcesItems = [
+	{ name: "About", href: "/" },
+	{ name: "Customers", href: "/" },
+	{ name: "Contact", href: "/" },
+	{ name: "Careers", href: "/" },
+	{ name: "Now", href: "/" }
+];
+
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
@@ -98,6 +106,18 @@ export default function Navbar() {
 						<div className="h-4" />
 						<ul className="flex flex-col gap-3 [&>li>a]:text-neutral-50 [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
 							{menuItems.map((item) => (
+								<li key={item.name}>
+									<Link to={item.href} onClick={() => setMenuOpen(false)}>
+										{item.name}
+									</Link>
+								</li>
+							))}
+						</ul>
+						<div className="h-8" />
+						<span className="text-muted-foreground text-sm font-medium">Ressources</span>
+						<div className="h-4" />
+						<ul className="flex flex-col gap-3 [&>li>a]:text-neutral-50 [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
+							{ressourcesItems.map((item) => (
 								<li key={item.name}>
 									<Link to={item.href} onClick={() => setMenuOpen(false)}>
 										{item.name}
