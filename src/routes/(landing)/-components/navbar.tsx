@@ -77,7 +77,7 @@ export default function Navbar() {
 								</Button>
 							</>
 						) : (
-							<Button size="sm" asChild>
+							<Button variant="milk" size="sm" asChild>
 								<Link to="/dashboard">Dashboard</Link>
 							</Button>
 						)}
