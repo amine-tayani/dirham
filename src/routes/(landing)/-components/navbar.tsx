@@ -1,25 +1,23 @@
 import Logo from "@/components/blocks/logo";
-import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import authClient from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { Loader2Icon, MenuIcon, XIcon } from "lucide-react";
+import { EqualIcon, Loader2Icon, XIcon } from "lucide-react";
 import * as React from "react";
 
 const menuItems = [
-	{ name: "Product", href: "/" },
-	{ name: "Resources", href: "/" },
+	{ name: "Features", href: "/" },
+	{ name: "Integrations", href: "/" },
 	{ name: "Pricing", href: "/" },
-	{ name: "Customers", href: "/" },
-	{ name: "Contact", href: "/" }
+	{ name: "Changelog", href: "/" },
+	{ name: "Documentation", href: "/" }
 ];
 
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
 	const { data: session, isPending } = authClient.useSession();
-	const { theme, setCurrentTheme } = useTheme();
 
 	React.useEffect(() => {
 		const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -36,8 +34,8 @@ export default function Navbar() {
 					isScrolled ? "backdrop-blur-md bg-background/70" : "bg-transparent"
 				)}
 			>
-				<div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 lg:px-20">
-					<Link to="/" aria-label="Logo" className="flex items-center gap-2">
+				<div className="mx-auto flex max-w-6xl items-center justify-between px-3 md:px-6 py-3 lg:px-20">
+					<Link to="/" aria-label="Logo" className="flex items-center">
 						<Logo />
 						<span className=" font-semibold tracking-tight">Dirhamly</span>
 					</Link>
@@ -60,14 +58,13 @@ export default function Navbar() {
 							<Loader2Icon className="size-4 animate-spin" />
 						) : !session ? (
 							<>
-								<Button asChild variant="ghost" size="sm" className="hidden lg:inline-flex">
-									<Link to="/login">Log in</Link>
+								<Button asChild variant="ghost" size="sm" className="inline-flex">
+									<Link to="/login" className="text-muted-foreground">
+										Log in
+									</Link>
 								</Button>
-								<Button variant="milk" asChild size="sm" className="hidden lg:inline-flex">
+								<Button variant="milk" asChild size="sm" className="inline-flex">
 									<Link to="/signup">Sign Up</Link>
-								</Button>
-								<Button asChild size="sm" className="lg:hidden">
-									<Link to="/signup">Get Started</Link>
 								</Button>
 							</>
 						) : (
@@ -82,21 +79,20 @@ export default function Navbar() {
 							onClick={() => setMenuOpen(!menuOpen)}
 							className="lg:hidden"
 						>
-							{menuOpen ? <XIcon className="size-5" /> : <MenuIcon className="size-5" />}
+							{menuOpen ? <XIcon className="size-5" /> : <EqualIcon className="size-6" />}
 						</Button>
 					</div>
 				</div>
 
 				{menuOpen && (
-					<div className="lg:hidden border-t bg-background/90 backdrop-blur-md px-6 py-6">
-						<ul className="flex flex-col gap-6 text-base font-medium">
+					<div className="lg:hidden border-t bg-background/90 backdrop-blur-md min-h-dvh px-6 py-6">
+						<div className="h-2.5" />
+						<span className="text-muted-foreground text-sm font-medium">Product</span>
+						<div className="h-4" />
+						<ul className="flex flex-col gap-3 [&>li>a]:text-neutral-50 [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
 							{menuItems.map((item) => (
 								<li key={item.name}>
-									<Link
-										to={item.href}
-										className="block text-muted-foreground hover:text-foreground transition-colors"
-										onClick={() => setMenuOpen(false)}
-									>
+									<Link to={item.href} onClick={() => setMenuOpen(false)}>
 										{item.name}
 									</Link>
 								</li>
