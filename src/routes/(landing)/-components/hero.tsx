@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "lucide-react";
 
 export default function Hero() {
 	return (
@@ -41,10 +40,29 @@ export default function Hero() {
 						<a href="/signup">Start building</a>
 					</Button>
 
-					<Button asChild variant="ghost" className="flex items-center group">
+					<Button
+						asChild
+						variant="ghost"
+						className="gap-1.5 max-w-xs justify-center group not-prose inline-flex items-center pl-2 pr-0.5  transition-colors duration-300 ease-in-out"
+					>
 						<a href="/">
 							<span>New: Product Intelligence</span>
-							<ArrowRightIcon className="size-4 text-muted-foreground group-hover:translate-x-1.5 ease-in-out duration-300" />
+							<svg
+								viewBox="0 0 24 24"
+								className="size-4 stroke-[3px] fill-none stroke-current opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+							>
+								<line
+									x1="5"
+									y1="12"
+									x2="19"
+									y2="12"
+									className="scale-x-0 translate-x-[10px] group-hover:translate-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"
+								/>
+								<polyline
+									points="12 5 19 12 12 19"
+									className="-translate-x-2 group-hover:translate-x-0 transition-transform duration-300 ease-in-out"
+								/>
+							</svg>
 						</a>
 					</Button>
 				</div>
@@ -58,11 +76,26 @@ export default function Hero() {
 					<Button
 						asChild
 						variant="ghost"
-						className="flex items-center gap-1.5 max-w-xs justify-center"
+						className="gap-1.5 max-w-xs justify-center group not-prose inline-flex items-center pl-2 pr-0.5  transition-colors duration-300 ease-in-out"
 					>
 						<a href="/">
 							<span>New: Product Intelligence</span>
-							<ArrowRightIcon className="h-4 w-4 text-muted-foreground" />
+							<svg
+								viewBox="0 0 24 24"
+								className="size-5 stroke-[3px] fill-none stroke-current opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+							>
+								<line
+									x1="5"
+									y1="12"
+									x2="19"
+									y2="12"
+									className="scale-x-0 translate-x-[10px] group-hover:translate-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"
+								/>
+								<polyline
+									points="12 5 19 12 12 19"
+									className="-translate-x-2 group-hover:translate-x-0 transition-transform duration-300 ease-in-out"
+								/>
+							</svg>
 						</a>
 					</Button>
 				</div>

@@ -188,7 +188,7 @@ export default function AddTransaction() {
 													!date && "text-muted-foreground"
 												)}
 											>
-												<CalendarIcon className="mr-1 h-4 w-4 shrink-0" />{" "}
+												<CalendarIcon className="mr-1 size-4 shrink-0" />{" "}
 												{date ? format(date, "PPP") : <span>Pick a date</span>}
 											</Button>
 										</PopoverTrigger>
