@@ -46,10 +46,10 @@ export default function Navbar() {
 				<div className="mx-auto flex max-w-6xl items-center justify-between px-3 md:px-6 py-3 lg:px-20">
 					<Link to="/" aria-label="Logo" className="flex items-center">
 						<Logo />
-						<span className=" font-semibold tracking-tight">Dirhamly</span>
+						<span className="block sm:hidden lg:block font-semibold tracking-tight">Dirhamly</span>
 					</Link>
 
-					<ul className="hidden lg:flex gap-8 text-sm font-medium">
+					<ul className="hidden md:flex gap-8 text-sm font-medium">
 						{menuItems.map((item) => (
 							<li key={item.name}>
 								<Link
@@ -86,7 +86,7 @@ export default function Navbar() {
 							variant="ghost"
 							size="icon"
 							onClick={() => setMenuOpen(!menuOpen)}
-							className="lg:hidden"
+							className="md:hidden"
 						>
 							{menuOpen ? <XIcon className="size-5" /> : <EqualIcon className="size-6" />}
 						</Button>
