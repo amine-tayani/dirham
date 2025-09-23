@@ -146,8 +146,8 @@ export default function Footer() {
 	return (
 		<footer className="border-b bg-white pt-20 dark:bg-transparent">
 			<div className="mx-auto max-w-5xl px-6">
-				<div className="grid gap-12 md:grid-cols-5 md:gap-0 lg:grid-cols-4">
-					<div className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:grid-cols-6 md:col-span-3 md:row-start-1 lg:col-span-6">
+				<div className="grid gap-12 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+					<div className="grid grid-cols-3 gap-8 gap-y-12 sm:grid-cols-4 md:grid-cols-6 md:col-span-3 md:row-start-1 lg:col-span-6">
 						<div className="-mt-3">
 							<Link to="/">
 								<Logo />
