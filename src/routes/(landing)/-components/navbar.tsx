@@ -83,10 +83,10 @@ export default function Navbar() {
 						)}
 
 						<Button
-							variant="ghost"
+							variant="link"
 							size="icon"
 							onClick={() => setMenuOpen(!menuOpen)}
-							className="md:hidden"
+							className="md:hidden text-muted-foreground hover:text-foreground"
 						>
 							{menuOpen ? <XIcon className="size-5" /> : <EqualIcon className="size-6" />}
 						</Button>
@@ -102,9 +102,9 @@ export default function Navbar() {
 						className="lg:hidden border-t bg-background/90 backdrop-blur-md min-h-dvh px-6 py-6"
 					>
 						<div className="h-2.5" />
-						<span className="text-muted-foreground text-sm font-medium">Product</span>
+						<span className="text-muted-foreground/70 text-sm font-medium">Product</span>
 						<div className="h-4" />
-						<ul className="flex flex-col gap-3 [&>li>a]:text-neutral-50 [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
+						<ul className="flex flex-col gap-3 [&>li>a]:text-foreground [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
 							{menuItems.map((item) => (
 								<li key={item.name}>
 									<Link to={item.href} onClick={() => setMenuOpen(false)}>
@@ -114,9 +114,9 @@ export default function Navbar() {
 							))}
 						</ul>
 						<div className="h-8" />
-						<span className="text-muted-foreground text-sm font-medium">Ressources</span>
+						<span className="text-muted-foreground/70 text-sm font-medium">Ressources</span>
 						<div className="h-4" />
-						<ul className="flex flex-col gap-3 [&>li>a]:text-neutral-50 [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
+						<ul className="flex flex-col gap-3 [&>li>a]:text-foreground [&>li>a]:text-2xl [&>li>a]:tracking-tighter [&>li>a]:font-medium">
 							{ressourcesItems.map((item) => (
 								<li key={item.name}>
 									<Link to={item.href} onClick={() => setMenuOpen(false)}>
