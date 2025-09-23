@@ -3,9 +3,9 @@ import { ArrowRightIcon } from "lucide-react";
 
 export default function Hero() {
 	return (
-		<section className="relative w-full max-w-[1350px] mx-auto px-6 sm:mx-0 sm:px-0 lg:px-20 pt-20 pb-24">
+		<section className="relative w-full mx-auto max-w-[1350px] px-6 sm:mx-0 sm:px-8 lg:mx-0 xl:mx-28 lg:px-20 pt-20 pb-24">
 			<div className="flex flex-col items-start justify-center px-6 sm:px-0 md:px-12 lg:px-26 lg:pt-26 pt-20 pb-24">
-				<h1 className="text-4xl sm:text-[4.01rem] leading-[1.02] tracking-[-0.021em] text-start font-medium ">
+				<h1 className="text-4xl sm:text-5xl lg:text-[4.01rem] leading-[1.02] tracking-[-0.021em] text-start font-medium ">
 					<span className="sr-only">
 						Dirhamly is a purpose-built tool for tracking and managing your finances
 					</span>
@@ -17,9 +17,9 @@ export default function Hero() {
 					{/* Mobile title */}
 					<span
 						aria-hidden="true"
-						className="block sm:hidden max-w-md mx-auto text-center leading-tight"
+						className="block sm:hidden max-w-lg leading-tight text-3xl xs:text-5xl"
 					>
-						Plan and build your product
+						Dirhamly is a purpose-built tool for managing your finances
 					</span>
 				</h1>
 
@@ -27,9 +27,10 @@ export default function Hero() {
 
 				<p className="text-muted-foreground text-lg sm:text-lg lg:text-base  max-w-2xl sm:max-w-lg lg:max-w-sm  ">
 					<span className="hidden sm:inline">
-						Meet Dirhamly, the tool for keeping your finances <br className="lg:hidden"/>in check and managing your accounts.
+						Meet Dirhamly, the tool for keeping your finances <br className="lg:hidden" />
+						in check and managing your accounts.
 					</span>
-					<span className="sm:hidden block text-center">
+					<span className="sm:hidden block text-base max-w-sm ">
 						Linear is a purpose-built tool for modern product development. Streamline issues,
 						projects, and product roadmaps.
 					</span>
@@ -49,15 +50,15 @@ export default function Hero() {
 				</div>
 
 				{/* Mobile buttons */}
-				<div className="sm:hidden w-full flex flex-col items-center gap-4 mt-4">
-					<Button asChild variant="secondary" className="w-full max-w-xs">
+				<div className="sm:hidden flex justify-around items-center gap-4 mt-8">
+					<Button asChild variant="secondary" className=" max-w-xs">
 						<a href="/login">Start building</a>
 					</Button>
 
 					<Button
 						asChild
 						variant="ghost"
-						className="flex items-center gap-1 w-full max-w-xs justify-center"
+						className="flex items-center gap-1.5 max-w-xs justify-center"
 					>
 						<a href="/">
 							<span>New: Product Intelligence</span>
