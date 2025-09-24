@@ -34,7 +34,7 @@ import type z from "zod";
 
 export default function AddTransaction() {
 	const [isLoading, setIsLoading] = useState(false);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const [date, setDate] = useState<Date | undefined>(new Date());
 
 	const form = useForm<

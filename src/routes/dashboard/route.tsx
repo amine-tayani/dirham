@@ -65,11 +65,11 @@ function DashboardLayout() {
 							<div className="flex gap-4 ml-auto pr-7">
 								<Button
 									size="icon"
-									variant="ghost"
+									variant="link"
 									onClick={() => setCurrentTheme(theme === "dark" ? "light" : "dark")}
 									aria-label="Toggle theme"
 								>
-									<MoonIcon className="m-auto size-5 text-neutral-600 dark:text-neutral-400" />
+									<MoonIcon className="m-auto size-5 text-muted-foreground " />
 								</Button>
 								<UserNav user={user} queryClient={queryClient} />
 							</div>

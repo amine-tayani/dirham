@@ -256,7 +256,7 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 						type="text"
 						ref={inputRef}
 						className={cn(
-							"peer min-w-60 ps-9 focus-visible:ring-0 shadow-none border border-border",
+							"peer min-w-60 ps-9 focus-visible:ring-0 shadow-none border-border dark:border-none",
 							Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
 						)}
 						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
@@ -269,7 +269,8 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 					</div>
 					{Boolean(table.getColumn("activity")?.getFilterValue()) && (
 						<Button
-							className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+							variant="outline"
+							className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 							aria-label="Clear filter"
 							onClick={() => {
 								table.getColumn("activity")?.setFilterValue("");

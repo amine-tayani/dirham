@@ -44,7 +44,10 @@ function TransactionsPage() {
 				<div className="flex-1 overflow-y-auto flex flex-col gap-4 mx-7 mb-4">
 					<div className="grid grid-cols-1 min-[1200px]:grid-cols-5 gap-4 mt-2 mb-4">
 						{data.map((item) => (
-							<Card className="flex flex-col border-border shadow-none" key={item.title}>
+							<Card
+								className="flex flex-col border-border dark:border-none shadow-none "
+								key={item.title}
+							>
 								<CardHeader className="relative">
 									<CardDescription className="text-sm font-medium -mt-2">
 										<span>{item.title}</span>
