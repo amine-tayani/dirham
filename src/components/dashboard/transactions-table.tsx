@@ -47,8 +47,7 @@ import {
 	FilterIcon,
 	ListFilterIcon,
 	LoaderIcon,
-	MoreVerticalIcon,
-	XIcon
+	MoreVerticalIcon
 } from "lucide-react";
 import * as React from "react";
 import AddTransaction from "../add-transaction";
@@ -255,48 +254,30 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 						id={`${id}-input`}
 						type="text"
 						ref={inputRef}
-						className={cn(
-							"peer min-w-60 ps-9 focus-visible:ring-0 shadow-none border-border dark:border-none",
-							Boolean(table.getColumn("activity")?.getFilterValue()) && "pe-9"
-						)}
+						className={cn("peer min-w-60 ps-9 h-8 focus-visible:ring-0 shadow-none")}
 						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
 						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value)}
 						placeholder="Filter by activity..."
 						aria-label="Filter by activity"
 					/>
 					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-						<ListFilterIcon size={16} aria-hidden="true" />
+						<ListFilterIcon className="size-4" aria-hidden="true" />
 					</div>
-					{Boolean(table.getColumn("activity")?.getFilterValue()) && (
-						<Button
-							variant="outline"
-							className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-							aria-label="Clear filter"
-							onClick={() => {
-								table.getColumn("activity")?.setFilterValue("");
-								if (inputRef.current) {
-									inputRef.current.focus();
-								}
-							}}
-						>
-							<XIcon size={16} className="3.5" aria-hidden="true" />
-						</Button>
-					)}
 
 					{/* Filter by status */}
 					<Popover>
 						<PopoverTrigger asChild>
-							<Button variant="outline">
-								<FilterIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+							<Button variant="outline" size="sm">
+								<FilterIcon className="-ms-1 text-muted-foreground/50 size-4" aria-hidden="true" />
 								Status
 								{selectedStatuses.length > 0 && (
-									<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
+									<span className="text-muted-foreground/70 -me-1 inline-flex h-4 max-h-full items-center rounded border px-1 font-mono text-[0.625rem] font-medium">
 										{selectedStatuses.length}
 									</span>
 								)}
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-auto min-w-36 p-3" align="start">
+						<PopoverContent className="w-auto min-w-40 p-3 " align="start">
 							<div className="space-y-3">
 								<div className="text-muted-foreground text-xs font-medium">Filters</div>
 								<div className="space-y-3">
@@ -309,7 +290,7 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 											/>
 											<Label className="flex grow justify-between gap-2 font-normal">
 												{value}{" "}
-												<span className="text-muted-foreground ms-2 text-xs">
+												<span className="text-muted-foreground ms-2 text-xs font-mono">
 													{statusCounts.get(value)}
 												</span>
 											</Label>
@@ -323,13 +304,13 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="outline" size="sm">
-								<ColumnsIcon className="size-4 mr-1" />
+								<ColumnsIcon className="size-4 text-muted-foreground/50 " />
 								<span className="hidden lg:inline">Columns</span>
 								<span className="lg:hidden">Columns</span>
 								<ChevronDownIcon className="size-4" />
 							</Button>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end" className="w-56">
+						<DropdownMenuContent align="start" className="w-56">
 							{table
 								.getAllColumns()
 								.filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
@@ -357,7 +338,7 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 			</div>
 
 			<Table>
-				<TableHeader className="sticky top-0 z-10 bg-muted">
+				<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-input">
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map((header) => (

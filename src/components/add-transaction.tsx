@@ -104,7 +104,7 @@ export default function AddTransaction() {
 											<FormControl>
 												<Input
 													{...field}
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2 shadow-none"
 													readOnly={isLoading}
 													id="title"
 													name="title"
@@ -132,7 +132,7 @@ export default function AddTransaction() {
 												<FormControl>
 													<Input
 														{...field}
-														className="mt-2 border border-border shadow-none dark:border-none"
+														className="mt-2 shadow-none"
 														readOnly={isLoading}
 														id="amount"
 														name="amount"
