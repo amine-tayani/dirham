@@ -35,7 +35,7 @@ export function UserNav({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar className="size-10">
+				<Avatar className="size-8">
 					<AvatarImage src={user.image || ""} alt="Avatar" />
 					<AvatarFallback className="text-neutral-600">
 						{user.name.slice(0, 2).toUpperCase()}
