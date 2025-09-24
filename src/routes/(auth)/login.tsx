@@ -90,7 +90,7 @@ function LoginPage() {
 					<div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
 						<Button
 							variant="outline"
-							className="dark:border-none mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
+							className="mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
 							type="button"
 							disabled={isLoading}
 							onClick={() =>
@@ -144,7 +144,7 @@ function LoginPage() {
 													id="email"
 													{...field}
 													type="email"
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2shadow-none"
 													placeholder="example@gmail.com"
 													readOnly={isLoading}
 												/>
@@ -171,7 +171,7 @@ function LoginPage() {
 													id="password"
 													{...field}
 													type="password"
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2 shadow-none"
 													placeholder="Your password"
 													readOnly={isLoading}
 												/>

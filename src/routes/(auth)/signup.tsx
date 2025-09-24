@@ -113,7 +113,7 @@ function SignupPage() {
 					<div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
 						<Button
 							variant="outline"
-							className="dark:border-none mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
+							className=" mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
 							type="button"
 							disabled={isLoading}
 							onClick={() =>
@@ -165,7 +165,7 @@ function SignupPage() {
 												<Input
 													{...field}
 													id="name"
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2 shadow-none "
 													placeholder="John Doe"
 													readOnly={isLoading}
 												/>
@@ -192,7 +192,7 @@ function SignupPage() {
 													{...field}
 													id="email"
 													type="email"
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2 shadow-none "
 													placeholder="hello@example.com"
 													readOnly={isLoading}
 												/>
@@ -219,7 +219,7 @@ function SignupPage() {
 													{...field}
 													id="password"
 													type="password"
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2 shadow-none "
 													placeholder="Your password"
 													readOnly={isLoading}
 												/>
@@ -246,7 +246,7 @@ function SignupPage() {
 													{...field}
 													id="confirmPassword"
 													type="password"
-													className="mt-2 border border-border shadow-none dark:border-none"
+													className="mt-2 shadow-none "
 													placeholder="Confirm Password"
 													readOnly={isLoading}
 												/>
