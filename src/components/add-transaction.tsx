@@ -54,9 +54,9 @@ export default function AddTransaction() {
 
 	const AddTransactionMutation = useMutation({
 		mutationFn: createTransactionFn,
-		onSuccess: () => {
+		onSuccess: (data) => {
 			setIsLoading(false);
-			toast.success("Transaction added successfully");
+			toast.success(data.message);
 		},
 		onError: (error) => {
 			setIsLoading(false);
@@ -66,13 +66,9 @@ export default function AddTransaction() {
 
 	const onSubmit = async (values: z.infer<typeof transactionFormSchema>) => {
 		setIsLoading(true);
-		try {
-			await AddTransactionMutation.mutateAsync({
-				data: values
-			});
-		} catch (error) {
-			toast.error("Something went wrong while adding the transaction");
-		}
+		await AddTransactionMutation.mutateAsync({
+			data: values
+		});
 	};
 
 	return (

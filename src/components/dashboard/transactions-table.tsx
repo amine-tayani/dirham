@@ -304,10 +304,10 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="outline" size="sm">
-								<ColumnsIcon className="size-4 text-muted-foreground/50 " />
+								<ColumnsIcon className="size-4 text-muted-foreground/50" />
 								<span className="hidden lg:inline">Columns</span>
 								<span className="lg:hidden">Columns</span>
-								<ChevronDownIcon className="size-4" />
+								<ChevronDownIcon className="size-4 text-muted-foreground/50" />
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="start" className="w-56">
@@ -329,7 +329,7 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 				</div>
 				<div className="flex items-center gap-3">
 					<Button variant="outline" size="sm">
-						<DownloadIcon className="size-4" />
+						<DownloadIcon className="size-4 text-muted-foreground/50" />
 						<span className="hidden lg:inline">Import</span>
 						<span className="lg:hidden">Import</span>
 					</Button>
