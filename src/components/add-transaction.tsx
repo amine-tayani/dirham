@@ -33,7 +33,6 @@ import { toast } from "sonner";
 import type z from "zod";
 
 export default function AddTransaction() {
-	const [isLoading, setIsLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [date, setDate] = useState<Date | undefined>(new Date());
 
@@ -52,21 +51,18 @@ export default function AddTransaction() {
 		}
 	});
 
-	const AddTransactionMutation = useMutation({
+	const mutation = useMutation({
 		mutationFn: createTransactionFn,
 		onSuccess: (data) => {
-			setIsLoading(false);
 			toast.success(data.message);
 		},
 		onError: (error) => {
-			setIsLoading(false);
 			toast.error(error.message);
 		}
 	});
 
 	const onSubmit = async (values: z.infer<typeof transactionFormSchema>) => {
-		setIsLoading(true);
-		await AddTransactionMutation.mutateAsync({
+		await mutation.mutateAsync({
 			data: values
 		});
 	};
@@ -101,7 +97,7 @@ export default function AddTransaction() {
 												<Input
 													{...field}
 													className="mt-2 shadow-none"
-													readOnly={isLoading}
+													readOnly={mutation.isPending}
 													id="title"
 													name="title"
 													placeholder="e.g., Spotify premium subscription"
@@ -129,7 +125,7 @@ export default function AddTransaction() {
 													<Input
 														{...field}
 														className="mt-2 shadow-none"
-														readOnly={isLoading}
+														readOnly={mutation.isPending}
 														id="amount"
 														name="amount"
 														placeholder="e.g., 100"
@@ -233,9 +229,9 @@ export default function AddTransaction() {
 									Cancel
 								</Button>
 							</DialogClose>
-							<Button disabled={isLoading} type="submit" size="sm">
+							<Button disabled={mutation.isPending} type="submit" size="sm">
 								<div className="flex items-center">
-									{isLoading ? (
+									{mutation.isPending ? (
 										<>
 											<span>Processing...</span>
 											<LoaderCircle className="animate-spin ml-2" />

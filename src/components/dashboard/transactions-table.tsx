@@ -47,7 +47,8 @@ import {
 	FilterIcon,
 	ListFilterIcon,
 	LoaderIcon,
-	MoreVerticalIcon
+	MoreVerticalIcon,
+	XIcon
 } from "lucide-react";
 import * as React from "react";
 import AddTransaction from "../add-transaction";
@@ -121,6 +122,8 @@ const columns: ColumnDef<TransactionItem>[] = [
 			>
 				{row.original.status === "completed" ? (
 					<CheckCircle2Icon className="text-green-500 dark:text-green-400" />
+				) : row.original.status === "failed" ? (
+					<XIcon className="text-red-500 dark:text-red-400" />
 				) : (
 					<LoaderIcon />
 				)}
