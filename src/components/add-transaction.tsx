@@ -55,6 +55,7 @@ export default function AddTransaction() {
 		mutationFn: createTransactionFn,
 		onSuccess: (data) => {
 			toast.success(data.message);
+			setOpen(false);
 		},
 		onError: (error) => {
 			toast.error(error.message);

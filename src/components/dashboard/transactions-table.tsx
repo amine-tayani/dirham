@@ -40,8 +40,10 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import type { InferSelectModel } from "drizzle-orm";
 import {
+	ArrowUpDownIcon,
 	CheckCircle2Icon,
 	ChevronDownIcon,
+	ChevronUpIcon,
 	ColumnsIcon,
 	DownloadIcon,
 	FilterIcon,
@@ -108,7 +110,27 @@ const columns: ColumnDef<TransactionItem>[] = [
 	},
 	{
 		accessorKey: "activity",
-		header: "Activity",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+					className={cn(
+						"h-auto p-0 font-medium justify-start",
+						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground "
+					)}
+				>
+					Activity
+					{column.getIsSorted() === "asc" ? (
+						<ChevronUpIcon className="size-3.5" />
+					) : column.getIsSorted() === "desc" ? (
+						<ChevronDownIcon className="size-3.5" />
+					) : (
+						<ArrowUpDownIcon className="size-3.5" />
+					)}
+				</Button>
+			);
+		},
 		cell: ({ row }) => <div className="text-muted-foreground">{row.original.activity}</div>,
 		filterFn: multiColumnFilterFn
 	},
@@ -134,7 +156,27 @@ const columns: ColumnDef<TransactionItem>[] = [
 	},
 	{
 		accessorKey: "date",
-		header: "Date",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+					className={cn(
+						"h-auto p-0 font-medium justify-start",
+						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground "
+					)}
+				>
+					Date
+					{column.getIsSorted() === "asc" ? (
+						<ChevronUpIcon className="size-4" />
+					) : column.getIsSorted() === "desc" ? (
+						<ChevronDownIcon className="size-4" />
+					) : (
+						<ArrowUpDownIcon className="size-3.5" />
+					)}
+				</Button>
+			);
+		},
 		cell: ({ row }) => (
 			<div className="text-muted-foreground font-sans">
 				{dayjs(row.original.date).format("lll")}
@@ -148,7 +190,7 @@ const columns: ColumnDef<TransactionItem>[] = [
 			<div className="text-muted-foreground">
 				{new Intl.NumberFormat("en-US", {
 					style: "currency",
-					currency: "USD"
+					currency: row.original.currency
 				}).format(Number(row.original.amount))}
 			</div>
 		)
