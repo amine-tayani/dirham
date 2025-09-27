@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/select";
 import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import type z from "zod";
@@ -35,6 +35,7 @@ import type z from "zod";
 export default function AddTransaction() {
 	const [open, setOpen] = useState(false);
 	const [date, setDate] = useState<Date | undefined>(new Date());
+	const queryClient = useQueryClient();
 
 	const form = useForm<
 		z.input<typeof transactionFormSchema>,
@@ -56,6 +57,7 @@ export default function AddTransaction() {
 		onSuccess: (data) => {
 			toast.success(data.message);
 			setOpen(false);
+			queryClient.invalidateQueries({ queryKey: ["transactions"] });
 		},
 		onError: (error) => {
 			toast.error(error.message);

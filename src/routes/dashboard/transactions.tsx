@@ -2,6 +2,7 @@ import { TransactionsTable } from "@/components/dashboard/transactions-table";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { transactions } from "@/lib/db/schema";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
@@ -14,16 +15,10 @@ export const Route = createFileRoute("/dashboard/transactions")({
 	component: TransactionsPage,
 	beforeLoad: async ({ context }) => {
 		return { title: "Transactions" };
-	},
-	loader: async () => {
-		return {
-			transactions: await getTransactions()
-		};
 	}
 });
 
 function TransactionsPage() {
-	const { transactions } = Route.useLoaderData();
 	const data = [
 		{
 			title: "Total Transactions",
@@ -38,6 +33,12 @@ function TransactionsPage() {
 			value: 683.54
 		}
 	];
+
+	const { data: transactions = [], isLoading } = useQuery({
+		queryKey: ["transactions"],
+		queryFn: getTransactions
+	});
+
 	return (
 		<div className="flex h-full">
 			<main className="flex-1 flex flex-col h-screen overflow-hidden">
@@ -65,7 +66,7 @@ function TransactionsPage() {
 							</Card>
 						))}
 					</div>
-					<TransactionsTable data={transactions} />
+					<TransactionsTable data={transactions} isLoading={isLoading} />
 				</div>
 			</main>
 		</div>

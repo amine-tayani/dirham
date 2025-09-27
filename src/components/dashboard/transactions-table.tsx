@@ -54,6 +54,7 @@ import {
 } from "lucide-react";
 import * as React from "react";
 import AddTransaction from "../add-transaction";
+import { Skeleton } from "../ui/skeleton";
 
 dayjs.extend(localizedFormat);
 
@@ -163,7 +164,7 @@ const columns: ColumnDef<TransactionItem>[] = [
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 					className={cn(
 						"h-auto p-0 font-medium justify-start",
-						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground "
+						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground"
 					)}
 				>
 					Date
@@ -222,7 +223,10 @@ const columns: ColumnDef<TransactionItem>[] = [
 ];
 
 // Main Table Component
-export function TransactionsTable({ data }: { data: TransactionItem[] }) {
+export function TransactionsTable({
+	data,
+	isLoading
+}: { data: TransactionItem[]; isLoading: boolean }) {
 	const inputRef = React.useRef<HTMLInputElement>(null);
 	const id = React.useId();
 	const [rowSelection, setRowSelection] = React.useState({});
@@ -240,6 +244,7 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 			columnFilters
 		},
 		getRowId: (row) => row.id.toString(),
+
 		enableRowSelection: true,
 		onRowSelectionChange: setRowSelection,
 		onSortingChange: setSorting,
@@ -382,40 +387,44 @@ export function TransactionsTable({ data }: { data: TransactionItem[] }) {
 				</div>
 			</div>
 
-			<Table>
-				<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-input">
-					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
-							{headerGroup.headers.map((header) => (
-								<TableHead key={header.id} colSpan={header.colSpan}>
-									{header.isPlaceholder
-										? null
-										: flexRender(header.column.columnDef.header, header.getContext())}
-								</TableHead>
-							))}
-						</TableRow>
-					))}
-				</TableHeader>
-				<TableBody className="relative">
-					{table.getRowModel().rows.length ? (
-						table.getRowModel().rows.map((row) => (
-							<TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-								{row.getVisibleCells().map((cell) => (
-									<TableCell key={cell.id}>
-										{flexRender(cell.column.columnDef.cell, cell.getContext())}
-									</TableCell>
+			{isLoading ? (
+				<Skeleton className="h-80 w-full bg-muted" />
+			) : (
+				<Table>
+					<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-input">
+						{table.getHeaderGroups().map((headerGroup) => (
+							<TableRow key={headerGroup.id}>
+								{headerGroup.headers.map((header) => (
+									<TableHead key={header.id} colSpan={header.colSpan}>
+										{header.isPlaceholder
+											? null
+											: flexRender(header.column.columnDef.header, header.getContext())}
+									</TableHead>
 								))}
 							</TableRow>
-						))
-					) : (
-						<TableRow>
-							<TableCell colSpan={columns.length} className="h-24 text-center">
-								No transactions.
-							</TableCell>
-						</TableRow>
-					)}
-				</TableBody>
-			</Table>
+						))}
+					</TableHeader>
+					<TableBody className="relative">
+						{table.getRowModel().rows.length ? (
+							table.getRowModel().rows.map((row) => (
+								<TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+									{row.getVisibleCells().map((cell) => (
+										<TableCell key={cell.id}>
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</TableCell>
+									))}
+								</TableRow>
+							))
+						) : (
+							<TableRow>
+								<TableCell colSpan={columns.length} className="h-24 text-center">
+									No transactions.
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
+			)}
 		</>
 	);
 }
