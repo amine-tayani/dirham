@@ -15,9 +15,7 @@ import type { User } from "better-auth";
 import {
 	CreditCardIcon,
 	GlobeIcon,
-	HelpCircleIcon,
 	LogOutIcon,
-	MapIcon,
 	SettingsIcon,
 	ShieldIcon,
 	UserIcon
@@ -87,17 +85,7 @@ export function UserNav({
 						<span>Language</span>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<HelpCircleIcon size={16} className="opacity-60" aria-hidden="true" />
-						<span>Help center</span>
-					</DropdownMenuItem>{" "}
-					<DropdownMenuItem>
-						<MapIcon size={16} className="opacity-60" aria-hidden="true" />
-						<span>Guide</span>
-					</DropdownMenuItem>
-				</DropdownMenuGroup>
+
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem

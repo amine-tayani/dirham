@@ -48,13 +48,13 @@ import {
 	DownloadIcon,
 	FilterIcon,
 	ListFilterIcon,
+	Loader2Icon,
 	LoaderIcon,
 	MoreVerticalIcon,
 	XIcon
 } from "lucide-react";
 import * as React from "react";
 import AddTransaction from "../add-transaction";
-import { Skeleton } from "../ui/skeleton";
 
 dayjs.extend(localizedFormat);
 
@@ -387,8 +387,13 @@ export function TransactionsTable({
 				</div>
 			</div>
 
+			{/* We need a better way to show loading state but for now this is fine */}
 			{isLoading ? (
-				<Skeleton className="h-80 w-full bg-muted" />
+				<TableRow>
+					<TableCell colSpan={columns.length} className="h-24 text-center">
+						<Loader2Icon className="animate-spin size-5 mx-auto" />
+					</TableCell>
+				</TableRow>
 			) : (
 				<Table>
 					<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-input">
