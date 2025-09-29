@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DropdownMenu,
-	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
@@ -44,7 +43,6 @@ import {
 	CheckCircle2Icon,
 	ChevronDownIcon,
 	ChevronUpIcon,
-	ColumnsIcon,
 	DownloadIcon,
 	FilterIcon,
 	ListFilterIcon,
@@ -350,32 +348,6 @@ export function TransactionsTable({
 							</div>
 						</PopoverContent>
 					</Popover>
-					{/* Toggle columns visibility */}
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="outline" size="sm">
-								<ColumnsIcon className="size-4 text-muted-foreground/50" />
-								<span className="hidden lg:inline">Columns</span>
-								<span className="lg:hidden">Columns</span>
-								<ChevronDownIcon className="size-4 text-muted-foreground/50" />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="start" className="w-56">
-							{table
-								.getAllColumns()
-								.filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
-								.map((column) => (
-									<DropdownMenuCheckboxItem
-										key={column.id}
-										className="capitalize"
-										checked={column.getIsVisible()}
-										onCheckedChange={(value) => column.toggleVisibility(!!value)}
-									>
-										{column.id}
-									</DropdownMenuCheckboxItem>
-								))}
-						</DropdownMenuContent>
-					</DropdownMenu>
 				</div>
 				<div className="flex items-center gap-3">
 					<Button variant="outline" size="sm">
