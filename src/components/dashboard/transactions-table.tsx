@@ -49,6 +49,7 @@ import {
 	Loader2Icon,
 	LoaderIcon,
 	MoreVerticalIcon,
+	TrashIcon,
 	XIcon
 } from "lucide-react";
 import * as React from "react";
@@ -350,10 +351,32 @@ export function TransactionsTable({
 					</Popover>
 				</div>
 				<div className="flex items-center gap-3">
+					{table.getSelectedRowModel().rows.length > 0 && (
+						<Button variant="outline" size="sm">
+							<TrashIcon className="size-4 text-muted-foreground/50" />
+							<span className="hidden lg:inline">
+								Delete{" "}
+								{table.getSelectedRowModel().rows.length > 0 && (
+									<span className="font-mono text-sm">
+										({table.getSelectedRowModel().rows.length})
+									</span>
+								)}
+							</span>
+						</Button>
+					)}
 					<Button variant="outline" size="sm">
 						<DownloadIcon className="size-4 text-muted-foreground/50" />
-						<span className="hidden lg:inline">Import</span>
-						<span className="lg:hidden">Import</span>
+						<span className="hidden lg:inline">
+							Export{" "}
+							{table.getSelectedRowModel().rows.length > 0 ? (
+								<span className="font-mono text-sm">
+									({table.getSelectedRowModel().rows.length})
+								</span>
+							) : (
+								"All"
+							)}
+						</span>
+						<span className="lg:hidden">Export All</span>
 					</Button>
 					<AddTransaction />
 				</div>
