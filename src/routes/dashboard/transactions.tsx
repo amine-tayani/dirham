@@ -19,10 +19,15 @@ export const Route = createFileRoute("/dashboard/transactions")({
 });
 
 function TransactionsPage() {
+	const { data: transactions = [], isLoading } = useQuery({
+		queryKey: ["transactions"],
+		queryFn: getTransactions
+	});
+
 	const data = [
 		{
 			title: "Total Transactions",
-			value: 4
+			value: transactions.length
 		},
 		{
 			title: "Income",
@@ -33,11 +38,6 @@ function TransactionsPage() {
 			value: 683.54
 		}
 	];
-
-	const { data: transactions = [], isLoading } = useQuery({
-		queryKey: ["transactions"],
-		queryFn: getTransactions
-	});
 
 	return (
 		<div className="flex h-full">
