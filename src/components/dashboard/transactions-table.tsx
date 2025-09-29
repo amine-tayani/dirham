@@ -352,7 +352,11 @@ export function TransactionsTable({
 				</div>
 				<div className="flex items-center gap-3">
 					{table.getSelectedRowModel().rows.length > 0 && (
-						<Button variant="outline" size="sm">
+						<Button
+							variant="outline"
+							size="sm"
+							className={cn("!bg-neutral-700 [&>svg]:text-foreground")}
+						>
 							<TrashIcon className="size-4 text-muted-foreground/50" />
 							<span className="hidden lg:inline">
 								Delete{" "}
@@ -364,7 +368,14 @@ export function TransactionsTable({
 							</span>
 						</Button>
 					)}
-					<Button variant="outline" size="sm">
+					<Button
+						variant="outline"
+						size="sm"
+						className={cn(
+							table.getSelectedRowModel().rows.length > 0 &&
+								"!bg-neutral-700 [&>svg]:text-foreground"
+						)}
+					>
 						<DownloadIcon className="size-4 text-muted-foreground/50" />
 						<span className="hidden lg:inline">
 							Export{" "}
