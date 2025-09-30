@@ -1,7 +1,8 @@
 import { transactionFormSchema, transactions } from "@/lib/db/schema";
 import { AuthMiddleware } from "@/utils/authMiddleware";
-import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { and, eq } from "drizzle-orm";
+import z from "zod";
 import { db } from "../db";
 
 // We need to use drizzle inside our handler to persist the data
@@ -10,11 +11,8 @@ import { db } from "../db";
 export const createTransactionFn = createServerFn({ method: "POST" })
 	.validator(transactionFormSchema.parse)
 	.middleware([AuthMiddleware])
-	.handler(async ({ data, context }) => {
+	.handler(async ({ data, context: { userId } }) => {
 		const { activity, amount, date, status, currency } = data;
-		if (!context.userId) {
-			throw redirect({ to: "/login" });
-		}
 
 		try {
 			await db.insert(transactions).values({
@@ -23,7 +21,7 @@ export const createTransactionFn = createServerFn({ method: "POST" })
 				date,
 				status,
 				currency,
-				userId: context.userId
+				userId
 			});
 
 			return { message: "Transaction created successfully" };
@@ -32,4 +30,26 @@ export const createTransactionFn = createServerFn({ method: "POST" })
 
 			return { error: "Failed to save transaction" };
 		}
+	});
+
+export const deleteTransactionFn = createServerFn({ method: "POST" })
+	.validator(
+		z.object({
+			id: z.number()
+		})
+	)
+	.middleware([AuthMiddleware])
+	.handler(async ({ data, context: { userId } }) => {
+		const [row] = await db
+			.select()
+			.from(transactions)
+			.where(and(eq(transactions.userId, userId), eq(transactions.id, data.id)));
+
+		if (!row) {
+			return { error: "Transaction not found" };
+		}
+
+		await db.delete(transactions).where(eq(transactions.id, data.id));
+
+		return { message: "Transaction deleted successfully" };
 	});
