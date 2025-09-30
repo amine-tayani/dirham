@@ -1,3 +1,13 @@
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -221,6 +231,28 @@ const columns: ColumnDef<TransactionItem>[] = [
 	}
 ];
 
+export const DeleteTransactionDialog = ({
+	isOpen,
+	setIsOpen
+}: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) => {
+	return (
+		<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+			<AlertDialogContent>
+				<AlertDialogHeader>
+					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
+					<AlertDialogDescription>
+						This action cannot be undone. This will permanently delete the transaction.
+					</AlertDialogDescription>
+				</AlertDialogHeader>
+				<AlertDialogFooter>
+					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogAction>Delete</AlertDialogAction>
+				</AlertDialogFooter>
+			</AlertDialogContent>
+		</AlertDialog>
+	);
+};
+
 // Main Table Component
 export function TransactionsTable({
 	data,
@@ -232,6 +264,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
+	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
 
 	const table = useReactTable({
 		data,
@@ -351,23 +384,33 @@ export function TransactionsTable({
 					</Popover>
 				</div>
 				<div className="flex items-center gap-3">
-					{table.getSelectedRowModel().rows.length > 0 && (
-						<Button
-							variant="outline"
-							size="sm"
-							className={cn("!bg-neutral-700 [&>svg]:text-foreground")}
-						>
-							<TrashIcon className="size-4 text-muted-foreground/50" />
-							<span className="hidden lg:inline">
-								Delete{" "}
-								{table.getSelectedRowModel().rows.length > 0 && (
-									<span className="font-mono text-sm">
-										({table.getSelectedRowModel().rows.length})
-									</span>
-								)}
-							</span>
-						</Button>
-					)}
+					<div>
+						{table.getSelectedRowModel().rows.length > 0 && (
+							<Button
+								onClick={() => setDeleteTransactionDialogOpen(true)}
+								variant="outline"
+								size="sm"
+								className={cn("!bg-neutral-700 [&>svg]:text-foreground")}
+							>
+								<TrashIcon className="size-4 text-muted-foreground/50" />
+								<span className="hidden lg:inline">
+									Delete{" "}
+									{table.getSelectedRowModel().rows.length > 0 && (
+										<span className="font-mono text-sm">
+											({table.getSelectedRowModel().rows.length})
+										</span>
+									)}
+								</span>
+							</Button>
+						)}
+						{deleteTransactionDialogOpen && (
+							<DeleteTransactionDialog
+								isOpen={deleteTransactionDialogOpen}
+								setIsOpen={setDeleteTransactionDialogOpen}
+							/>
+						)}
+					</div>
+
 					<Button
 						variant="outline"
 						size="sm"
