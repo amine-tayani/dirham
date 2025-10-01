@@ -10,6 +10,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -386,28 +392,35 @@ export function TransactionsTable({
 							/>
 						)}
 					</div>
-
-					<Button
-						variant="outline"
-						size="sm"
-						className={cn(
-							table.getSelectedRowModel().rows.length > 0 &&
-								"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
-						)}
-					>
-						<DownloadIcon className="size-4 text-muted-foreground/50" />
-						<span className="hidden lg:inline">
-							Export{" "}
-							{table.getSelectedRowModel().rows.length > 0 ? (
-								<span className="font-mono text-sm">
-									({table.getSelectedRowModel().rows.length})
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button
+								variant="outline"
+								size="sm"
+								className={cn(
+									table.getSelectedRowModel().rows.length > 0 &&
+										"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
+								)}
+							>
+								<DownloadIcon className="size-4 text-muted-foreground/50" />
+								<span className="hidden lg:inline">
+									Export{" "}
+									{table.getSelectedRowModel().rows.length > 0 ? (
+										<span className="font-mono text-sm">
+											({table.getSelectedRowModel().rows.length})
+										</span>
+									) : (
+										"data"
+									)}
 								</span>
-							) : (
-								"All"
-							)}
-						</span>
-						<span className="lg:hidden">Export All</span>
-					</Button>
+								<span className="lg:hidden">Export data</span>
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">
+							<DropdownMenuItem>Export as CSV</DropdownMenuItem>
+							<DropdownMenuItem>Export as JSON</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
 					<AddTransaction />
 				</div>
 			</div>
