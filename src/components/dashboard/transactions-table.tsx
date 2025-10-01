@@ -210,7 +210,7 @@ export const DeleteTransactionDialog = ({
 }: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) => {
 	return (
 		<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-			<AlertDialogContent className="sm:max-w-sm [&>*]:text-center gap-8">
+			<AlertDialogContent className="sm:max-w-sm [&>*]:text-center gap-8 p-8">
 				<Button
 					variant="ghost"
 					size="sm"
@@ -244,7 +244,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
+	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(true);
 
 	const table = useReactTable({
 		data,
