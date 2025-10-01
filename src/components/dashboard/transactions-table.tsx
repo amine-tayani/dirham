@@ -10,13 +10,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -57,7 +50,6 @@ import {
 	ListFilterIcon,
 	Loader2Icon,
 	LoaderIcon,
-	MoreVerticalIcon,
 	TrashIcon,
 	XIcon
 } from "lucide-react";
@@ -202,30 +194,6 @@ const columns: ColumnDef<TransactionItem>[] = [
 					currency: row.original.currency
 				}).format(Number(row.original.amount))}
 			</div>
-		)
-	},
-	{
-		id: "actions",
-		cell: () => (
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button
-						variant="ghost"
-						className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-						size="icon"
-					>
-						<MoreVerticalIcon />
-						<span className="sr-only">Open menu</span>
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent align="end" className="w-32">
-					<DropdownMenuItem>Edit</DropdownMenuItem>
-					<DropdownMenuItem>Make a copy</DropdownMenuItem>
-					<DropdownMenuItem>Favorite</DropdownMenuItem>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem>Delete</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
 		)
 	}
 ];
@@ -469,7 +437,11 @@ export function TransactionsTable({
 					<TableBody className="relative">
 						{table.getRowModel().rows.length ? (
 							table.getRowModel().rows.map((row) => (
-								<TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+								<TableRow
+									key={row.id}
+									data-state={row.getIsSelected() && "selected"}
+									className="h-12"
+								>
 									{row.getVisibleCells().map((cell) => (
 										<TableCell key={cell.id}>
 											{flexRender(cell.column.columnDef.cell, cell.getContext())}
