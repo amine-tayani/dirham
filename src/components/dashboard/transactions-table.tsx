@@ -1,7 +1,6 @@
 import {
 	AlertDialog,
 	AlertDialogAction,
-	AlertDialogCancel,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
@@ -237,16 +236,23 @@ export const DeleteTransactionDialog = ({
 }: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) => {
 	return (
 		<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-			<AlertDialogContent>
+			<AlertDialogContent className="sm:max-w-sm [&>*]:text-center gap-8">
+				<Button
+					variant="ghost"
+					size="sm"
+					onClick={() => setIsOpen(false)}
+					className="absolute right-2 top-2"
+				>
+					<XIcon className="size-4 text-muted-foreground/50" />
+				</Button>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
 					<AlertDialogDescription>
 						This action cannot be undone. This will permanently delete the transaction.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
-				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction>Delete</AlertDialogAction>
+				<AlertDialogFooter className="flex !flex-col w-full">
+					<AlertDialogAction>I understand, delete this transaction</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>
@@ -336,7 +342,9 @@ export function TransactionsTable({
 						id={`${id}-input`}
 						type="text"
 						ref={inputRef}
-						className={cn("peer min-w-60 ps-9 h-8 focus-visible:ring-0 shadow-none")}
+						className={cn(
+							"peer min-w-60 ps-9 h-8 focus-visible:ring-0 border border-muted-foreground/30 dark:border-none shadow-none"
+						)}
 						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
 						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value)}
 						placeholder="Filter by activity..."
@@ -390,7 +398,7 @@ export function TransactionsTable({
 								onClick={() => setDeleteTransactionDialogOpen(true)}
 								variant="outline"
 								size="sm"
-								className={cn("!bg-neutral-700 [&>svg]:text-foreground")}
+								className={cn("dark:!bg-neutral-700 dark:[&>svg]:text-foreground ")}
 							>
 								<TrashIcon className="size-4 text-muted-foreground/50" />
 								<span className="hidden lg:inline">
@@ -416,7 +424,7 @@ export function TransactionsTable({
 						size="sm"
 						className={cn(
 							table.getSelectedRowModel().rows.length > 0 &&
-								"!bg-neutral-700 [&>svg]:text-foreground"
+								"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
 						)}
 					>
 						<DownloadIcon className="size-4 text-muted-foreground/50" />
@@ -445,7 +453,7 @@ export function TransactionsTable({
 				</TableRow>
 			) : (
 				<Table>
-					<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-input">
+					<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-neutral-50">
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => (
