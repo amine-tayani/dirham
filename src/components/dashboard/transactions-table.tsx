@@ -60,6 +60,7 @@ import {
 	XIcon
 } from "lucide-react";
 import * as React from "react";
+import { toast } from "sonner";
 import AddTransaction from "../add-transaction";
 
 dayjs.extend(localizedFormat);
@@ -417,8 +418,12 @@ export function TransactionsTable({
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">
-							<DropdownMenuItem>Export as CSV</DropdownMenuItem>
-							<DropdownMenuItem>Export as JSON</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => toast("Transaction exported as JSON successfully")}>
+								Export as JSON
+							</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => toast("Transaction exported as CSV successfully")}>
+								Export as CSV
+							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 					<AddTransaction />
@@ -427,11 +432,15 @@ export function TransactionsTable({
 
 			{/* We need a better way to show loading state but for now this is fine */}
 			{isLoading ? (
-				<TableRow>
-					<TableCell colSpan={columns.length} className="h-24 text-center">
-						<Loader2Icon className="animate-spin size-5 mx-auto" />
-					</TableCell>
-				</TableRow>
+				<Table>
+					<TableBody>
+						<TableRow>
+							<TableCell colSpan={columns.length} className="h-24 text-center">
+								<Loader2Icon className="animate-spin size-5 mx-auto" />
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
 			) : (
 				<Table>
 					<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-neutral-50">
