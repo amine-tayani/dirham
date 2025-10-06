@@ -5,17 +5,21 @@ import { transactions } from "@/lib/db/schema";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-
-const getTransactions = createServerFn().handler(async () => {
-	const data = await db.select().from(transactions);
-	return data;
-});
+import type { User } from "better-auth";
 
 export const Route = createFileRoute("/dashboard/transactions")({
 	component: TransactionsPage,
-	beforeLoad: async ({ context }) => {
+	beforeLoad: async () => {
 		return { title: "Transactions" };
+	},
+	loader: ({ context }) => {
+		return { user: context.user as User };
 	}
+});
+
+const getTransactions = createServerFn().handler(async ({ context }) => {
+	const data = await db.select().from(transactions);
+	return data;
 });
 
 function TransactionsPage() {

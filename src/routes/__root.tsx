@@ -1,7 +1,8 @@
 import { NotFound } from "@/components/blocks/not-found";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { auth } from "@/lib/server/auth";
+import { getThemeServerFn } from "@/lib/theme";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import type { QueryClient } from "@tanstack/react-query";
@@ -29,6 +30,7 @@ export const Route = createRootRouteWithContext<{
 		}); // we're using react-query for caching, see router.tsx
 		return { user };
 	},
+	loader: () => getThemeServerFn(),
 	head: () => ({
 		meta: [
 			{
@@ -79,25 +81,27 @@ export const Route = createRootRouteWithContext<{
 });
 
 function RootComponent() {
+	const data = Route.useLoaderData();
 	return (
-		<RootDocument>
-			<Outlet />
-		</RootDocument>
+		<ThemeProvider theme={data}>
+			<RootDocument>
+				<Outlet />
+				<Toaster richColors expand position="top-right" />
+			</RootDocument>
+		</ThemeProvider>
 	);
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { theme } = useTheme();
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="en-US" suppressHydrationWarning className={theme}>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-					{children}
-					<Toaster richColors expand />
-					<Scripts />
-				</ThemeProvider>
+				{children}
+				<Scripts />
 			</body>
 		</html>
 	);

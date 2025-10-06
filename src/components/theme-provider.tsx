@@ -1,78 +1,27 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { setThemeServerFn } from "@/lib/theme";
+import { useRouter } from "@tanstack/react-router";
+import { type PropsWithChildren, createContext, use } from "react";
 
-type Theme = "dark" | "light" | "system";
+export type Theme = "light" | "dark";
 
-type ThemeProviderProps = {
-	children: React.ReactNode;
-	defaultTheme?: Theme;
-	storageKey?: string;
-};
+type ThemeContextVal = { theme: Theme; setTheme: (val: Theme) => void };
+type Props = PropsWithChildren<{ theme: Theme }>;
 
-type ThemeProviderState = {
-	theme: Theme;
-	setCurrentTheme: (theme: Theme) => void;
-};
+const ThemeContext = createContext<ThemeContextVal | null>(null);
 
-const initialState: ThemeProviderState = {
-	theme: "system",
-	setCurrentTheme: () => null
-};
+export function ThemeProvider({ children, theme }: Props) {
+	const router = useRouter();
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+	function setTheme(val: Theme) {
+		setThemeServerFn({ data: val });
+		router.invalidate();
+	}
 
-export function ThemeProvider({
-	children,
-	defaultTheme = "system",
-	storageKey = "vite-ui-theme",
-	...props
-}: ThemeProviderProps) {
-	const [theme, setTheme] = useState<Theme>(defaultTheme);
-	const [mounted, setMounted] = useState(false);
-
-	// Load theme from localStorage safely on client
-	useEffect(() => {
-		const stored = localStorage.getItem(storageKey) as Theme | null;
-		if (stored) {
-			setTheme(stored);
-		}
-		setMounted(true);
-	}, [storageKey]);
-
-	// Apply theme to <html>
-	useEffect(() => {
-		if (!mounted) return;
-
-		const root = window.document.documentElement;
-		root.classList.remove("light", "dark");
-
-		if (theme === "system") {
-			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-				? "dark"
-				: "light";
-			root.classList.add(systemTheme);
-		} else {
-			root.classList.add(theme);
-		}
-
-		localStorage.setItem(storageKey, theme);
-	}, [theme, mounted, storageKey]);
-
-	const value: ThemeProviderState = {
-		theme,
-		setCurrentTheme: (t: Theme) => setTheme(t)
-	};
-
-	return (
-		<ThemeProviderContext.Provider {...props} value={value}>
-			{children}
-		</ThemeProviderContext.Provider>
-	);
+	return <ThemeContext value={{ theme, setTheme }}>{children}</ThemeContext>;
 }
 
-export const useTheme = () => {
-	const context = useContext(ThemeProviderContext);
-	if (context === undefined) {
-		throw new Error("useTheme must be used within a ThemeProvider");
-	}
-	return context;
-};
+export function useTheme() {
+	const val = use(ThemeContext);
+	if (!val) throw new Error("useTheme called outside of ThemeProvider!");
+	return val;
+}

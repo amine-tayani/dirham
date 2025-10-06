@@ -24,7 +24,7 @@ function DashboardLayout() {
 	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
 	const matches = useMatches();
-	const { theme, setCurrentTheme } = useTheme();
+	const { theme, setTheme } = useTheme();
 
 	const currentMatch = matches[matches.length - 1];
 	const currentRoute = currentMatch?.routeId || "";
@@ -66,7 +66,7 @@ function DashboardLayout() {
 								<Button
 									size="icon"
 									variant="link"
-									onClick={() => setCurrentTheme(theme === "dark" ? "light" : "dark")}
+									onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
 									aria-label="Toggle theme"
 								>
 									<MoonIcon className="m-auto size-5 text-muted-foreground " />

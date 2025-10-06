@@ -38,7 +38,7 @@ export const ThemeSwitcher = ({
   defaultValue = "system",
   className,
 }: ThemeSwitcherProps) => {
-  const { setCurrentTheme } = useTheme()
+  const { setTheme: setCurrentTheme } = useTheme()
 
   const [theme, setTheme] = useControllableState({
     defaultProp: defaultValue,
@@ -48,9 +48,9 @@ export const ThemeSwitcher = ({
   const [mounted, setMounted] = useState(false);
 
   const handleThemeClick = useCallback(
-    (themeKey: "light" | "dark" | "system") => {
-      setTheme(themeKey);
-      setCurrentTheme(themeKey);
+    (themeKey: "light" | "dark") => {
+      setTheme(themeKey)
+      setCurrentTheme(themeKey)
     },
     [setTheme]
   );
@@ -80,7 +80,7 @@ export const ThemeSwitcher = ({
             className={cn("relative size-6 rounded-full p-1",
             )}
             key={key}
-            onClick={() => handleThemeClick(key as "light" | "dark" | "system")}
+            onClick={() => handleThemeClick(key as "light" | "dark" )}
             type="button"
           >
             {isActive && (
