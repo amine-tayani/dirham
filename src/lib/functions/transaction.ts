@@ -2,7 +2,7 @@ import { transactionFormSchema, transactions } from "@/lib/db/schema";
 import { AuthMiddleware } from "@/utils/authMiddleware";
 import { createServerFn } from "@tanstack/react-start";
 import { and, eq } from "drizzle-orm";
-import z from "zod";
+import * as z from "zod";
 import { db } from "../db";
 
 // We need to use drizzle inside our handler to persist the data

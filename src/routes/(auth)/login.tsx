@@ -10,7 +10,7 @@ import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import * as z from "zod";
 
 export const Route = createFileRoute("/(auth)/login")({
 	component: LoginPage

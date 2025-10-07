@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { numeric, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
-import z from "zod";
+import * as z from "zod";
 import { user as userSchema } from "./auth.schema";
 
 export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]);
