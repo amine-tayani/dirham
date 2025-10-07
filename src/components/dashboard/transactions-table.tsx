@@ -205,6 +205,15 @@ const columns: ColumnDef<TransactionItem>[] = [
 	}
 ];
 
+function exportToJSON<T>(rows: T[], fileName: string) {
+	const blob = new Blob([JSON.stringify(rows, null, 2)], { type: "application/json" });
+	const url = URL.createObjectURL(blob);
+	const link = document.createElement("a");
+	link.href = url;
+	link.download = `${fileName}.json`;
+	link.click();
+}
+
 export const DeleteTransactionDialog = ({
 	isOpen,
 	setIsOpen
@@ -418,7 +427,15 @@ export function TransactionsTable({
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">
-							<DropdownMenuItem onClick={() => toast("Transaction exported as JSON successfully")}>
+							<DropdownMenuItem
+								onClick={() => {
+									exportToJSON(
+										table.getSelectedRowModel().rows.map((row) => row.original),
+										"transactions"
+									);
+									toast("Transaction exported as JSON successfully");
+								}}
+							>
 								Export as JSON
 							</DropdownMenuItem>
 							<DropdownMenuItem onClick={() => toast("Transaction exported as CSV successfully")}>

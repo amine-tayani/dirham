@@ -1,3 +1,0 @@
-- add server function to add and update transactions
-- Import transactions button - see what can we do with this
-- Work on other pages and database schema update it.
