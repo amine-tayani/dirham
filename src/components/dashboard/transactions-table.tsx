@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/table";
 import type { transactions } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
+import { exportAsJSON } from "@/utils/export";
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
@@ -204,15 +205,6 @@ const columns: ColumnDef<TransactionItem>[] = [
 		)
 	}
 ];
-
-function exportToJSON<T>(rows: T[], fileName: string) {
-	const blob = new Blob([JSON.stringify(rows, null, 2)], { type: "application/json" });
-	const url = URL.createObjectURL(blob);
-	const link = document.createElement("a");
-	link.href = url;
-	link.download = `${fileName}.json`;
-	link.click();
-}
 
 export const DeleteTransactionDialog = ({
 	isOpen,
@@ -428,10 +420,11 @@ export function TransactionsTable({
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">
 							<DropdownMenuItem
-								onClick={() => {
-									exportToJSON(
+								onClick={(e) => {
+									e.stopPropagation();
+									exportAsJSON(
 										table.getSelectedRowModel().rows.map((row) => row.original),
-										"transactions"
+										"transaction"
 									);
 									toast("Transaction exported as JSON successfully");
 								}}
