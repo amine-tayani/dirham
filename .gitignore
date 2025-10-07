@@ -9,8 +9,10 @@ yarn.lock
 .vercel
 .output
 .vinxi
+.tanstack
 
 todo.txt
+routeTree.gen.ts
 
 /build/
 /api/
