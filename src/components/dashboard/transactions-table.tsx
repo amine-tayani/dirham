@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/table";
 import type { transactions } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
+import { exportAsJSON } from "@/utils/export";
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
@@ -420,12 +421,12 @@ export function TransactionsTable({
 						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">
 							<DropdownMenuItem
 								onClick={(e) => {
-									e.stopPropagation();
-									// exportAsJSON(
-									// 	table.getSelectedRowModel().rows.map((row) => row.original),
-									// 	"transaction"
-									// );
-									toast.success("Transaction exported as JSON successfully");
+						  e.stopPropagation();
+								const selectedRows = table.getSelectedRowModel().rows;
+								const dataToExport =
+									selectedRows.length > 0 ? selectedRows.map((r) => r.original) : data;
+
+								exportAsJSON(dataToExport, "transactions");
 								}}
 							>
 								Export as JSON
