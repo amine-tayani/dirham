@@ -1,13 +1,3 @@
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle
-} from "@/components/ui/alert-dialog";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -27,13 +17,10 @@ import {
 	TableHeader,
 	TableRow
 } from "@/components/ui/table";
-import type { transactions } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
 import { exportAsCSV, exportAsJSON } from "@/utils/export";
 import {
-	type ColumnDef,
 	type ColumnFiltersState,
-	type FilterFn,
 	type SortingState,
 	type VisibilityState,
 	flexRender,
@@ -46,195 +33,14 @@ import {
 } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import type { InferSelectModel } from "drizzle-orm";
-import {
-	ArrowUpDownIcon,
-	CheckCircle2Icon,
-	ChevronDownIcon,
-	ChevronUpIcon,
-	DownloadIcon,
-	FilterIcon,
-	ListFilterIcon,
-	Loader2Icon,
-	LoaderIcon,
-	TrashIcon,
-	XIcon
-} from "lucide-react";
+import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from "lucide-react";
 import * as React from "react";
-import AddTransaction from "../add-transaction";
+import AddTransactionDialog from "./add-transaction-dialog";
+import { type TransactionItem, columns } from "./columns";
+import { DeleteTransactionDialog } from "./delete-transaction-dialog";
 
 dayjs.extend(localizedFormat);
 
-// Schema definition
-
-export type TransactionItem = Omit<InferSelectModel<typeof transactions>, "userId" | "updated_at">;
-// Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<TransactionItem> = (row, filterValue) => {
-	const searchableRowContent = row.original.activity.toLowerCase();
-	const searchTerm = (filterValue ?? "").toLowerCase();
-	return searchableRowContent.includes(searchTerm);
-};
-
-const statusFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string[]) => {
-	if (!filterValue?.length) return true;
-	const status = row.getValue(columnId) as string;
-	return filterValue.includes(status);
-};
-
-// Column definitions
-const columns: ColumnDef<TransactionItem>[] = [
-	{
-		id: "select",
-		header: ({ table }) => (
-			<div className="flex items-center justify-center">
-				<Checkbox
-					checked={
-						table.getIsAllPageRowsSelected() ||
-						(table.getIsSomePageRowsSelected() && "indeterminate")
-					}
-					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-					aria-label="Select all"
-				/>
-			</div>
-		),
-		cell: ({ row }) => (
-			<div className="flex items-center justify-center">
-				<Checkbox
-					checked={row.getIsSelected()}
-					onCheckedChange={(value) => row.toggleSelected(!!value)}
-					aria-label="Select row"
-				/>
-			</div>
-		),
-		enableSorting: false,
-		enableHiding: false
-	},
-	{
-		accessorKey: "id",
-		header: "Order ID",
-		cell: ({ row }) => <div className="text-muted-foreground">{row.original.id}</div>,
-		enableHiding: false,
-		enableSorting: false
-	},
-	{
-		accessorKey: "activity",
-		header: ({ column }) => {
-			return (
-				<Button
-					variant="ghost"
-					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					className={cn(
-						"h-auto p-0 font-medium justify-start",
-						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground "
-					)}
-				>
-					Activity
-					{column.getIsSorted() === "asc" ? (
-						<ChevronUpIcon className="size-3.5" />
-					) : column.getIsSorted() === "desc" ? (
-						<ChevronDownIcon className="size-3.5" />
-					) : (
-						<ArrowUpDownIcon className="size-3.5" />
-					)}
-				</Button>
-			);
-		},
-		cell: ({ row }) => <div className="text-muted-foreground">{row.original.activity}</div>,
-		filterFn: multiColumnFilterFn
-	},
-	{
-		accessorKey: "status",
-		header: "Status",
-		cell: ({ row }) => (
-			<Badge
-				variant="outline"
-				className="flex gap-1 px-1.5 text-muted-foreground font-mono [&_svg]:size-3"
-			>
-				{row.original.status === "completed" ? (
-					<CheckCircle2Icon className="text-green-500 dark:text-green-400" />
-				) : row.original.status === "failed" ? (
-					<XIcon className="text-red-500 dark:text-red-400" />
-				) : (
-					<LoaderIcon />
-				)}
-				{row.original.status}
-			</Badge>
-		),
-		filterFn: statusFilterFn
-	},
-	{
-		accessorKey: "date",
-		header: ({ column }) => {
-			return (
-				<Button
-					variant="ghost"
-					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					className={cn(
-						"h-auto p-0 font-medium justify-start",
-						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground"
-					)}
-				>
-					Date
-					{column.getIsSorted() === "asc" ? (
-						<ChevronUpIcon className="size-4" />
-					) : column.getIsSorted() === "desc" ? (
-						<ChevronDownIcon className="size-4" />
-					) : (
-						<ArrowUpDownIcon className="size-3.5" />
-					)}
-				</Button>
-			);
-		},
-		cell: ({ row }) => (
-			<div className="text-muted-foreground font-sans">
-				{dayjs(row.original.date).format("lll")}
-			</div>
-		)
-	},
-	{
-		accessorKey: "amount",
-		header: "Amount",
-		cell: ({ row }) => (
-			<div className="text-muted-foreground">
-				{new Intl.NumberFormat("en-US", {
-					style: "currency",
-					currency: row.original.currency
-				}).format(Number(row.original.amount))}
-			</div>
-		)
-	}
-];
-
-export const DeleteTransactionDialog = ({
-	isOpen,
-	setIsOpen
-}: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) => {
-	return (
-		<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-			<AlertDialogContent className="sm:max-w-sm [&>*]:text-center gap-8 p-8">
-				<Button
-					variant="ghost"
-					size="sm"
-					onClick={() => setIsOpen(false)}
-					className="absolute right-2 top-2"
-				>
-					<XIcon className="size-4 text-muted-foreground/50" />
-				</Button>
-				<AlertDialogHeader>
-					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
-					<AlertDialogDescription>
-						This action cannot be undone. This will permanently delete the transaction.
-					</AlertDialogDescription>
-				</AlertDialogHeader>
-				<AlertDialogFooter className="flex !flex-col w-full">
-					<AlertDialogAction>I understand, delete this transaction</AlertDialogAction>
-				</AlertDialogFooter>
-			</AlertDialogContent>
-		</AlertDialog>
-	);
-};
-
-// Main Table Component
 export function TransactionsTable({
 	data,
 	isLoading
@@ -439,7 +245,7 @@ export function TransactionsTable({
 							<DropdownMenuItem onClick={handleExportCSV}>Export as CSV</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
-					<AddTransaction />
+					<AddTransactionDialog />
 				</div>
 			</div>
 

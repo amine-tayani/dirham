@@ -32,7 +32,7 @@ import { CalendarIcon, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import type z from "zod";
 
-export default function AddTransaction() {
+export default function AddTransactionDialog() {
 	const [open, setOpen] = useState(false);
 	const [date, setDate] = useState<Date | undefined>(new Date());
 	const queryClient = useQueryClient();

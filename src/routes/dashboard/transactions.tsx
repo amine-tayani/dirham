@@ -1,4 +1,4 @@
-import { TransactionsTable } from "@/components/dashboard/transactions-table";
+import { TransactionsTable } from "@/components/transactions/table";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { transactions } from "@/lib/db/schema";

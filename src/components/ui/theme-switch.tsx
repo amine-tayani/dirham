@@ -1,5 +1,5 @@
 
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
 import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { Monitor, Moon, Sun } from "lucide-react";

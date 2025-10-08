@@ -1,6 +1,6 @@
 import { NotFound } from "@/components/blocks/not-found";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
-import { ThemeProvider, useTheme } from "@/components/theme-provider";
+import { ThemeProvider, useTheme } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@/lib/server/auth";
 import { getThemeServerFn } from "@/lib/theme";

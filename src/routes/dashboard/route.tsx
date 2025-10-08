@@ -1,8 +1,8 @@
 import { UserNav } from "@/components/blocks/user-nav";
 import { DashboardSidebar } from "@/components/sidebar";
-import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { useTheme } from "@/components/ui/theme-provider";
 import { greetUser } from "@/lib/utils";
 import { Outlet, createFileRoute, redirect, useMatches } from "@tanstack/react-router";
 import type { User } from "better-auth";
