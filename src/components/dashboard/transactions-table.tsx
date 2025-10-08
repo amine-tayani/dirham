@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/table";
 import type { transactions } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
-import { exportAsJSON } from "@/utils/export";
+import { exportAsCSV, exportAsJSON } from "@/utils/export";
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
@@ -61,7 +61,6 @@ import {
 	XIcon
 } from "lucide-react";
 import * as React from "react";
-import { toast } from "sonner";
 import AddTransaction from "../add-transaction";
 
 dayjs.extend(localizedFormat);
@@ -310,6 +309,23 @@ export function TransactionsTable({
 		table.getColumn("status")?.setFilterValue(newFilterValue.length ? newFilterValue : undefined);
 	};
 
+	const EXPORT_FILE_NAME = "transactions";
+
+	const getDataToExport = () => {
+		const selectedRows = table.getSelectedRowModel().rows;
+		return selectedRows.length > 0 ? selectedRows.map((r) => r.original) : data;
+	};
+
+	const handleExportJSON = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		exportAsJSON(getDataToExport(), EXPORT_FILE_NAME);
+	};
+
+	const handleExportCSV = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		exportAsCSV(getDataToExport(), EXPORT_FILE_NAME);
+	};
+
 	return (
 		<>
 			<div className="flex items-center justify-between mb-4">
@@ -419,21 +435,8 @@ export function TransactionsTable({
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">
-							<DropdownMenuItem
-								onClick={(e) => {
-						  e.stopPropagation();
-								const selectedRows = table.getSelectedRowModel().rows;
-								const dataToExport =
-									selectedRows.length > 0 ? selectedRows.map((r) => r.original) : data;
-
-								exportAsJSON(dataToExport, "transactions");
-								}}
-							>
-								Export as JSON
-							</DropdownMenuItem>
-							<DropdownMenuItem onClick={() => toast("Transaction exported as CSV successfully")}>
-								Export as CSV
-							</DropdownMenuItem>
+							<DropdownMenuItem onClick={handleExportJSON}>Export as JSON</DropdownMenuItem>
+							<DropdownMenuItem onClick={handleExportCSV}>Export as CSV</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 					<AddTransaction />
