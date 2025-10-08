@@ -1,6 +1,7 @@
 import { NotFound } from "@/components/blocks/not-found";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@/lib/server/auth";
 import { getThemeServerFn } from "@/lib/theme";
 import appCss from "@/styles/app.css?url";
@@ -10,7 +11,6 @@ import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanst
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
 import type * as React from "react";
-import { Toaster } from "sonner";
 
 const getUser = createServerFn({ method: "GET" }).handler(async () => {
 	const { headers } = getWebRequest()!;
@@ -86,7 +86,7 @@ function RootComponent() {
 		<ThemeProvider theme={data}>
 			<RootDocument>
 				<Outlet />
-				<Toaster richColors expand position="top-right" />
+				<Toaster />
 			</RootDocument>
 		</ThemeProvider>
 	);
