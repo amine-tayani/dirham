@@ -279,6 +279,7 @@ export function TransactionsTable({
 						{table.getRowModel().rows.length ? (
 							table.getRowModel().rows.map((row) => (
 								<TableRow
+									onClick={() => row.toggleSelected()}
 									key={row.id}
 									data-state={row.getIsSelected() && "selected"}
 									className="h-12"
