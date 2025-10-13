@@ -28,7 +28,7 @@ import {
 import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CalendarIcon, LoaderCircle } from "lucide-react";
+import { CalendarIcon, LoaderCircle, PlusIcon } from "lucide-react";
 import { toast } from "sonner";
 import type z from "zod";
 
@@ -74,7 +74,8 @@ export default function AddTransactionDialog() {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button variant="outline" size="sm">
-					New Transaction
+					<PlusIcon className="size-4 text-muted-foreground/50 hover:text-primary-foreground" />
+					<span className="hidden lg:inline">Add transaction</span>
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="p-0 sm:max-w-lg gap-0">
