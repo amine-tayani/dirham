@@ -144,8 +144,8 @@ export function TransactionsTable({
 							"peer min-w-60 ps-9 h-8 focus-visible:ring-0 border border-muted-foreground/30 dark:border-none shadow-none"
 						)}
 						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
-						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value)}
-						placeholder="Filter by activity..."
+						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value as string)}
+						placeholder="Search transactions... "
 						aria-label="Filter by activity"
 					/>
 					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
@@ -229,15 +229,13 @@ export function TransactionsTable({
 								<DownloadIcon className="size-4 text-muted-foreground/50" />
 								<span className="hidden lg:inline">
 									Export{" "}
-									{table.getSelectedRowModel().rows.length > 0 ? (
+									{table.getSelectedRowModel().rows.length > 0 && (
 										<span className="font-mono text-sm">
 											({table.getSelectedRowModel().rows.length})
 										</span>
-									) : (
-										"data"
 									)}
 								</span>
-								<span className="lg:hidden">Export data</span>
+								<span className="lg:hidden">Export</span>
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className="flex flex-col gap-0.5 p-2">

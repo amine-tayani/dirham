@@ -7,20 +7,20 @@ import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import type { InferSelectModel } from "drizzle-orm";
 import {
-	ArrowUpDownIcon,
 	CheckCircle2Icon,
 	ChevronDownIcon,
 	ChevronUpIcon,
+	ChevronsUpDownIcon,
 	LoaderIcon,
 	XIcon
 } from "lucide-react";
 
 export type TransactionItem = Omit<InferSelectModel<typeof transactions>, "userId" | "updated_at">;
-// Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<TransactionItem> = (row, filterValue) => {
-	const searchableRowContent = row.original.activity.toLowerCase();
-	const searchTerm = (filterValue ?? "").toLowerCase();
-	return searchableRowContent.includes(searchTerm);
+
+const searchActivityFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string) => {
+	const value = String(row.getValue(columnId) ?? "").toLowerCase();
+	const searchTerm = String(filterValue ?? "").toLowerCase();
+	return value.includes(searchTerm);
 };
 
 const statusFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string[]) => {
@@ -82,13 +82,13 @@ export const columns: ColumnDef<TransactionItem>[] = [
 					) : column.getIsSorted() === "desc" ? (
 						<ChevronDownIcon className="size-3.5" />
 					) : (
-						<ArrowUpDownIcon className="size-3.5" />
+						<ChevronsUpDownIcon className="size-3.5" />
 					)}
 				</Button>
 			);
 		},
 		cell: ({ row }) => <div className="text-muted-foreground">{row.original.activity}</div>,
-		filterFn: multiColumnFilterFn
+		filterFn: searchActivityFilterFn
 	},
 	{
 		accessorKey: "status",
@@ -128,7 +128,7 @@ export const columns: ColumnDef<TransactionItem>[] = [
 					) : column.getIsSorted() === "desc" ? (
 						<ChevronDownIcon className="size-4" />
 					) : (
-						<ArrowUpDownIcon className="size-3.5" />
+						<ChevronsUpDownIcon className="size-3.5" />
 					)}
 				</Button>
 			);
