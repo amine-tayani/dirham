@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { formatDate } from "@/lib/format";
+import { formatCurrency, formatDate } from "@/lib/format";
 import type { TransactionItem } from "@/types";
 import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../data-table-column-header";
@@ -76,13 +76,10 @@ export const columns: ColumnDef<TransactionItem>[] = [
 	{
 		accessorKey: "amount",
 		header: ({ column }) => <DataTableColumnHeader column={column} title="Amount" />,
-		cell: ({ row }) => (
-			<div className="text-muted-foreground pl-2">
-				{new Intl.NumberFormat("en-US", {
-					style: "currency",
-					currency: row.original.currency
-				}).format(Number(row.original.amount))}
-			</div>
-		)
+		cell: ({
+			row: {
+				original: { amount, currency }
+			}
+		}) => <div className="text-muted-foreground pl-2">{formatCurrency(amount, currency)}</div>
 	}
 ];
