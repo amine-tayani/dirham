@@ -1,19 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { transactions } from "@/lib/db/schema";
-import { cn } from "@/lib/utils";
 import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import type { InferSelectModel } from "drizzle-orm";
-import {
-	CheckCircle2Icon,
-	ChevronDownIcon,
-	ChevronUpIcon,
-	ChevronsUpDownIcon,
-	LoaderIcon,
-	XIcon
-} from "lucide-react";
+import { CheckCircle2Icon, LoaderIcon, XIcon } from "lucide-react";
+import { DataTableColumnHeader } from "../data-table-column-header";
 
 export type TransactionItem = Omit<InferSelectModel<typeof transactions>, "userId" | "updated_at">;
 
@@ -34,8 +26,9 @@ export const columns: ColumnDef<TransactionItem>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
-			<div className="flex items-center justify-center">
+			<div className="flex items-center justify-center pr-1.5">
 				<Checkbox
+					className="size-3.5"
 					checked={
 						table.getIsAllPageRowsSelected() ||
 						(table.getIsSomePageRowsSelected() && "indeterminate")
@@ -46,8 +39,9 @@ export const columns: ColumnDef<TransactionItem>[] = [
 			</div>
 		),
 		cell: ({ row }) => (
-			<div className="flex items-center justify-center">
+			<div className="flex items-center justify-center pr-1.5">
 				<Checkbox
+					className="size-3.5"
 					checked={row.getIsSelected()}
 					onCheckedChange={(value) => row.toggleSelected(!!value)}
 					aria-label="Select row"
@@ -66,27 +60,7 @@ export const columns: ColumnDef<TransactionItem>[] = [
 	},
 	{
 		accessorKey: "activity",
-		header: ({ column }) => {
-			return (
-				<Button
-					variant="ghost"
-					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					className={cn(
-						"h-auto p-0 font-medium justify-start",
-						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground "
-					)}
-				>
-					Activity
-					{column.getIsSorted() === "asc" ? (
-						<ChevronUpIcon className="size-3.5" />
-					) : column.getIsSorted() === "desc" ? (
-						<ChevronDownIcon className="size-3.5" />
-					) : (
-						<ChevronsUpDownIcon className="size-3.5" />
-					)}
-				</Button>
-			);
-		},
+		header: ({ column }) => <DataTableColumnHeader column={column} title="Activity" />,
 		cell: ({ row }) => <div className="text-muted-foreground">{row.original.activity}</div>,
 		filterFn: searchActivityFilterFn
 	},
@@ -112,27 +86,7 @@ export const columns: ColumnDef<TransactionItem>[] = [
 	},
 	{
 		accessorKey: "date",
-		header: ({ column }) => {
-			return (
-				<Button
-					variant="ghost"
-					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					className={cn(
-						"h-auto p-0 font-medium justify-start",
-						column.getIsSorted() && "dark:bg-neutral-800 bg-background text-foreground"
-					)}
-				>
-					Date
-					{column.getIsSorted() === "asc" ? (
-						<ChevronUpIcon className="size-4" />
-					) : column.getIsSorted() === "desc" ? (
-						<ChevronDownIcon className="size-4" />
-					) : (
-						<ChevronsUpDownIcon className="size-3.5" />
-					)}
-				</Button>
-			);
-		},
+		header: ({ column }) => <DataTableColumnHeader column={column} title="Date" />,
 		cell: ({ row }) => (
 			<div className="text-muted-foreground font-sans">
 				{dayjs(row.original.date).format("lll")}

@@ -259,45 +259,67 @@ export function TransactionsTable({
 					</TableBody>
 				</Table>
 			) : (
-				<Table>
-					<TableHeader className="sticky top-0 z-10 dark:bg-input/10 bg-neutral-50">
-						{table.getHeaderGroups().map((headerGroup) => (
-							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map((header) => (
-									<TableHead key={header.id} colSpan={header.colSpan}>
-										{header.isPlaceholder
-											? null
-											: flexRender(header.column.columnDef.header, header.getContext())}
-									</TableHead>
-								))}
-							</TableRow>
-						))}
-					</TableHeader>
-					<TableBody className="relative">
-						{table.getRowModel().rows.length ? (
-							table.getRowModel().rows.map((row) => (
+				<div className="overflow-hidden rounded-md border bg-background">
+					<Table>
+						<TableHeader className="sticky top-0 z-20 dark:bg-input/10  ">
+							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow
-									onClick={() => row.toggleSelected()}
-									key={row.id}
-									data-state={row.getIsSelected() && "selected"}
-									className="h-12"
+									key={headerGroup.id}
+									className={cn(
+										"bg-muted/50 hover:bg-muted/50",
+										"[&>*]:border-0 [&>:not(:last-child)]:border-r "
+									)}
 								>
-									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
-											{flexRender(cell.column.columnDef.cell, cell.getContext())}
-										</TableCell>
+									{headerGroup.headers.map((header) => (
+										<TableHead
+											key={header.id}
+											colSpan={header.colSpan}
+											className={cn(
+												"relative select-none truncate border-b border-border [&>.cursor-col-resize]:last:opacity-0"
+											)}
+										>
+											{header.isPlaceholder
+												? null
+												: flexRender(header.column.columnDef.header, header.getContext())}
+										</TableHead>
 									))}
 								</TableRow>
-							))
-						) : (
-							<TableRow>
-								<TableCell colSpan={columns.length} className="h-24 text-center">
-									No transactions.
-								</TableCell>
-							</TableRow>
-						)}
-					</TableBody>
-				</Table>
+							))}
+						</TableHeader>
+						<TableBody
+							id="content"
+							tabIndex={-1}
+							className="relative transition-colors focus-visible:outline"
+						>
+							{table.getRowModel().rows?.length ? (
+								table.getRowModel().rows.map((row) => (
+									<React.Fragment key={row.id}>
+										<TableRow
+											onClick={() => row.toggleSelected()}
+											key={row.id}
+											data-state={row.getIsSelected() && "selected"}
+											className="h-11 dark:bg-muted/50 dark:hover:bg-muted/50"
+										>
+											{row.getVisibleCells().map((cell) => (
+												<TableCell key={cell.id}>
+													{flexRender(cell.column.columnDef.cell, cell.getContext())}
+												</TableCell>
+											))}
+										</TableRow>
+									</React.Fragment>
+								))
+							) : (
+								<React.Fragment>
+									<TableRow>
+										<TableCell colSpan={columns.length} className="h-24 text-center">
+											No transactions.
+										</TableCell>
+									</TableRow>
+								</React.Fragment>
+							)}
+						</TableBody>
+					</Table>
+				</div>
 			)}
 		</>
 	);
