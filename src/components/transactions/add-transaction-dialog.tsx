@@ -1,9 +1,3 @@
-import { statusValues, transactionFormSchema } from "@/lib/db/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -25,10 +19,15 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "@/components/ui/select";
+import { statusValues, transactionFormSchema } from "@/lib/db/schema";
 import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
 import { CalendarIcon, LoaderCircle, PlusIcon } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type z from "zod";
 
@@ -185,7 +184,7 @@ export default function AddTransactionDialog() {
 												)}
 											>
 												<CalendarIcon className="mr-1 size-4 shrink-0" />{" "}
-												{date ? format(date, "PPP") : <span>Pick a date</span>}
+												{date ? dayjs(date).format("ll") : <span>Pick a date</span>}
 											</Button>
 										</PopoverTrigger>
 										<PopoverContent className="w-auto p-0" align="center">

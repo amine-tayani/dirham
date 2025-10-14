@@ -1,13 +1,9 @@
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { transactions } from "@/lib/db/schema";
+import { formatDate } from "@/lib/format";
+import type { TransactionItem } from "@/types";
 import type { ColumnDef, FilterFn } from "@tanstack/react-table";
-import dayjs from "dayjs";
-import type { InferSelectModel } from "drizzle-orm";
-import { CheckCircle2Icon, LoaderIcon, XIcon } from "lucide-react";
 import { DataTableColumnHeader } from "../data-table-column-header";
-
-export type TransactionItem = Omit<InferSelectModel<typeof transactions>, "userId" | "updated_at">;
+import { DataTableColumnStatus } from "../data-table-column-status";
 
 const searchActivityFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string) => {
 	const value = String(row.getValue(columnId) ?? "").toLowerCase();
@@ -61,43 +57,27 @@ export const columns: ColumnDef<TransactionItem>[] = [
 	{
 		accessorKey: "activity",
 		header: ({ column }) => <DataTableColumnHeader column={column} title="Activity" />,
-		cell: ({ row }) => <div className="text-muted-foreground">{row.original.activity}</div>,
+		cell: ({ row }) => <div className="text-muted-foreground pl-2">{row.original.activity}</div>,
 		filterFn: searchActivityFilterFn
 	},
 	{
 		accessorKey: "status",
-		header: "Status",
-		cell: ({ row }) => (
-			<Badge
-				variant="outline"
-				className="flex gap-1 px-1.5 text-muted-foreground font-mono [&_svg]:size-3"
-			>
-				{row.original.status === "completed" ? (
-					<CheckCircle2Icon className="text-green-500 dark:text-green-400" />
-				) : row.original.status === "failed" ? (
-					<XIcon className="text-red-500 dark:text-red-400" />
-				) : (
-					<LoaderIcon />
-				)}
-				{row.original.status}
-			</Badge>
-		),
+		header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+		cell: ({ row }) => <DataTableColumnStatus status={row.original.status} />,
 		filterFn: statusFilterFn
 	},
 	{
 		accessorKey: "date",
 		header: ({ column }) => <DataTableColumnHeader column={column} title="Date" />,
 		cell: ({ row }) => (
-			<div className="text-muted-foreground font-sans">
-				{dayjs(row.original.date).format("lll")}
-			</div>
+			<div className="text-muted-foreground font-mono pl-2">{formatDate(row.original.date)}</div>
 		)
 	},
 	{
 		accessorKey: "amount",
-		header: "Amount",
+		header: ({ column }) => <DataTableColumnHeader column={column} title="Amount" />,
 		cell: ({ row }) => (
-			<div className="text-muted-foreground">
+			<div className="text-muted-foreground pl-2">
 				{new Intl.NumberFormat("en-US", {
 					style: "currency",
 					currency: row.original.currency
