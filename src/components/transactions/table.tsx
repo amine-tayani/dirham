@@ -18,6 +18,7 @@ import {
 	TableRow
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import type { TransactionItem } from "@/types";
 import { exportAsCSV, exportAsJSON } from "@/utils/export";
 import {
 	type ColumnFiltersState,
@@ -31,15 +32,14 @@ import {
 	getSortedRowModel,
 	useReactTable
 } from "@tanstack/react-table";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+
 import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from "lucide-react";
 import * as React from "react";
+import { CalendarDatePicker } from "../ui/calendar-date-picker";
 import AddTransactionDialog from "./add-transaction-dialog";
-import { type TransactionItem, columns } from "./columns";
+import { columns } from "./columns";
 import { DeleteTransactionDialog } from "./delete-transaction-dialog";
-
-dayjs.extend(localizedFormat);
+import { DatePickerFilter } from "../date-picker-filter";
 
 export function TransactionsTable({
 	data,
@@ -188,6 +188,7 @@ export function TransactionsTable({
 							</div>
 						</PopoverContent>
 					</Popover>
+					<DatePickerFilter/>
 				</div>
 				<div className="flex items-center gap-3">
 					<div>
@@ -266,7 +267,7 @@ export function TransactionsTable({
 								<TableRow
 									key={headerGroup.id}
 									className={cn(
-										"bg-muted/50 hover:bg-muted/50",
+										" dark:bg-muted/50 bg-transparent",
 										"[&>*]:border-0 [&>:not(:last-child)]:border-r "
 									)}
 								>
@@ -298,7 +299,7 @@ export function TransactionsTable({
 											onClick={() => row.toggleSelected()}
 											key={row.id}
 											data-state={row.getIsSelected() && "selected"}
-											className="h-11 dark:bg-muted/50 dark:hover:bg-muted/50"
+											className="h-11"
 										>
 											{row.getVisibleCells().map((cell) => (
 												<TableCell key={cell.id}>
