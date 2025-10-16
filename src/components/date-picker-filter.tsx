@@ -21,12 +21,12 @@ export function DatePickerFilter() {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			calendar: {
-				from: new Date(new Date().getFullYear(), 0, 1),
-				to: new Date()
+				from: undefined,
+				to: undefined
 			},
 			datePicker: {
-				from: new Date(),
-				to: new Date()
+				from: undefined,
+				to: undefined
 			}
 		}
 	});

@@ -5,14 +5,11 @@
 import { cva, VariantProps } from "class-variance-authority";
 import {
   endOfDay,
-  endOfMonth,
-  endOfWeek,
-  endOfYear,
+  endOfMonth, endOfYear,
   startOfDay,
-  startOfMonth,
-  startOfWeek,
-  startOfYear,
+  startOfMonth, startOfYear,
   subDays,
+  subHours
 } from "date-fns";
 import { formatInTimeZone, toDate } from "date-fns-tz";
 import { CalendarIcon } from "lucide-react";
@@ -267,19 +264,19 @@ export const CalendarDatePicker = React.forwardRef<
       { label: "Today", start: today, end: today },
       { label: "Yesterday", start: subDays(today, 1), end: subDays(today, 1) },
       {
-        label: "This Week",
-        start: startOfWeek(today, { weekStartsOn: 1 }),
-        end: endOfWeek(today, { weekStartsOn: 1 }),
+        label: "Last hour",
+        start: subHours(today, 1),
+        end: today,
       },
       {
-        label: "Last Week",
-        start: subDays(startOfWeek(today, { weekStartsOn: 1 }), 7),
-        end: subDays(endOfWeek(today, { weekStartsOn: 1 }), 7),
+        label: "Last 7 days",
+        start: subDays(today, 7),
+        end: today,
       },
       {
-        label: "This Month",
-        start: startOfMonth(today),
-        end: endOfMonth(today),
+        label: "Last 14 days",
+        start: subDays(today, 14),
+        end: today,
       },
       {
         label: "Last Month",
@@ -287,11 +284,7 @@ export const CalendarDatePicker = React.forwardRef<
         end: endOfMonth(subDays(today, today.getDate())),
       },
       { label: "This Year", start: startOfYear(today), end: endOfYear(today) },
-      {
-        label: "Last Year",
-        start: startOfYear(subDays(today, 365)),
-        end: endOfYear(subDays(today, 365)),
-      },
+    
     ];
 
     const handleMouseOver = (part: string) => {
@@ -535,14 +528,14 @@ export const CalendarDatePicker = React.forwardRef<
                     </>
                   )
                 ) : (
-                  <span>Pick a date</span>
+                  <span >Pick a date</span>
                 )}
               </span>
             </Button>
           </PopoverTrigger>
           {isPopoverOpen && (
             <PopoverContent
-              className="w-auto"
+              className="w-auto !bg-card"
               align="center"
               avoidCollisions={false}
               onInteractOutside={handleClose}
@@ -555,15 +548,16 @@ export const CalendarDatePicker = React.forwardRef<
               <div className="flex">
                 {numberOfMonths === 2 && (
                   <div className="hidden md:flex flex-col gap-1 pr-4 text-left border-r border-muted-foreground/10">
+                    <p className="text-muted-foreground/70 text-xs font-medium uppercase mt-3 pl-3 mb-1">date range</p>
                     {dateRanges.map(({ label, start, end }) => (
                       <Button
                         key={label}
                         variant="ghost"
                         size="sm"
                         className={cn(
-                          "justify-start hover:text-foreground",
+                          "justify-start text-foreground/80 font-mont tracking-tight",
                           selectedRange === label &&
-                            "bg-muted text-foreground hover:bg-foreground"
+                            "bg-input hover:bg-foreground dark:text-white"
                         )}
                         onClick={() => {
                           selectDateRange(start, end, label);
