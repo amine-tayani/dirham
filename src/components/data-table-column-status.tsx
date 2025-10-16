@@ -1,15 +1,15 @@
-import { cn } from "@/lib/utils"; // assuming you have a cn() utility
+import { Pill, PillIndicator, type PillIndicatorProps } from "@/components/ui/pill";
 import type { TransactionItem } from "@/types";
 
 type StatusConfig = {
 	label: string;
-	color: string;
+	variant: PillIndicatorProps["variant"];
 };
 
 const STATUS_MAP: Record<TransactionItem["status"], StatusConfig> = {
-	completed: { label: "Completed", color: "text-green-500" },
-	failed: { label: "Failed", color: "text-red-500" },
-	processing: { label: "Processing", color: "text-yellow-500" }
+	completed: { label: "Completed", variant: "success" },
+	failed: { label: "Failed", variant: "error" },
+	processing: { label: "Processing", variant: "warning" }
 };
 
 interface DataTableColumnStatusProps {
@@ -17,7 +17,14 @@ interface DataTableColumnStatusProps {
 }
 
 export function DataTableColumnStatus({ status }: DataTableColumnStatusProps) {
-	const { label, color } = STATUS_MAP[status];
+	const { label, variant } = STATUS_MAP[status];
 
-	return <span className={cn("font-mono px-2", color)}>{label}</span>;
+	return (
+		<div className="px-2">
+			<Pill className="h-5 px-3">
+				<PillIndicator variant={variant} />
+				{label}
+			</Pill>
+		</div>
+	);
 }

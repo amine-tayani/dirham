@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
+import { format } from "date-fns";
 
 export function formatDate(value: Date | string) {
-	return dayjs(value).format("ll HH:mm:ss");
+	return format(new Date(`${value}`), "LLL dd, y HH:mm");
 }
 
 export function formatCurrency(amount: number | string, currency: string) {
