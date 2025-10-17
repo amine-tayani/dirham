@@ -9,9 +9,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, CheckCircle2, Clock, Mic, Plus, Sparkles, Zap } from "lucide-react";
 import { type Variants, motion, useMotionValue, useTransform } from "motion/react";
-import { useEffect, useRef, useState } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { useEffect, useState } from "react";
 
 interface BentoItem {
 	id: string;
@@ -68,17 +66,7 @@ const bentoItems: BentoItem[] = [
 		size: "lg",
 		className: "col-span-2 row-span-1 md:col-span-2 md:row-span-1"
 	},
-	{
-		id: "stat1",
-		title: "AI Assistant & Insights",
-		description: "Ask questions about your spending and get instant, personalized answers",
-		href: "#",
-		feature: "typing",
-		typingText:
-			"const askFinanceBot = async (question: string) => {\n  const assistant = new DirhamlyAI({\n    model: 'finance-llm',\n    tools: [budgetAnalysis, trendForecast],\n    memory: new SpendingHistory()\n  });\n\n  const answer = await assistant.respond(question);\n  return answer;\n};",
-		size: "md",
-		className: "col-span-2 row-span-1 col-start-1 col-end-3"
-	},
+
 	{
 		id: "partners",
 		title: "Trusted partners",
@@ -291,59 +279,6 @@ const TimelineFeature = ({
 					</div>
 				</motion.div>
 			))}
-		</div>
-	);
-};
-
-const TypingCodeFeature = ({ text }: { text: string }) => {
-	const [displayedText, setDisplayedText] = useState("");
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const terminalRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		if (currentIndex < text.length) {
-			const timeout = setTimeout(
-				() => {
-					setDisplayedText((prev) => prev + text[currentIndex]);
-					setCurrentIndex((prev) => prev + 1);
-
-					if (terminalRef.current) {
-						terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-					}
-				},
-				Math.random() * 30 + 10
-			); // Random typing speed for realistic effect
-
-			return () => clearTimeout(timeout);
-		}
-	}, [currentIndex, text]);
-
-	// Reset animation when component unmounts and remounts
-	useEffect(() => {
-		setDisplayedText("");
-		setCurrentIndex(0);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	return (
-		<div className="mt-3 relative">
-			<div className="flex items-center gap-2 mb-2">
-				<div className="text-xs text-neutral-500 dark:text-neutral-400">server.ts</div>
-			</div>
-			<div ref={terminalRef} className="p-2 rounded-xl text-xs font-mono h-[150px] overflow-y-auto">
-				<pre className="whitespace-pre-wrap">
-					<SyntaxHighlighter
-						language="typescript"
-						style={gruvboxDark}
-						customStyle={{
-							borderRadius: "0.5rem",
-							padding: "0.5rem"
-						}}
-					>
-						{displayedText}
-					</SyntaxHighlighter>
-				</pre>
-			</div>
 		</div>
 	);
 };
@@ -646,10 +581,6 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 						)}
 
 						{item.feature === "icons" && <IconsFeature />}
-
-						{item.feature === "typing" && item.typingText && (
-							<TypingCodeFeature text={item.typingText} />
-						)}
 
 						{item.feature === "metrics" && item.metrics && (
 							<MetricsFeature metrics={item.metrics} />
