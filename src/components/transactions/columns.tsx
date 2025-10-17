@@ -2,6 +2,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { formatCurrency, formatDate } from "@/lib/format";
 import type { TransactionItem } from "@/types";
 import type { ColumnDef, FilterFn } from "@tanstack/react-table";
+import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
+import type { DateRange } from "react-day-picker";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import { DataTableColumnStatus } from "../data-table-column-status";
 
@@ -15,6 +17,21 @@ const statusFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: s
 	if (!filterValue?.length) return true;
 	const status = row.getValue(columnId) as string;
 	return filterValue.includes(status);
+};
+
+export const dateFilterFn: FilterFn<TransactionItem> = (
+	row,
+	columnId,
+	filterValue: DateRange | null | undefined
+) => {
+	const rowDate = row.getValue(columnId) as Date | undefined;
+
+	if (!filterValue || !filterValue.from || !rowDate) return true;
+
+	const from = startOfDay(filterValue.from);
+	const to = filterValue.to ? endOfDay(filterValue.to) : endOfDay(filterValue.from);
+
+	return isWithinInterval(rowDate, { start: from, end: to });
 };
 
 // Column definitions
@@ -71,7 +88,8 @@ export const columns: ColumnDef<TransactionItem>[] = [
 		header: ({ column }) => <DataTableColumnHeader column={column} title="Date" />,
 		cell: ({ row }) => (
 			<div className="text-muted-foreground font-mono pl-2">{formatDate(row.original.date)}</div>
-		)
+		),
+		filterFn: dateFilterFn
 	},
 	{
 		accessorKey: "amount",

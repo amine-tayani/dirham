@@ -24,7 +24,7 @@ import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import dayjs from "dayjs";
+import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle, PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -184,7 +184,7 @@ export default function AddTransactionDialog() {
 												)}
 											>
 												<CalendarIcon className="mr-1 size-4 shrink-0" />{" "}
-												{date ? dayjs(date).format("ll") : <span>Pick a date</span>}
+												{date ? format(date, "PPP") : <span>Pick a date</span>}
 											</Button>
 										</PopoverTrigger>
 										<PopoverContent className="w-auto p-0" align="center">

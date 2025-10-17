@@ -33,13 +33,13 @@ import {
 	useReactTable
 } from "@tanstack/react-table";
 
+import { DateRangePickerFilter } from "@/components/date-range-picker-filter";
+import AddTransactionDialog from "@/components/transactions/add-transaction-dialog";
+import { DeleteTransactionDialog } from "@/components/transactions/delete-transaction-dialog";
 import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from "lucide-react";
 import * as React from "react";
-import { CalendarDatePicker } from "../ui/calendar-date-picker";
-import AddTransactionDialog from "./add-transaction-dialog";
+import type { DateRange } from "react-day-picker";
 import { columns } from "./columns";
-import { DeleteTransactionDialog } from "./delete-transaction-dialog";
-import { DatePickerFilter } from "../date-picker-filter";
 
 export function TransactionsTable({
 	data,
@@ -188,7 +188,10 @@ export function TransactionsTable({
 							</div>
 						</PopoverContent>
 					</Popover>
-					<DatePickerFilter/>
+					<DateRangePickerFilter
+						date={table.getColumn("date")?.getFilterValue() as DateRange | undefined}
+						setDate={(date) => table.getColumn("date")?.setFilterValue(date)}
+					/>
 				</div>
 				<div className="flex items-center gap-3">
 					<div>
