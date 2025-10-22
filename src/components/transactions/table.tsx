@@ -263,9 +263,9 @@ export function TransactionsTable({
 					</TableBody>
 				</Table>
 			) : (
-				<div className="overflow-hidden rounded-md border bg-background">
+				<div className="overflow-hidden rounded-md border bg-background [&>div]:max-h-[350px]">
 					<Table>
-						<TableHeader className="sticky top-0 z-20 dark:bg-input/10  ">
+						<TableHeader className="sticky top-0 z-10 dark:bg-background backdrop-blur-xs ">
 							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow
 									key={headerGroup.id}

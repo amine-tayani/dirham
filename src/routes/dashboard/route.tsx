@@ -53,8 +53,8 @@ function DashboardLayout() {
 	return (
 		<SidebarProvider>
 			<DashboardSidebar user={user} queryClient={queryClient} />
-			<div className="pt-5 px-5 w-full bg-muted">
-				<SidebarInset className="overflow-hidden rounded-2xl dark:bg-sidebar">
+			<div className="pt-7 px-6 w-full bg-muted ">
+				<SidebarInset className="overflow-hidden rounded-2xl dark:bg-sidebar [&>div]:max-h-[calc(100vh-9rem)]">
 					<>
 						<header className="flex h-20 shrink-0 items-center gap-2 border-b pt-2 mb-4">
 							<div className="flex flex-1 items-center gap-2">
