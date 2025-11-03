@@ -86,7 +86,7 @@
     "@types/react-payment-inputs": "^1.1.4",
     "@types/react-syntax-highlighter": "^15.5.13",
     "drizzle-kit": "^0.31.0",
-    "tsx": "^4.19.3",
+    "tsx": "^4.20.6",
     "typescript": "^5.7.2",
     "vite-tsconfig-paths": "^5.1.4"
   }
