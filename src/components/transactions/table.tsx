@@ -40,6 +40,7 @@ import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import { columns } from "./columns";
+import { ScanReceiptSheet } from "./scan-receipt-sheet";
 
 export function TransactionsTable({
 	data,
@@ -51,6 +52,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
+	const [scanReceiptOpen, setScanReceiptOpen] = React.useState(false);
 	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
 
 	const table = useReactTable({
@@ -247,7 +249,9 @@ export function TransactionsTable({
 							<DropdownMenuItem onClick={handleExportCSV}>Export as CSV</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
+					<Button onClick={() => setScanReceiptOpen(true)}>Scan Receipt</Button>
 					<AddTransactionDialog />
+					<ScanReceiptSheet open={scanReceiptOpen} onOpenChange={setScanReceiptOpen} />
 				</div>
 			</div>
 
@@ -263,9 +267,9 @@ export function TransactionsTable({
 					</TableBody>
 				</Table>
 			) : (
-				<div className="overflow-hidden rounded-md border bg-background [&>div]:max-h-[350px]">
-					<Table>
-						<TableHeader className="sticky top-0 z-10 dark:bg-background backdrop-blur-xs ">
+				<div className="rounded-md border [&>div]:max-h-[350px] overflow-y-auto snap-y scroll-pb-0 dark:bg-neutral-950">
+					<Table className="dark:bg-neutral-950">
+						<TableHeader className="sticky top-0 z-20 dark:bg-background backdrop-blur-xs">
 							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow
 									key={headerGroup.id}

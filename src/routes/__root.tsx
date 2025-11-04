@@ -4,6 +4,7 @@ import { ThemeProvider, useTheme } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@/lib/server/auth";
 import { getThemeServerFn } from "@/lib/theme";
+import { cn } from "@/lib/utils";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import type { QueryClient } from "@tanstack/react-query";
@@ -95,7 +96,7 @@ function RootComponent() {
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { theme } = useTheme();
 	return (
-		<html lang="en-US" suppressHydrationWarning className={theme}>
+		<html lang="en-US" suppressHydrationWarning className={cn(theme, "scheme-dark")}>
 			<head>
 				<HeadContent />
 			</head>
