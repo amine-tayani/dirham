@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { createTransactionFn, parseReceiptFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
-import { CheckCircle, Loader2 } from "lucide-react";
+import { CheckCircle, Loader2, UploadIcon } from "lucide-react";
 import { useState } from "react";
 
 interface ScanReceiptSheetProps {
@@ -27,9 +27,7 @@ export function ScanReceiptSheet({ open, onOpenChange }: ScanReceiptSheetProps) 
 		if (f.type.startsWith("image/")) {
 			const url = URL.createObjectURL(f);
 			setPreview(url);
-		} else {
-			setPreview(null);
-		}
+		} else setPreview(null);
 	};
 
 	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -68,7 +66,7 @@ export function ScanReceiptSheet({ open, onOpenChange }: ScanReceiptSheetProps) 
 
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
-			<SheetContent className="flex flex-col items-center gap-6 overflow-y-auto">
+			<SheetContent className="flex flex-col items-center min-w-[500px] gap-6 p-8 overflow-y-auto">
 				<SheetHeader className="mt-4 text-center">
 					<SheetTitle>Scan Receipt</SheetTitle>
 					<SheetDescription>Upload or scan a receipt</SheetDescription>
@@ -80,32 +78,41 @@ export function ScanReceiptSheet({ open, onOpenChange }: ScanReceiptSheetProps) 
 							onDrop={handleDrop}
 							onDragOver={(e) => e.preventDefault()}
 							className={cn(
-								"w-full h-64 border-2 border-dashed rounded-xl flex flex-col justify-center items-center text-center cursor-pointer transition-all",
-								file
-									? "border-primary bg-muted/30"
-									: "border-muted-foreground/30 hover:border-primary/50"
+								"w-full h-64 border rounded-xl flex flex-col justify-center items-center text-center cursor-pointer transition-all",
+								file && "border-border bg-muted/30"
 							)}
 						>
 							{preview ? (
-								<img src={preview} alt="preview" className="max-h-56 rounded-md" />
+								file?.type === "image/png" || file?.type === "image/jpeg" ? (
+									<img src={preview} alt="preview" className="max-h-56 rounded-md object-contain" />
+								) : (
+									<p className="text-sm text-muted-foreground text-center">Unsupported file type</p>
+								)
 							) : (
-								<>
-									<p className="text-sm text-muted-foreground">
-										<span className="font-medium text-primary">Drag</span> or{" "}
-										<label htmlFor="receipt" className="text-primary underline cursor-pointer">
-											upload
-										</label>{" "}
-										the receipt here
+								<div className="flex flex-col items-center justify-center gap-3">
+									<div className="mb-2 size-10 rounded-lg bg-muted-foreground/10 flex items-center justify-center">
+										<UploadIcon className="size-5" />
+									</div>
+									<p className="text-lg text-muted-foreground text-center">
+										<span className="font-medium text-xl leading-loose text-foreground">
+											Drag and drop your receipt here
+										</span>
+										<br />
+										<label
+											htmlFor="receipt"
+											className="text-muted-foreground cursor-pointer hover:underline"
+										>
+											or click to select an image
+										</label>
 									</p>
-									<p className="text-xs text-muted-foreground mt-1">*JPG, JPEG and PDF</p>
 									<input
 										id="receipt"
 										type="file"
-										accept="image/*,application/pdf"
+										accept="image/*"
 										className="hidden"
 										onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
 									/>
-								</>
+								</div>
 							)}
 						</div>
 

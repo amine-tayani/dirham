@@ -52,7 +52,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-	const [scanReceiptOpen, setScanReceiptOpen] = React.useState(false);
+	const [scanReceiptOpen, setScanReceiptOpen] = React.useState(true);
 	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
 
 	const table = useReactTable({
