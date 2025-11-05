@@ -2,7 +2,6 @@ import { transactionFormSchema, transactions } from "@/lib/db/schema";
 import { AuthMiddleware } from "@/utils/authMiddleware";
 import { createServerFn } from "@tanstack/react-start";
 import { and, eq } from "drizzle-orm";
-import { PDFParse } from "pdf-parse";
 import * as z from "zod";
 import { db } from "../db";
 import { recognizeTextFromImage } from "../text";
@@ -68,8 +67,8 @@ export const uploadFileSchema = z.object({
 				message: "File size should be less than 5MB"
 			}
 		)
-		.refine((file) => ["image/jpeg", "image/png", "application/pdf"].includes(file.type), {
-			message: "File type should be JPEG, PNG, or PDF"
+		.refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
+			message: "File type should be JPEG or PNG."
 		})
 });
 
@@ -99,11 +98,7 @@ export const parseReceiptFn = createServerFn({ method: "POST" })
 
 		// Extract text
 		let content = "";
-		if (file.type === "application/pdf") {
-			const parser = new PDFParse(uint8Array);
-			const result = await parser.getText();
-			content = result.text;
-		} else if (file.type.startsWith("image/")) {
+		if (file.type.startsWith("image/")) {
 			const text = await recognizeTextFromImage(file);
 			content = text;
 		}
