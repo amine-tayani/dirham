@@ -34,13 +34,12 @@ import {
 } from "@tanstack/react-table";
 
 import { DateRangePickerFilter } from "@/components/date-range-picker-filter";
-import AddTransactionDialog from "@/components/transactions/add-transaction-dialog";
 import { DeleteTransactionDialog } from "@/components/transactions/delete-transaction-dialog";
 import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from "lucide-react";
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import { columns } from "./columns";
-import { ScanReceiptSheet } from "./scan-receipt-sheet";
+import { CreateTransactionSheet } from "./create-transaction-sheet";
 
 export function TransactionsTable({
 	data,
@@ -52,7 +51,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-	const [scanReceiptOpen, setScanReceiptOpen] = React.useState(true);
+	const [isTransactionSheetOpen, setTransactionSheetOpen] = React.useState(true);
 	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
 
 	const table = useReactTable({
@@ -249,9 +248,13 @@ export function TransactionsTable({
 							<DropdownMenuItem onClick={handleExportCSV}>Export as CSV</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
-					<Button onClick={() => setScanReceiptOpen(true)}>Scan Receipt</Button>
-					<AddTransactionDialog />
-					<ScanReceiptSheet open={scanReceiptOpen} onOpenChange={setScanReceiptOpen} />
+					<Button variant="outline" size="sm" onClick={() => setTransactionSheetOpen(true)}>
+						Add Transaction
+					</Button>
+					<CreateTransactionSheet
+						open={isTransactionSheetOpen}
+						onOpenChange={setTransactionSheetOpen}
+					/>
 				</div>
 			</div>
 
