@@ -12,6 +12,7 @@ yarn.lock
 .tanstack
 
 todo.txt
+TODO.md
 routeTree.gen.ts
 
 /build/
