@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { createTransactionFn, parseReceiptFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
@@ -63,11 +64,13 @@ export function CreateTransactionSheet({ open, onOpenChange }: CreateTransaction
 
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
-			<SheetContent className="flex flex-col min-w-[500px] gap-6 p-5 m-2 rounded-lg overflow-y-auto">
+			<SheetContent className="flex flex-col min-w-[500px] p-6 rounded-lg overflow-y-auto">
 				<SheetHeader className="text-lg ml-1.5">
 					<SheetTitle>Create transaction</SheetTitle>
 				</SheetHeader>
 				<CreateTransactionForm />
+
+				<Separator className="my-4" />
 
 				<div className="ml-6">
 					<Label>Scan receipt</Label>
@@ -76,7 +79,7 @@ export function CreateTransactionSheet({ open, onOpenChange }: CreateTransaction
 					</p>
 				</div>
 				{!transactions.length ? (
-					<div className="px-6">
+					<div className="flex flex-col items-center">
 						<div
 							onDrop={handleDrop}
 							onDragOver={(e) => e.preventDefault()}
@@ -114,8 +117,8 @@ export function CreateTransactionSheet({ open, onOpenChange }: CreateTransaction
 						</div>
 
 						<Button
-							className="mx-8"
-							variant="outline"
+							className="w-full"
+							variant="milk"
 							size="sm"
 							onClick={handleScan}
 							disabled={!file || loading}
@@ -126,7 +129,7 @@ export function CreateTransactionSheet({ open, onOpenChange }: CreateTransaction
 									Scanning...
 								</>
 							) : (
-								"Scan Receipt"
+								"Create"
 							)}
 						</Button>
 					</div>

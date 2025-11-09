@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Table,
 	TableBody,
@@ -35,7 +36,7 @@ import {
 
 import { DateRangePickerFilter } from "@/components/date-range-picker-filter";
 import { DeleteTransactionDialog } from "@/components/transactions/delete-transaction-dialog";
-import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from "lucide-react";
+import { DownloadIcon, FilterIcon, ListFilterIcon, TrashIcon } from "lucide-react";
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import { columns } from "./columns";
@@ -51,7 +52,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-	const [isTransactionSheetOpen, setTransactionSheetOpen] = React.useState(true);
+	const [isTransactionSheetOpen, setTransactionSheetOpen] = React.useState(false);
 	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
 
 	const table = useReactTable({
@@ -258,17 +259,19 @@ export function TransactionsTable({
 				</div>
 			</div>
 
-			{/* We need a better way to show loading state but for now this is fine */}
 			{isLoading ? (
-				<Table>
-					<TableBody>
-						<TableRow>
-							<TableCell colSpan={columns.length} className="h-24 text-center">
-								<Loader2Icon className="animate-spin size-5 mx-auto" />
-							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
+				<div className="space-y-2 p-1">
+					{Array.from({ length: 6 }).map((_, index) => (
+						<div key={index} className="flex items-center space-x-4 py-2.5">
+							<Skeleton className="size-8" />
+							<Skeleton className="h-8 w-32" />
+							<Skeleton className="h-8 w-96" />
+							<Skeleton className="h-8 w-32" />
+							<Skeleton className="h-8 w-72" />
+							<Skeleton className="h-8 w-48" />
+						</div>
+					))}
+				</div>
 			) : (
 				<div className="rounded-md border [&>div]:max-h-[350px] overflow-y-auto snap-y scroll-pb-0 dark:bg-neutral-950">
 					<Table className="dark:bg-neutral-950">
