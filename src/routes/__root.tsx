@@ -1,10 +1,8 @@
 import { NotFound } from "@/components/blocks/not-found";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
-import { ThemeProvider, useTheme } from "@/components/ui/theme-provider";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@/lib/server/auth";
-import { getThemeServerFn } from "@/lib/theme";
-import { cn } from "@/lib/utils";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import type { QueryClient } from "@tanstack/react-query";
@@ -31,7 +29,6 @@ export const Route = createRootRouteWithContext<{
 		}); // we're using react-query for caching, see router.tsx
 		return { user };
 	},
-	loader: () => getThemeServerFn(),
 	head: () => ({
 		meta: [
 			{
@@ -82,26 +79,24 @@ export const Route = createRootRouteWithContext<{
 });
 
 function RootComponent() {
-	const data = Route.useLoaderData();
 	return (
-		<ThemeProvider theme={data}>
-			<RootDocument>
-				<Outlet />
-				<Toaster />
-			</RootDocument>
-		</ThemeProvider>
+		<RootDocument>
+			<Outlet />
+		</RootDocument>
 	);
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { theme } = useTheme();
 	return (
-		<html lang="en-US" suppressHydrationWarning className={cn(theme, "scheme-dark")}>
+		<html lang="en-US" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				{children}
+				<ThemeProvider>
+					{children}
+					<Toaster />
+				</ThemeProvider>
 				<Scripts />
 			</body>
 		</html>
