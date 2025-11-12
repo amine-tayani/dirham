@@ -1,7 +1,7 @@
+import CreateTransactionForm from "@/components/transactions/create-transaction-form";
+import { ReceiptImageUpload } from "@/components/transactions/receipt-image-upload";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import CreateTransactionForm from "./create-transaction-form";
-import ReceiptScanner from "./receipt-scanner";
 
 interface CreateTransactionSheetProps {
 	open: boolean;
@@ -17,10 +17,7 @@ export function CreateTransactionSheet({ open, onOpenChange }: CreateTransaction
 				</SheetHeader>
 				<CreateTransactionForm />
 				<Separator className="mt-2 max-w-[400px] mx-auto" />
-				<ReceiptScanner
-					onTransactionsExtracted={() => {}}
-					onCloseSheet={() => onOpenChange(false)}
-				/>
+				<ReceiptImageUpload />
 			</SheetContent>
 		</Sheet>
 	);
