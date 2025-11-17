@@ -6,7 +6,6 @@ import {
 	FileUploadItemDelete,
 	FileUploadItemMetadata,
 	FileUploadItemPreview,
-	FileUploadItemProgress,
 	FileUploadList,
 	FileUploadTrigger
 } from "@/components/ui/file-upload";
@@ -19,11 +18,13 @@ import {
 	FormMessage
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { parseReceiptFn } from "@/lib/functions/transaction";
+import type { TransactionItem } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CloudUpload, X } from "lucide-react";
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -40,7 +41,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function ReceiptImageUpload() {
-	const [isParsing, setIsParsing] = React.useState(false);
+	const { setValue } = useFormContext();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
@@ -54,17 +55,30 @@ export function ReceiptImageUpload() {
 		formData.append("file", data.files[0]);
 
 		try {
-			setIsParsing(true);
-			const res = await parseReceiptFn({ data: formData });
-			toast("Submitted values:", {
-				description: (
-					<pre className="mt-2 w-80 rounded-md">
-						<code>{JSON.stringify(res.transactions, null, 2)}</code>
-					</pre>
-				)
+			const parseReceipt = parseReceiptFn({ data: formData });
+
+			await toast.promise(parseReceipt, {
+				loading: "Parsing your receipt...",
+				success: (res) => {
+					if (res.error) {
+						throw new Error("Parsing failed");
+					}
+					return "Your receipt was parsed successfully!";
+				},
+				error: "Error occurred while parsing the image.",
+				closeButton: false
 			});
-			if (!res.error) {
-				setIsParsing(false);
+
+			const res = await parseReceipt;
+
+			if (res.transactions.length > 0) {
+				const t = res.transactions[0] as TransactionItem;
+
+				setValue("activity", t.activity ?? "");
+				setValue("amount", t.amount ?? "");
+				setValue("currency", t.currency ?? "USD");
+				setValue("status", "completed");
+				setValue("date", t.date ? new Date(t.date) : new Date());
 			}
 		} catch (err) {
 			console.error(err);
@@ -79,73 +93,74 @@ export function ReceiptImageUpload() {
 	}, [form.watch("files")]);
 
 	return (
-		<div className="max-w-[430px]">
-			<div className="ml-6 mb-4 mt-2">
-				<Label>Scan receipt</Label>
-				<p className="text-muted-foreground/50 text-xs mt-2">
-					You can scan a receipt image so we can fill the form for you.
-				</p>
+		<>
+			<Separator className="mt-2 max-w-[400px] mx-auto" />
+			<div className="max-w-[430px]">
+				<div className="ml-6 mb-4 mt-2">
+					<Label>Scan receipt</Label>
+					<p className="text-muted-foreground/50 text-xs mt-2">
+						You can scan a receipt image so we can fill the form for you.
+					</p>
+				</div>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onImageUpload)} className="w-full max-w-md px-3.5 mx-2">
+						<FormField
+							control={form.control}
+							name="files"
+							render={({ field }) => (
+								<FormItem>
+									<FormControl>
+										<FileUpload
+											value={field.value}
+											onValueChange={field.onChange}
+											accept="image/*"
+											maxFiles={2}
+											maxSize={5 * 1024 * 1024}
+											onFileReject={(_, message) => {
+												form.setError("files", {
+													message
+												});
+											}}
+										>
+											<FileUploadDropzone className="flex-row flex-wrap border-dotted text-muted-foreground text-sm text-center">
+												<CloudUpload className="size-3.5" />
+												Drag and drop or
+												<FileUploadTrigger asChild>
+													<Button
+														size="sm"
+														variant="ghost"
+														className="p-0 h-0 underline underline-offset-2 font-normal"
+													>
+														choose files
+													</Button>
+												</FileUploadTrigger>
+												to upload
+											</FileUploadDropzone>
+											<FileUploadList>
+												{field.value.map((file, index) => (
+													<FileUploadItem key={index} value={file}>
+														<FileUploadItemPreview />
+														<FileUploadItemMetadata />
+
+														<FileUploadItemDelete asChild>
+															<Button variant="ghost" size="icon" className="size-7">
+																<X />
+																<span className="sr-only">Delete</span>
+															</Button>
+														</FileUploadItemDelete>
+													</FileUploadItem>
+												))}
+											</FileUploadList>
+										</FileUpload>
+									</FormControl>
+									<FormDescription>Only one image is allowed,up to 5MB each.</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</form>
+				</Form>
 			</div>
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onImageUpload)} className="w-full max-w-md px-3.5 mx-2">
-					<FormField
-						control={form.control}
-						name="files"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<FileUpload
-										value={field.value}
-										onValueChange={field.onChange}
-										accept="image/*"
-										maxFiles={2}
-										maxSize={5 * 1024 * 1024}
-										onFileReject={(_, message) => {
-											form.setError("files", {
-												message
-											});
-										}}
-									>
-										<FileUploadDropzone className="flex-row flex-wrap border-dotted text-muted-foreground text-sm text-center">
-											<CloudUpload className="size-3.5" />
-											Drag and drop or
-											<FileUploadTrigger asChild>
-												<Button
-													size="sm"
-													variant="ghost"
-													className="p-0 h-0 underline underline-offset-2 font-normal"
-												>
-													choose files
-												</Button>
-											</FileUploadTrigger>
-											to upload
-										</FileUploadDropzone>
-										<FileUploadList>
-											{field.value.map((file, index) => (
-												<FileUploadItem key={index} value={file}>
-													<FileUploadItemPreview />
-													<FileUploadItemMetadata />
-													{isParsing && (
-														<FileUploadItemProgress variant="circular" className="animate-spin" />
-													)}
-													<FileUploadItemDelete asChild>
-														<Button variant="ghost" size="icon" className="size-7">
-															<X />
-															<span className="sr-only">Delete</span>
-														</Button>
-													</FileUploadItemDelete>
-												</FileUploadItem>
-											))}
-										</FileUploadList>
-									</FileUpload>
-								</FormControl>
-								<FormDescription>Only one image is allowed,up to 5MB each.</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				</form>
-			</Form>
-		</div>
+		</>
 	);
 }

@@ -18,35 +18,21 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "@/components/ui/select";
-import { statusValues, transactionFormSchema } from "@/lib/db/schema";
+import { statusValues, type transactionFormSchema } from "@/lib/db/schema";
 import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
-import type z from "zod";
+import type * as z from "zod";
 
 export default function CreateTransactionForm() {
 	const [date, setDate] = useState<Date | undefined>(new Date());
 	const queryClient = useQueryClient();
 
-	const form = useForm<
-		z.input<typeof transactionFormSchema>,
-		unknown,
-		z.output<typeof transactionFormSchema>
-	>({
-		resolver: zodResolver(transactionFormSchema),
-		defaultValues: {
-			activity: "",
-			amount: "",
-			date: new Date(),
-			status: "processing",
-			currency: "USD"
-		}
-	});
+	const form = useFormContext<z.infer<typeof transactionFormSchema>>();
 
 	const mutation = useMutation({
 		mutationFn: createTransactionFn,
