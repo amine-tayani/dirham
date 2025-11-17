@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import {
   FileArchiveIcon,
@@ -11,7 +12,6 @@ import {
   FileVideoIcon,
 } from "lucide-react";
 import * as React from "react";
-import { cn } from "@/lib/utils";
 
 const ROOT_NAME = "FileUpload";
 const DROPZONE_NAME = "FileUploadDropzone";
@@ -980,9 +980,8 @@ function FileUploadItem(props: FileUploadItemProps) {
         id={id}
         aria-setsize={fileCount}
         aria-posinset={fileIndex}
-        aria-describedby={`${nameId} ${sizeId} ${statusId} ${
-          fileState.error ? messageId : ""
-        }`}
+        aria-describedby={`${nameId} ${sizeId} ${statusId} ${fileState.error ? messageId : ""
+          }`}
         aria-labelledby={nameId}
         data-slot="file-upload-item"
         dir={context.dir}
@@ -1007,6 +1006,13 @@ function formatBytes(bytes: number) {
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   return `${(bytes / 1024 ** i).toFixed(i ? 1 : 0)} ${sizes[i]}`;
 }
+
+function getDisplayName(name: string, max = 30) {
+  if (name.length <= max) return name;
+  const part = Math.floor(max / 2);
+  return `${name.slice(0, part)}…${name.slice(-part)}`;
+}
+
 
 function getFileIcon(file: File) {
   const type = file.type;
@@ -1094,6 +1100,7 @@ function FileUploadItemPreview(props: FileUploadItemPreviewProps) {
     [itemContext.fileState?.file.type, context.urlCache],
   );
 
+
   const onPreviewRender = React.useCallback(
     (file: File) => {
       if (render) {
@@ -1104,6 +1111,8 @@ function FileUploadItemPreview(props: FileUploadItemPreviewProps) {
     },
     [render, getDefaultRender],
   );
+
+
 
   if (!itemContext.fileState) return null;
 
@@ -1162,7 +1171,7 @@ function FileUploadItemMetadata(props: FileUploadItemMetadataProps) {
               size === "sm" && "font-normal text-[13px] leading-snug",
             )}
           >
-            {itemContext.fileState.file.name}
+            {getDisplayName(itemContext.fileState.file.name)}
           </span>
           <span
             id={itemContext.sizeId}
@@ -1407,29 +1416,11 @@ function FileUploadClear(props: FileUploadClearProps) {
 }
 
 export {
-  FileUploadRoot as FileUpload,
-  FileUploadDropzone,
-  FileUploadTrigger,
-  FileUploadList,
-  FileUploadItem,
-  FileUploadItemPreview,
-  FileUploadItemMetadata,
-  FileUploadItemProgress,
-  FileUploadItemDelete,
-  FileUploadClear,
+  FileUploadClear as Clear, FileUploadDropzone as Dropzone, FileUploadRoot as FileUpload, FileUploadClear, FileUploadDropzone, FileUploadItem, FileUploadItemDelete, FileUploadItemMetadata, FileUploadItemPreview, FileUploadItemProgress, FileUploadList, FileUploadTrigger, FileUploadItem as Item, FileUploadItemDelete as ItemDelete, FileUploadItemMetadata as ItemMetadata, FileUploadItemPreview as ItemPreview, FileUploadItemProgress as ItemProgress, FileUploadList as List,
   //
-  FileUploadRoot as Root,
-  FileUploadDropzone as Dropzone,
-  FileUploadTrigger as Trigger,
-  FileUploadList as List,
-  FileUploadItem as Item,
-  FileUploadItemPreview as ItemPreview,
-  FileUploadItemMetadata as ItemMetadata,
-  FileUploadItemProgress as ItemProgress,
-  FileUploadItemDelete as ItemDelete,
-  FileUploadClear as Clear,
+  FileUploadRoot as Root, FileUploadTrigger as Trigger,
   //
   useStore as useFileUpload,
   //
-  type FileUploadRootProps as FileUploadProps,
+  type FileUploadRootProps as FileUploadProps
 };

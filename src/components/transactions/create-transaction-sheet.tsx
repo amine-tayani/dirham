@@ -1,7 +1,10 @@
 import CreateTransactionForm from "@/components/transactions/create-transaction-form";
 import { ReceiptImageUpload } from "@/components/transactions/receipt-image-upload";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { transactionFormSchema } from "@/lib/db/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import type * as z from "zod";
 
 interface CreateTransactionSheetProps {
 	open: boolean;
@@ -9,15 +12,34 @@ interface CreateTransactionSheetProps {
 }
 
 export function CreateTransactionSheet({ open, onOpenChange }: CreateTransactionSheetProps) {
+
+
+	const form = useForm<
+		z.input<typeof transactionFormSchema>,
+		unknown,
+		z.output<typeof transactionFormSchema>
+	>({
+		resolver: zodResolver(transactionFormSchema),
+		defaultValues: {
+			activity: "",
+			amount: "",
+			date: new Date(),
+			status: "processing",
+			currency: ""
+		}
+	});
+
+
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetContent className="flex flex-col min-w-[500px] p-6 rounded-lg overflow-y-auto">
 				<SheetHeader className="text-lg ml-1.5">
 					<SheetTitle>Create transaction</SheetTitle>
 				</SheetHeader>
-				<CreateTransactionForm />
-				<Separator className="mt-2 max-w-[400px] mx-auto" />
-				<ReceiptImageUpload />
+				<FormProvider {...form}>
+					<CreateTransactionForm />
+					<ReceiptImageUpload />
+				</FormProvider>
 			</SheetContent>
 		</Sheet>
 	);
