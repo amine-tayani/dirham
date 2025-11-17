@@ -1,10 +1,10 @@
+import { db } from "@/lib/db";
 import { transactionFormSchema, transactions } from "@/lib/db/schema";
+import { recognizeTextFromImage } from "@/lib/text";
 import { AuthMiddleware } from "@/utils/authMiddleware";
 import { createServerFn } from "@tanstack/react-start";
 import { and, eq } from "drizzle-orm";
 import * as z from "zod";
-import { db } from "../db";
-import { recognizeTextFromImage } from "../text";
 
 // We need to use drizzle inside our handler to persist the data
 // we need to use tanstack query more often
@@ -67,8 +67,8 @@ export const uploadFileSchema = z.object({
 				message: "File size should be less than 5MB"
 			}
 		)
-		.refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
-			message: "File type should be JPEG or PNG."
+		.refine((file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type), {
+			message: "File type should be JPEG, PNG, or WEBP."
 		})
 });
 
@@ -92,9 +92,6 @@ export const parseReceiptFn = createServerFn({ method: "POST" })
 	.handler(async ({ data }) => {
 		const file = data.file;
 		if (!file) return { error: "No file uploaded" };
-
-		const buffer = await file.arrayBuffer();
-		const uint8Array = new Uint8Array(buffer);
 
 		// Extract text
 		let content = "";
