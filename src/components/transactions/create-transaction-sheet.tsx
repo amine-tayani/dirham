@@ -12,8 +12,6 @@ interface CreateTransactionSheetProps {
 }
 
 export function CreateTransactionSheet({ open, onOpenChange }: CreateTransactionSheetProps) {
-
-
 	const form = useForm<
 		z.input<typeof transactionFormSchema>,
 		unknown,
@@ -23,15 +21,19 @@ export function CreateTransactionSheet({ open, onOpenChange }: CreateTransaction
 		defaultValues: {
 			activity: "",
 			amount: "",
-			date: new Date(),
-			status: "processing",
 			currency: ""
 		}
 	});
 
+	const handleOpenChange = (isOpen: boolean) => {
+		if (!isOpen) {
+			form.reset();
+		}
+		onOpenChange(isOpen);
+	};
 
 	return (
-		<Sheet open={open} onOpenChange={onOpenChange}>
+		<Sheet open={open} onOpenChange={handleOpenChange}>
 			<SheetContent className="flex flex-col min-w-[500px] p-6 rounded-lg overflow-y-auto">
 				<SheetHeader className="text-lg ml-1.5">
 					<SheetTitle>Create transaction</SheetTitle>
