@@ -23,16 +23,26 @@ import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { ChevronDown } from "lucide-react";
+import * as React from "react";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import type * as z from "zod";
 
 export default function CreateTransactionForm() {
-	const [date, setDate] = useState<Date | undefined>(new Date());
+	const [date, setDate] = useState<Date | undefined>();
 	const queryClient = useQueryClient();
 
 	const form = useFormContext<z.infer<typeof transactionFormSchema>>();
+
+	// Sync date with form value
+	React.useEffect(() => {
+		const formDate = form.getValues("date");
+		if (formDate && formDate instanceof Date) {
+			setDate(formDate);
+		}
+	}, [form.watch("date")]);
 
 	const mutation = useMutation({
 		mutationFn: createTransactionFn,
@@ -125,7 +135,7 @@ export default function CreateTransactionForm() {
 								name="currency"
 								render={({ field }) => (
 									<FormItem>
-										<Select onValueChange={field.onChange} defaultValue={field.value}>
+										<Select onValueChange={field.onChange} value={field.value}>
 											<FormControl>
 												<SelectTrigger id="currency" className="w-full">
 													<SelectValue placeholder="Select a currency" />
@@ -185,24 +195,41 @@ export default function CreateTransactionForm() {
 							>
 								Date
 							</Label>
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button
-										id="date"
-										variant={"outline"}
-										className={cn(
-											"w-full justify-start text-left font-normal",
-											!date && "text-muted-foreground"
-										)}
-									>
-										{date ? format(date, "PPP") : <span>Pick a date</span>}
-									</Button>
-								</PopoverTrigger>
-								<PopoverContent className="w-auto p-0" align="center">
-									<Calendar mode="single" selected={date} onSelect={setDate} />
-								</PopoverContent>
-							</Popover>
-							<FormDescription>When this transaction occured</FormDescription>
+							<FormField
+								control={form.control}
+								name="date"
+								render={({ field }) => (
+									<FormItem>
+										<Popover>
+											<PopoverTrigger asChild>
+												<Button
+													id="date"
+													variant={"outline"}
+													className={cn(
+														"w-full justify-between text-left font-normal",
+														!field.value && "text-muted-foreground"
+													)}
+												>
+													<span className={cn(!field.value ? 'text-muted-foreground' : 'text-foreground')}>{field.value ? format(field.value, "PPP") : "Choose a date"}</span>
+													<ChevronDown className="size-4 ml-2 text-muted-foreground/50" />
+												</Button>
+											</PopoverTrigger>
+											<PopoverContent className="w-auto p-0" align="center">
+												<Calendar
+													mode="single"
+													selected={field.value}
+													onSelect={(newDate) => {
+														field.onChange(newDate);
+														setDate(newDate);
+													}}
+												/>
+											</PopoverContent>
+										</Popover>
+										<FormMessage />
+										<FormDescription>When this transaction occured</FormDescription>
+									</FormItem>
+								)}
+							/>
 						</div>
 					</div>
 				</div>
