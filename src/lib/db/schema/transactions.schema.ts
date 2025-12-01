@@ -8,6 +8,8 @@ export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]
 
 export const statusValues = statusEnum.enumValues as string[];
 
+// TODO : change activity FIELD to description in transaction schema
+
 export const transactions = pgTable("transactions", {
 	id: serial("id").primaryKey(),
 	userId: text("user_id")

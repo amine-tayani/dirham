@@ -29,6 +29,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import type * as z from "zod";
+import { Spinner } from "../ui/spinner";
 
 export default function CreateTransactionForm() {
 	const [date, setDate] = useState<Date | undefined>();
@@ -233,21 +234,21 @@ export default function CreateTransactionForm() {
 						</div>
 					</div>
 				</div>
-				{/* 
+
 				<div className="flex p-4 mx-2">
 					<Button disabled={mutation.isPending} type="submit" size="sm">
 						<div className="flex items-center">
 							{mutation.isPending ? (
 								<>
-									<span>Processing...</span>
-									<LoaderCircle className="animate-spin ml-2" />
+									<span>Saving...</span>
+									<Spinner className="ml-2" />
 								</>
 							) : (
-								"Save"
+								"Create Transaction"
 							)}
 						</div>
 					</Button>
-				</div> */}
+				</div>
 			</form>
 		</Form>
 	);
