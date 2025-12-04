@@ -18,6 +18,7 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
 import { statusValues, type transactionFormSchema } from "@/lib/db/schema";
 import { createTransactionFn } from "@/lib/functions/transaction";
 import { cn } from "@/lib/utils";
@@ -29,9 +30,12 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import type * as z from "zod";
-import { Spinner } from "../ui/spinner";
 
-export default function CreateTransactionForm() {
+interface CreateTransactionFormProps {
+	onOpenChange: (isOpen: boolean) => void;
+}
+
+export default function CreateTransactionForm({ onOpenChange }: CreateTransactionFormProps) {
 	const [date, setDate] = useState<Date | undefined>();
 	const queryClient = useQueryClient();
 
@@ -50,6 +54,7 @@ export default function CreateTransactionForm() {
 		onSuccess: (data) => {
 			toast.success(data.message);
 			queryClient.invalidateQueries({ queryKey: ["transactions"] });
+
 		},
 		onError: (error) => {
 			toast.error(error.message);
@@ -60,6 +65,7 @@ export default function CreateTransactionForm() {
 		await mutation.mutateAsync({
 			data: values
 		});
+		onOpenChange(false);
 	};
 
 	return (

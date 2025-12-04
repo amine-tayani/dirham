@@ -17,6 +17,7 @@ interface CreateTransactionSheetProps {
 export function CreateTransactionSheet({
 	open,
 	onOpenChange,
+	onSuccess
 }: CreateTransactionSheetProps) {
 	const form = useForm<
 		z.input<typeof transactionFormSchema>,
@@ -27,7 +28,8 @@ export function CreateTransactionSheet({
 		defaultValues: {
 			activity: "",
 			amount: "",
-			currency: ""
+			currency: "",
+			status: "completed"
 		}
 	});
 
@@ -38,6 +40,9 @@ export function CreateTransactionSheet({
 		onOpenChange(isOpen);
 	};
 
+
+
+
 	return (
 		<Sheet open={open} onOpenChange={handleOpenChange}>
 			<SheetContent className="flex flex-col min-w-[500px] p-6 rounded-lg overflow-y-auto">
@@ -45,7 +50,7 @@ export function CreateTransactionSheet({
 					<SheetTitle>Create transaction</SheetTitle>
 				</SheetHeader>
 				<FormProvider {...form}>
-					<CreateTransactionForm />
+					<CreateTransactionForm onOpenChange={handleOpenChange} />
 					<ReceiptImageUpload />
 				</FormProvider>
 			</SheetContent>
