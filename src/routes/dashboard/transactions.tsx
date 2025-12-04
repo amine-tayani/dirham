@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import type { User } from "better-auth";
+import { desc } from "drizzle-orm";
 
 export const Route = createFileRoute("/dashboard/transactions")({
 	component: TransactionsPage,
@@ -17,8 +18,8 @@ export const Route = createFileRoute("/dashboard/transactions")({
 	}
 });
 
-const getTransactions = createServerFn().handler(async ({ context }) => {
-	const data = await db.select().from(transactions);
+const getTransactions = createServerFn().handler(async () => {
+	const data = await db.select().from(transactions).orderBy(desc(transactions.date));
 	return data;
 });
 
@@ -61,10 +62,10 @@ function TransactionsPage() {
 										{Number.isInteger(item.value)
 											? item.value
 											: new Intl.NumberFormat("en-US", {
-													style: "currency",
-													currency: "USD",
-													currencyDisplay: "narrowSymbol"
-												}).format(item.value)}
+												style: "currency",
+												currency: "USD",
+												currencyDisplay: "narrowSymbol"
+											}).format(item.value)}
 									</CardTitle>
 								</CardHeader>
 							</Card>
