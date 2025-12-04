@@ -1,5 +1,6 @@
+import { init } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
-import { numeric, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { numeric, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
 import * as z from "zod";
 import { user as userSchema } from "./auth.schema";
@@ -8,16 +9,18 @@ export const statusEnum = pgEnum("status", ["failed", "processing", "completed"]
 
 export const statusValues = statusEnum.enumValues as string[];
 
-// TODO : change activity FIELD to description in transaction schema
+const cuid = init({ length: 8 });
 
 export const transactions = pgTable("transactions", {
-	id: serial("id").primaryKey(),
+	id: text("id")
+		.primaryKey()
+		.$defaultFn(() => cuid()),
 	userId: text("user_id")
 		.notNull()
 		.references(() => userSchema.id, { onDelete: "cascade" }),
 	amount: numeric("amount").notNull(),
 	currency: text("currency").notNull().default("USD"),
-	activity: text("activity").notNull(),
+	description: text("description").notNull(),
 	status: statusEnum("status").notNull(),
 	date: timestamp("date", { withTimezone: true }).notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
