@@ -81,7 +81,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 						</Label>
 						<FormField
 							control={form.control}
-							name="activity"
+							name="description"
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>

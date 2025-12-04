@@ -7,7 +7,7 @@ import type { DateRange } from "react-day-picker";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import { DataTableColumnStatus } from "../data-table-column-status";
 
-const searchActivityFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string) => {
+const searchDescriptionFilterFn: FilterFn<TransactionItem> = (row, columnId, filterValue: string) => {
 	const value = String(row.getValue(columnId) ?? "").toLowerCase();
 	const searchTerm = String(filterValue ?? "").toLowerCase();
 	return value.includes(searchTerm);
@@ -72,10 +72,10 @@ export const columns: ColumnDef<TransactionItem>[] = [
 		enableSorting: false
 	},
 	{
-		accessorKey: "activity",
-		header: ({ column }) => <DataTableColumnHeader column={column} title="Activity" />,
-		cell: ({ row }) => <div className="text-muted-foreground pl-2">{row.original.activity}</div>,
-		filterFn: searchActivityFilterFn
+		accessorKey: "description",
+		header: ({ column }) => <DataTableColumnHeader column={column} title="Description" />,
+		cell: ({ row }) => <div className="text-muted-foreground pl-2">{row.original.description}</div>,
+		filterFn: searchDescriptionFilterFn
 	},
 	{
 		accessorKey: "status",

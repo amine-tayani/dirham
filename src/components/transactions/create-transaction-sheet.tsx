@@ -26,7 +26,7 @@ export function CreateTransactionSheet({
 	>({
 		resolver: zodResolver(transactionFormSchema),
 		defaultValues: {
-			activity: "",
+			description: "",
 			amount: "",
 			currency: "",
 			status: "completed"

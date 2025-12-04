@@ -3,7 +3,6 @@ import { transactionFormSchema, transactions } from "@/lib/db/schema";
 import { recognizeTextFromImage } from "@/lib/text";
 import { AuthMiddleware } from "@/utils/authMiddleware";
 import { createServerFn } from "@tanstack/react-start";
-import { and, eq } from "drizzle-orm";
 import * as z from "zod";
 
 // We need to use drizzle inside our handler to persist the data
@@ -13,11 +12,11 @@ export const createTransactionFn = createServerFn({ method: "POST" })
 	.validator(transactionFormSchema.parse)
 	.middleware([AuthMiddleware])
 	.handler(async ({ data, context: { userId } }) => {
-		const { activity, amount, date, status, currency } = data;
+		const { description, amount, date, status, currency } = data;
 
 		try {
 			await db.insert(transactions).values({
-				activity,
+				description,
 				amount,
 				date,
 				status,
@@ -33,27 +32,27 @@ export const createTransactionFn = createServerFn({ method: "POST" })
 		}
 	});
 
-export const deleteTransactionFn = createServerFn({ method: "POST" })
-	.validator(
-		z.object({
-			id: z.number()
-		})
-	)
-	.middleware([AuthMiddleware])
-	.handler(async ({ data, context: { userId } }) => {
-		const [row] = await db
-			.select()
-			.from(transactions)
-			.where(and(eq(transactions.userId, userId), eq(transactions.id, data.id)));
+// export const deleteTransactionFn = createServerFn({ method: "POST" })
+// 	.validator(
+// 		z.object({
+// 			id: z.number()
+// 		})
+// 	)
+// 	.middleware([AuthMiddleware])
+// 	.handler(async ({ data, context: { userId } }) => {
+// 		const [row] = await db
+// 			.select()
+// 			.from(transactions)
+// 			.where(and(eq(transactions.userId, userId), eq(transactions.id, data.id)));
 
-		if (!row) {
-			return { error: "Transaction not found" };
-		}
+// 		if (!row) {
+// 			return { error: "Transaction not found" };
+// 		}
 
-		await db.delete(transactions).where(eq(transactions.id, data.id));
+// 		await db.delete(transactions).where(eq(transactions.id, data.id));
 
-		return { message: "Transaction deleted successfully" };
-	});
+// 		return { message: "Transaction deleted successfully" };
+// 	});
 
 export const uploadFileSchema = z.object({
 	file: z

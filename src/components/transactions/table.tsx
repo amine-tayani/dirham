@@ -145,10 +145,10 @@ export function TransactionsTable({
 						className={cn(
 							"peer min-w-60 ps-9 h-8 focus-visible:ring-0 border border-muted-foreground/30 dark:border-none shadow-none"
 						)}
-						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
-						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value as string)}
+						value={(table.getColumn("description")?.getFilterValue() ?? "") as string}
+						onChange={(e) => table.getColumn("description")?.setFilterValue(e.target.value as string)}
 						placeholder="Search transactions... "
-						aria-label="Filter by activity"
+						aria-label="Filter by description"
 					/>
 					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
 						<ListFilterIcon className="size-4" aria-hidden="true" />
@@ -229,7 +229,7 @@ export function TransactionsTable({
 								size="sm"
 								className={cn(
 									table.getSelectedRowModel().rows.length > 0 &&
-										"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
+									"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
 								)}
 							>
 								<DownloadIcon className="size-4 text-muted-foreground/50" />

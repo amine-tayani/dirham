@@ -74,7 +74,7 @@ export function ReceiptImageUpload() {
 			if (res.transactions.length > 0) {
 				const t = res.transactions[0] as TransactionItem;
 
-				setValue("activity", t.activity ?? "");
+				setValue("description", t.description ?? "");
 				setValue("amount", t.amount ?? "");
 				setValue("currency", t.currency || "USD");
 				setValue("status", "COMPLETED");
