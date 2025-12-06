@@ -10,7 +10,7 @@ export function DateRangePickerFilter({ date, setDate }: DateRangePickerFilterPr
 	return (
 		<CalendarDateRangePicker
 			variant="outline"
-			date={date || { from: new Date(), to: new Date() }}
+			date={date || { from: new Date(), to: undefined }}
 			onDateSelect={({ from, to }) => {
 				setDate({ from, to });
 			}}

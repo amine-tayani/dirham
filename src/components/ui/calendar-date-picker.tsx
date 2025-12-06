@@ -446,7 +446,7 @@ export const CalendarDatePicker = React.forwardRef<
                       >
                         {formatWithTz(date.from, "y")}
                       </span>
-                      {numberOfMonths === 2 && (
+                      {numberOfMonths === 2 && date.from.toDateString() !== date.to.toDateString() && (
                         <>
                           {" - "}
                           <span
