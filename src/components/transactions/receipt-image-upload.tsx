@@ -94,9 +94,9 @@ export function ReceiptImageUpload() {
 
 	return (
 		<>
-			<Separator className="mt-2 max-w-[400px] mx-auto" />
+			<Separator className="max-w-[400px] mx-auto" />
 			<div className="max-w-[430px]">
-				<div className="ml-6 mb-4 mt-2">
+				<div className="ml-6 mb-4">
 					<Label>Scan receipt</Label>
 					<p className="text-muted-foreground/50 text-xs mt-2">
 						You can scan a receipt image so we can fill the form for you.

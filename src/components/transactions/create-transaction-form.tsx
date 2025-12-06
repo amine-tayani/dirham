@@ -54,7 +54,6 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 		onSuccess: (data) => {
 			toast.success(data.message);
 			queryClient.invalidateQueries({ queryKey: ["transactions"] });
-
 		},
 		onError: (error) => {
 			toast.error(error.message);
@@ -217,7 +216,13 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 														!field.value && "text-muted-foreground"
 													)}
 												>
-													<span className={cn(!field.value ? 'text-muted-foreground' : 'text-foreground')}>{field.value ? format(field.value, "PPP") : "Choose a date"}</span>
+													<span
+														className={cn(
+															!field.value ? "text-muted-foreground" : "text-foreground"
+														)}
+													>
+														{field.value ? format(field.value, "PPP") : "Choose a date"}
+													</span>
 													<ChevronDown className="size-4 ml-2 text-muted-foreground/50" />
 												</Button>
 											</PopoverTrigger>
@@ -241,8 +246,8 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 					</div>
 				</div>
 
-				<div className="flex p-4 mx-2">
-					<Button disabled={mutation.isPending} type="submit" size="sm">
+				<div className="flex px-6 py-2 mt-2 mb-0">
+					<Button disabled={mutation.isPending} type="submit" variant="secondary">
 						<div className="flex items-center">
 							{mutation.isPending ? (
 								<>
