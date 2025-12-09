@@ -37,6 +37,7 @@ interface CreateTransactionFormProps {
 
 export default function CreateTransactionForm({ onOpenChange }: CreateTransactionFormProps) {
 	const [date, setDate] = useState<Date | undefined>();
+	const [open, setOpen] = useState(false);
 	const queryClient = useQueryClient();
 
 	const form = useFormContext<z.infer<typeof transactionFormSchema>>();
@@ -206,7 +207,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 								name="date"
 								render={({ field }) => (
 									<FormItem>
-										<Popover>
+										<Popover open={open} onOpenChange={setOpen}>
 											<PopoverTrigger asChild>
 												<Button
 													id="date"
@@ -233,6 +234,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 													onSelect={(newDate) => {
 														field.onChange(newDate);
 														setDate(newDate);
+														setOpen(false);
 													}}
 												/>
 											</PopoverContent>
@@ -246,31 +248,13 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 					</div>
 				</div>
 			</form>
-
-			{/*
-			<div className="flex px-6 py-2 mt-2 mb-0">
-			 <Button disabled={mutation.isPending} type="submit" variant="secondary">
-						<div className="flex items-center">
-							{mutation.isPending ? (
-								<>
-									<span>Creating...</span>
-									<Spinner className="ml-2" />
-								</>
-							) : (
-								"Create Transaction"
-							)}
-						</div>
-					</Button> 
-			</div> */}
-		</Form >
+		</Form>
 	);
 }
-
 
 export const CreateTransactionButton = ({ isPending }: { isPending: boolean }) => {
 	return (
 		<div className="flex px-6 py-2">
-
 			<Button form="create-transaction-form" disabled={isPending} type="submit" variant="secondary">
 				<div className="flex items-center">
 					{isPending ? (
@@ -284,5 +268,5 @@ export const CreateTransactionButton = ({ isPending }: { isPending: boolean }) =
 				</div>
 			</Button>
 		</div>
-	)
-}
+	);
+};
