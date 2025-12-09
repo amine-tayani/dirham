@@ -42,7 +42,6 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 
 	const form = useFormContext<z.infer<typeof transactionFormSchema>>();
 
-	// Sync date with form value
 	React.useEffect(() => {
 		const formDate = form.getValues("date");
 		if (formDate && formDate instanceof Date) {

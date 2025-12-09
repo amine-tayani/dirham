@@ -12,12 +12,9 @@ interface CreateTransactionSheetProps {
 	onSuccess?: () => void;
 }
 
-
-
 export function CreateTransactionSheet({
 	open,
 	onOpenChange,
-	onSuccess
 }: CreateTransactionSheetProps) {
 	const form = useForm<
 		z.input<typeof transactionFormSchema>,
