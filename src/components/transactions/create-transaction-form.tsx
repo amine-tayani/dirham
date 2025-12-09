@@ -69,7 +69,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)}>
+			<form id="create-transaction-form" onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="space-y-6 px-6">
 					<div className="space-y-2">
 						<Label
@@ -245,22 +245,44 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 						</div>
 					</div>
 				</div>
+			</form>
 
-				<div className="flex px-6 py-2 mt-2 mb-0">
-					<Button disabled={mutation.isPending} type="submit" variant="secondary">
+			{/*
+			<div className="flex px-6 py-2 mt-2 mb-0">
+			 <Button disabled={mutation.isPending} type="submit" variant="secondary">
 						<div className="flex items-center">
 							{mutation.isPending ? (
 								<>
-									<span>Saving...</span>
+									<span>Creating...</span>
 									<Spinner className="ml-2" />
 								</>
 							) : (
 								"Create Transaction"
 							)}
 						</div>
-					</Button>
-				</div>
-			</form>
-		</Form>
+					</Button> 
+			</div> */}
+		</Form >
 	);
+}
+
+
+export const CreateTransactionButton = ({ isPending }: { isPending: boolean }) => {
+	return (
+		<div className="flex px-6 py-2">
+
+			<Button form="create-transaction-form" disabled={isPending} type="submit" variant="secondary">
+				<div className="flex items-center">
+					{isPending ? (
+						<>
+							<span>Creating...</span>
+							<Spinner className="ml-2" />
+						</>
+					) : (
+						"Create Transaction"
+					)}
+				</div>
+			</Button>
+		</div>
+	)
 }

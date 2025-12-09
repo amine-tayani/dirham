@@ -1,4 +1,4 @@
-import CreateTransactionForm from "@/components/transactions/create-transaction-form";
+import CreateTransactionForm, { CreateTransactionButton } from "@/components/transactions/create-transaction-form";
 import { ReceiptImageUpload } from "@/components/transactions/receipt-image-upload";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { transactionFormSchema } from "@/lib/db/schema";
@@ -52,6 +52,7 @@ export function CreateTransactionSheet({
 				<FormProvider {...form}>
 					<CreateTransactionForm onOpenChange={handleOpenChange} />
 					<ReceiptImageUpload />
+					<CreateTransactionButton isPending={form.formState.isSubmitting} />
 				</FormProvider>
 			</SheetContent>
 		</Sheet>
