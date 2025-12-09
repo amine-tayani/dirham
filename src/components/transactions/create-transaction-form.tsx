@@ -198,7 +198,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 						<div className="space-y-2">
 							<Label
 								className="text-sm font-medium text-foreground dark:text-foreground"
-								htmlFor="date"
+								htmlFor="calendar-date"
 							>
 								Date
 							</Label>
@@ -210,7 +210,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 										<Popover open={open} onOpenChange={setOpen}>
 											<PopoverTrigger asChild>
 												<Button
-													id="date"
+													id="calendar-date"
 													variant={"outline"}
 													className={cn(
 														"w-full justify-between text-left font-normal",
