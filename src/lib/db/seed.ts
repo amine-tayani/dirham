@@ -21,7 +21,7 @@ async function main() {
 			userId: user.id,
 			amount: Number.parseFloat(faker.finance.amount()),
 			currency: "USD",
-			activity: faker.lorem.sentence(),
+			description: faker.lorem.sentence(),
 			status: faker.helpers.arrayElement(statusEnum.enumValues),
 			date: faker.date.recent({ days: 30 })
 		}));

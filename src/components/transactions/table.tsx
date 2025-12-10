@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Table,
 	TableBody,
@@ -34,12 +35,12 @@ import {
 } from "@tanstack/react-table";
 
 import { DateRangePickerFilter } from "@/components/date-range-picker-filter";
-import AddTransactionDialog from "@/components/transactions/add-transaction-dialog";
 import { DeleteTransactionDialog } from "@/components/transactions/delete-transaction-dialog";
-import { DownloadIcon, FilterIcon, ListFilterIcon, Loader2Icon, TrashIcon } from "lucide-react";
+import { DownloadIcon, FilterIcon, ListFilterIcon, TrashIcon } from "lucide-react";
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import { columns } from "./columns";
+import { CreateTransactionSheet } from "./create-transaction-sheet";
 
 export function TransactionsTable({
 	data,
@@ -51,6 +52,7 @@ export function TransactionsTable({
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
+	const [isTransactionSheetOpen, setTransactionSheetOpen] = React.useState(false);
 	const [deleteTransactionDialogOpen, setDeleteTransactionDialogOpen] = React.useState(false);
 
 	const table = useReactTable({
@@ -143,10 +145,10 @@ export function TransactionsTable({
 						className={cn(
 							"peer min-w-60 ps-9 h-8 focus-visible:ring-0 border border-muted-foreground/30 dark:border-none shadow-none"
 						)}
-						value={(table.getColumn("activity")?.getFilterValue() ?? "") as string}
-						onChange={(e) => table.getColumn("activity")?.setFilterValue(e.target.value as string)}
+						value={(table.getColumn("description")?.getFilterValue() ?? "") as string}
+						onChange={(e) => table.getColumn("description")?.setFilterValue(e.target.value as string)}
 						placeholder="Search transactions... "
-						aria-label="Filter by activity"
+						aria-label="Filter by description"
 					/>
 					<div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
 						<ListFilterIcon className="size-4" aria-hidden="true" />
@@ -227,7 +229,7 @@ export function TransactionsTable({
 								size="sm"
 								className={cn(
 									table.getSelectedRowModel().rows.length > 0 &&
-										"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
+									"dark:!bg-neutral-700 dark:[&>svg]:text-foreground"
 								)}
 							>
 								<DownloadIcon className="size-4 text-muted-foreground/50" />
@@ -247,25 +249,33 @@ export function TransactionsTable({
 							<DropdownMenuItem onClick={handleExportCSV}>Export as CSV</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
-					<AddTransactionDialog />
+					<Button variant="outline" size="sm" onClick={() => setTransactionSheetOpen(true)}>
+						Add Transaction
+					</Button>
+					<CreateTransactionSheet
+						open={isTransactionSheetOpen}
+						onOpenChange={setTransactionSheetOpen}
+					/>
 				</div>
 			</div>
 
-			{/* We need a better way to show loading state but for now this is fine */}
 			{isLoading ? (
-				<Table>
-					<TableBody>
-						<TableRow>
-							<TableCell colSpan={columns.length} className="h-24 text-center">
-								<Loader2Icon className="animate-spin size-5 mx-auto" />
-							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
+				<div className="space-y-2 p-1">
+					{Array.from({ length: 6 }).map((_, index) => (
+						<div key={index} className="flex items-center space-x-4 py-2.5">
+							<Skeleton className="size-8" />
+							<Skeleton className="h-8 w-32" />
+							<Skeleton className="h-8 w-96" />
+							<Skeleton className="h-8 w-32" />
+							<Skeleton className="h-8 w-72" />
+							<Skeleton className="h-8 w-48" />
+						</div>
+					))}
+				</div>
 			) : (
-				<div className="overflow-hidden rounded-md border bg-background">
-					<Table>
-						<TableHeader className="sticky top-0 z-20 dark:bg-input/10  ">
+				<div className="rounded-md border [&>div]:max-h-[350px] overflow-y-auto snap-y scroll-pb-0 dark:bg-neutral-950">
+					<Table className="dark:bg-neutral-950">
+						<TableHeader className="sticky top-0 z-20 dark:bg-background backdrop-blur-xs">
 							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow
 									key={headerGroup.id}

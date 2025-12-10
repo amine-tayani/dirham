@@ -24,7 +24,7 @@ function DashboardLayout() {
 	const { queryClient } = Route.useRouteContext();
 	const { user } = Route.useLoaderData();
 	const matches = useMatches();
-	const { theme, setTheme } = useTheme();
+	const { userTheme, setTheme } = useTheme();
 
 	const currentMatch = matches[matches.length - 1];
 	const currentRoute = currentMatch?.routeId || "";
@@ -53,8 +53,8 @@ function DashboardLayout() {
 	return (
 		<SidebarProvider>
 			<DashboardSidebar user={user} queryClient={queryClient} />
-			<div className="pt-5 px-5 w-full bg-muted">
-				<SidebarInset className="overflow-hidden rounded-2xl dark:bg-sidebar">
+			<div className="pt-7 px-6 w-full bg-muted ">
+				<SidebarInset className="overflow-hidden rounded-2xl dark:bg-sidebar [&>div]:max-h-[calc(100vh-9rem)]">
 					<>
 						<header className="flex h-20 shrink-0 items-center gap-2 border-b pt-2 mb-4">
 							<div className="flex flex-1 items-center gap-2">
@@ -66,7 +66,7 @@ function DashboardLayout() {
 								<Button
 									size="icon"
 									variant="link"
-									onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+									onClick={() => setTheme(userTheme === "dark" ? "light" : "dark")}
 									aria-label="Toggle theme"
 								>
 									<MoonIcon className="m-auto size-5 text-muted-foreground " />

@@ -12,7 +12,9 @@ yarn.lock
 .tanstack
 
 todo.txt
+TODO.md
 routeTree.gen.ts
+eng.traineddata
 
 /build/
 /api/
