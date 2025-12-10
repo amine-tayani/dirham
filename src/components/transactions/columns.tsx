@@ -67,7 +67,7 @@ export const columns: ColumnDef<TransactionItem>[] = [
 	{
 		accessorKey: "id",
 		header: "Order ID",
-		cell: ({ row }) => <div className="text-muted-foreground">{row.original.id}</div>,
+		cell: ({ row }) => <div className="text-muted-foreground font-mono tracking-wider ">{row.original.id}</div>,
 		enableHiding: false,
 		enableSorting: false
 	},

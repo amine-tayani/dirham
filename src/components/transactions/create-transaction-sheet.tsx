@@ -1,4 +1,6 @@
-import CreateTransactionForm, { CreateTransactionButton } from "@/components/transactions/create-transaction-form";
+import CreateTransactionForm, {
+	CreateTransactionButton
+} from "@/components/transactions/create-transaction-form";
 import { ReceiptImageUpload } from "@/components/transactions/receipt-image-upload";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { transactionFormSchema } from "@/lib/db/schema";
@@ -12,10 +14,7 @@ interface CreateTransactionSheetProps {
 	onSuccess?: () => void;
 }
 
-export function CreateTransactionSheet({
-	open,
-	onOpenChange,
-}: CreateTransactionSheetProps) {
+export function CreateTransactionSheet({ open, onOpenChange }: CreateTransactionSheetProps) {
 	const form = useForm<
 		z.input<typeof transactionFormSchema>,
 		unknown,
@@ -25,8 +24,9 @@ export function CreateTransactionSheet({
 		defaultValues: {
 			description: "",
 			amount: "",
-			currency: "",
-			status: "completed"
+			currency: "USD",
+			status: "completed",
+			date: undefined
 		}
 	});
 
@@ -36,9 +36,6 @@ export function CreateTransactionSheet({
 		}
 		onOpenChange(isOpen);
 	};
-
-
-
 
 	return (
 		<Sheet open={open} onOpenChange={handleOpenChange}>

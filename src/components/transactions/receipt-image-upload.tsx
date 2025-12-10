@@ -75,9 +75,9 @@ export function ReceiptImageUpload() {
 				const t = res.transactions[0] as TransactionItem;
 
 				setValue("description", t.description ?? "");
-				setValue("amount", t.amount ?? "");
+				setValue("amount", t.amount ? t.amount.toString() : "");
 				setValue("currency", t.currency || "USD");
-				setValue("status", "COMPLETED");
+				setValue("status", "completed");
 				setValue("date", t.date ? new Date(t.date) : new Date());
 			}
 		} catch (err) {
