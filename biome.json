@@ -7,12 +7,20 @@
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"lineWidth": 100,
 		"formatWithErrors": false,
+		"indentWidth": 2,
+		"indentStyle": "tab",
+		"attributePosition": "auto",
+		"lineWidth": 80,
+		"lineEnding": "lf",
 		"include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-		"ignore": ["**/node_modules/**", "**/.vscode/**", "**/public/**", "**/build/**"]
+		"ignore": [
+			"**/node_modules/**",
+			"**/.vscode/**",
+			"**/public/**",
+			"**/build/**",
+			"src/routerTree.gen.ts"
+		]
 	},
 	"organizeImports": {
 		"enabled": true
@@ -44,7 +52,18 @@
 	},
 	"javascript": {
 		"formatter": {
+			"arrowParentheses": "always",
+			"bracketSameLine": false,
+			"bracketSpacing": true,
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"semicolons": "asNeeded",
 			"quoteStyle": "double",
+			"trailingCommas": "all"
+		}
+	},
+	"json": {
+		"formatter": {
 			"trailingCommas": "none"
 		}
 	},
@@ -57,7 +76,8 @@
 			"build/**/*",
 			"pnpm-lock.json",
 			"app.config.*.js",
-			"dist/**/*"
+			"dist/**/*",
+			"src/routerTree.gen.ts"
 		]
 	}
 }
