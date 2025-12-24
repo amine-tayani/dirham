@@ -30,6 +30,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import type * as z from "zod";
+import { TimePicker } from "../time-picker";
 
 interface CreateTransactionFormProps {
 	onOpenChange: (isOpen: boolean) => void;
@@ -154,96 +155,100 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 											</SelectContent>
 										</Select>
 										<FormMessage />
-										<FormDescription>The currency for this transaction</FormDescription>
+										<FormDescription>Transaction currency</FormDescription>
 									</FormItem>
 								)}
 							/>
 						</div>
 					</div>
 
-					<div className="grid grid-cols-2 gap-4">
-						<div className="space-y-2">
-							<Label
-								className="text-sm font-medium text-foreground dark:text-foreground"
-								htmlFor="status"
-							>
-								Status
-							</Label>
-							<FormField
-								control={form.control}
-								name="status"
-								render={({ field }) => (
-									<FormItem>
-										<Select onValueChange={field.onChange} defaultValue={field.value}>
-											<FormControl>
-												<SelectTrigger id="currency" className="w-full">
-													<SelectValue placeholder="Select the status" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												{statusValues.map((value) => (
-													<SelectItem key={value} value={value}>
-														{value.toLocaleUpperCase()}
-													</SelectItem>
-												))}
-											</SelectContent>
-										</Select>
-										<FormMessage />
-										<FormDescription>The status of the transaction</FormDescription>
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="space-y-2">
-							<Label
-								className="text-sm font-medium text-foreground dark:text-foreground"
-								htmlFor="calendar-date"
-							>
-								Date
-							</Label>
-							<FormField
-								control={form.control}
-								name="date"
-								render={({ field }) => (
-									<FormItem>
-										<Popover open={open} onOpenChange={setOpen}>
-											<PopoverTrigger asChild>
-												<Button
-													id="calendar-date"
-													variant={"outline"}
+					<div className="space-y-2">
+						<Label
+							className="text-sm font-medium text-foreground dark:text-foreground"
+							htmlFor="status"
+						>
+							Status
+						</Label>
+						<FormField
+							control={form.control}
+							name="status"
+							render={({ field }) => (
+								<FormItem>
+									<Select onValueChange={field.onChange} defaultValue={field.value}>
+										<FormControl>
+											<SelectTrigger id="currency" className="w-full">
+												<SelectValue placeholder="Select the status" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{statusValues.map((value) => (
+												<SelectItem key={value} value={value}>
+													{value.toLocaleUpperCase()}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<FormMessage />
+									<FormDescription>The status of the transaction</FormDescription>
+								</FormItem>
+							)}
+						/>
+					</div>
+					<div className="space-y-2">
+						<Label
+							className="text-sm font-medium text-foreground dark:text-foreground"
+							htmlFor="calendar-date"
+						>
+							Date
+						</Label>
+						<FormField
+							control={form.control}
+							name="date"
+							render={({ field }) => (
+								<FormItem>
+									<Popover open={open} onOpenChange={setOpen}>
+										<PopoverTrigger asChild>
+											<Button
+												id="calendar-date"
+												variant={"outline"}
+												className={cn(
+													"w-full justify-between text-left font-normal",
+													!field.value && "text-muted-foreground"
+												)}
+											>
+												<span
 													className={cn(
-														"w-full justify-between text-left font-normal",
-														!field.value && "text-muted-foreground"
+														!field.value ? "text-muted-foreground" : "text-foreground"
 													)}
 												>
-													<span
-														className={cn(
-															!field.value ? "text-muted-foreground" : "text-foreground"
-														)}
-													>
-														{field.value ? format(field.value, "PPP") : "Choose a date"}
-													</span>
-													<ChevronDown className="size-4 ml-2 text-muted-foreground/50" />
-												</Button>
-											</PopoverTrigger>
-											<PopoverContent className="w-auto p-0" align="center">
-												<Calendar
-													mode="single"
-													selected={field.value}
-													onSelect={(newDate) => {
-														field.onChange(newDate);
-														setDate(newDate);
-														setOpen(false);
-													}}
+													{field.value ? format(field.value, "PPP HH:mm:ss")
+														: "Choose a date"}
+												</span>
+												<ChevronDown className="size-4 ml-2 text-muted-foreground/50" />
+											</Button>
+										</PopoverTrigger>
+										<PopoverContent className="w-auto p-0" align="center">
+											<Calendar
+												mode="single"
+												selected={field.value}
+												onSelect={(newDate) => {
+													field.onChange(newDate);
+													setDate(newDate);
+												}}
+											/>
+											<div className="p-3 border-t border-border">
+												<TimePicker
+													setDate={field.onChange}
+													date={field.value}
 												/>
-											</PopoverContent>
-										</Popover>
-										<FormMessage />
-										<FormDescription>When this transaction occured</FormDescription>
-									</FormItem>
-								)}
-							/>
-						</div>
+											</div>
+										</PopoverContent>
+									</Popover>
+									<FormMessage />
+									<FormDescription>When this transaction occured</FormDescription>
+								</FormItem>
+							)}
+						/>
 					</div>
 				</div>
 			</form>
