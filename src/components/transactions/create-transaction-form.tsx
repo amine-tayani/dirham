@@ -236,7 +236,7 @@ export default function CreateTransactionForm({ onOpenChange }: CreateTransactio
 													setDate(newDate);
 												}}
 											/>
-											<div className="p-3 border-t border-border">
+											<div className="p-3 bg-neutral-900 border-t border-muted">
 												<TimePicker
 													setDate={field.onChange}
 													date={field.value}
